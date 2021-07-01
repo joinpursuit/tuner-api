@@ -15,7 +15,9 @@ notes:
 -npm install pg-promise
 -create Quries Files
   songs.js
-
+-run these command everytime that postgres/schema/seed had new info
+  psql -U postgres -f db/schema.sql
+  psql -U postgres -f db/seed.sql
 
 Let's make our own music playlist app!
 
