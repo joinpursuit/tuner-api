@@ -1,0 +1,27 @@
+{
+  "name": "tuner-api",
+  "version": "1.0.0",
+  "description": "notes: -create a sever.js file -npm init -y  -create app.js .env -npm install express dotenv cors -set up the PORT -create Controllers Files   songsControllers.js -create SQL Files   schema.sql   seed.sql   dbConfig.js -npm install pg-promise -create Quries Files   songs.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexanderl96-hub/tuner-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexanderl96-hub/tuner-api/issues"
+  },
+  "homepage": "https://github.com/alexanderl96-hub/tuner-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pg-promise": "^10.10.2"
+  }
+}
