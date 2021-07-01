@@ -1,5 +1,30 @@
 \c songs_dev;
 
-INSERT INTO songs (name, artist, album, time, is_favorite) VALUES 
-('Lola', 'David Calzado & Charanga Habanera', 'Tremendo Delirio', 6:32, false),
-('Lola', 'David Calzado & Charanga Habanera', 'Tremendo Delirio', 6:32, true);
+INSERT INTO songs (name, artist, album, time, url, is_favorite) VALUES 
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/0KbnShzRqp2daq4CY09AWi', true),
+('Te Dejo Libre', 'Manolito Simonet y su Trabuco', 'Te Dejo Libre', '5:52', 'https://open.spotify.com/track/2QNZ9VGRK1PScMwWWrth3o', true),
+('Tres Dias', 'Havana D`Primera', 'Cantor del Pueblo', '5:21', 'https://open.spotify.com/track/33hjoPb45TjMp0TGYDawsv', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...', '4:30', 'https://open.spotify.com/track/09gbWNcgTWWJI8XwbdyyTG', false),
+('Lola, Lola', 'David Calzado & Charanga Habanera', 'Tremendo Delirio', '6:32','https://open.spotify.com/track/1qrKuaNmeiuKnph9hde0OC', true);
