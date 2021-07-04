@@ -5,7 +5,7 @@ const express = require("express");
 
 //CONFIGURATION
 const songs = express.Router();
-const { getAllSongs, getSong, newSong, deleteSong } = require("../queries/songs.js");
+const { getAllSongs, getSong, newSong, deleteSong, updateSong } = require("../queries/songs.js");
 
 
 
@@ -56,6 +56,20 @@ songs.delete("/:id", async (req, res) => {
         payload: deletedSong
     });
 })
+
+
+
+//Update Route
+songs.put("/:id", async (req, res) => {
+    const { id } = req.params;
+    const updatedSong = await updateSong(id, req.body);
+    res.status(200).json({
+        success: true,
+        payload: updatedSong
+    });
+})
+
+
 
 //EXPORTS
 module.exports = songs;
