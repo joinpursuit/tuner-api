@@ -2,7 +2,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "pg-promise": "^10.10.2"
   },
   "scripts": {
     "start": "nodemon server.js"
@@ -11,7 +12,6 @@
   "description": "Let's make our own music playlist app!",
   "version": "1.0.0",
   "main": "server.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/IvanCastillo1986/tuner-api.git"
