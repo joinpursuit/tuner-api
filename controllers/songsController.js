@@ -5,6 +5,7 @@ const express = require("express");
 
 //CONFIGURATION
 const songs = express.Router();
+const { getAllsongs } = require("../queries/songs.js");
 
 
 
@@ -12,9 +13,10 @@ const songs = express.Router();
 
 //Index Route
 songs.get("/", async (req, res) => {
+    const allSongs = await getAllsongs();
     res.json({
         success : true,
-        status : "OK"
+        payload : allSongs
     })
 });
 
