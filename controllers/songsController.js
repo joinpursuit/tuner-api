@@ -5,7 +5,7 @@ const express = require("express");
 
 //CONFIGURATION
 const songs = express.Router();
-const { getAllsongs } = require("../queries/songs.js");
+const { getAllSongs, getSong } = require("../queries/songs.js");
 
 
 
@@ -13,13 +13,27 @@ const { getAllsongs } = require("../queries/songs.js");
 
 //Index Route
 songs.get("/", async (req, res) => {
-    const allSongs = await getAllsongs();
+    const allSongs = await getAllSongs();
     res.json({
         success : true,
         payload : allSongs
     })
 });
 
+//Show Route
+songs.get("/:id", async (req, res) => {
+    const { id } = req.params;
+    const song = await getSong(id);
+    
+    if(song.received === 0){
+        res.status(404).json({error : "not found"});
+    }else{
+        res.json({
+            success: true,
+            payload: song
+        });
+    }
+});
 
 
 
