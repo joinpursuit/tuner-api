@@ -5,7 +5,7 @@ const express = require("express");
 
 //CONFIGURATION
 const songs = express.Router();
-const { getAllSongs, getSong } = require("../queries/songs.js");
+const { getAllSongs, getSong, newSong } = require("../queries/songs.js");
 
 
 
@@ -36,6 +36,15 @@ songs.get("/:id", async (req, res) => {
 });
 
 
+
+//Create Route
+songs.post("/", async (req, res) => {
+    const song = await newSong(req.body);
+    res.json({
+        success: true,
+        payload: song
+    })
+})
 
 //EXPORTS
 module.exports = songs;
