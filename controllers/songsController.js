@@ -66,7 +66,6 @@ songsBillboard.get("/", async (req, res) =>{
         const allSongs = await getAllSongs()
         res.json(allSongs)
     }else { 
-        console.log('HERE QUERY', query)
         const allSongs = await getAllSongs(query)
         res.json(allSongs)
     }

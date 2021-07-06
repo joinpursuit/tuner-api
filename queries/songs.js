@@ -1,24 +1,24 @@
 // Dependencies
+const pgp = require("pg-promise")();
 const db = require("../db/dbConfig")
 
 // Get
-const getAllSongs = async (query) =>{ 
-    try{ 
-        if (query){
-            const { order, is_favorite } = query
-            console.log("QUERY ORDER:", order)
-            console.log("QUERY FAV:", is_favorite)
-
-            const allSongs = order ? await db.any("SELECT * FROM songs ORDER BY name $1;",order) : 
-                            await db.any("SELECT * FROM songs WHERE is_favorite = $1;",is_favorite) ;
-
-            console.log(allSongs)
-            return allSongs
-        }else{
-            const allSongs = await db.any("SELECT * FROM songs;");
-            return allSongs
+const getAllSongs = async (query) => {
+    try {
+        if (query?.is_favorite && query?.order?.toLowerCase() === 'asc') {
+            return await db.any('SELECT * FROM songs WHERE is_favorite = $1 ORDER BY name ASC', query.is_favorite)
+        } else if (query?.is_favorite && query?.order?.toLowerCase() === 'desc') {
+            return await db.any('SELECT * FROM songs WHERE is_favorite = $1 ORDER BY name DESC', query.is_favorite)
+        } else if (query?.is_favorite) {
+            return await db.any('SELECT * FROM songs WHERE is_favorite = $1', query.is_favorite)
+        } else if (query?.order?.toLowerCase() === 'asc') {
+            return await db.any('SELECT * FROM songs ORDER BY name ASC')
+        } else if (query?.order?.toLowerCase() === 'desc') {
+            return await db.any('SELECT * FROM songs ORDER BY name DESC')
+        } else {
+            return await db.any('SELECT * FROM songs')
         }
-    }catch (err) { 
+    } catch (err) {
         return err
     }
  }
