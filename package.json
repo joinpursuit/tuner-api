@@ -6,7 +6,9 @@
     "pg-promise": "^10.10.2"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "dbinit": "psql -U postgres -f db/schema.sql",
+    "dbseed": "psql -U postgres -f db/seed.sql"
   },
   "name": "tuner-api",
   "description": "Let's make our own music playlist app!",
