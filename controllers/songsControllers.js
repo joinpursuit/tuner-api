@@ -10,19 +10,19 @@ songs.get("/", async (req, res)=>{
 songs.get("/:id", async (req,res)=>{
     const { id} = req.params
     try {
-        const oneSong = getSongs(id)
+        const oneSong = await getSongs(id)
         if(oneSong["id"]){
             res.json(oneSong)
         }else{
             throw id
         }
     } catch (error) {
-        res.status(404).json({error: "Id not found", message: `This i an ${error}` })
+        res.status(404).json({error: "Id not found", message: `There is not an ${error}` })
     }
 })
 songs.post("/", async (req,res)=>{
     try {
-        const createSongs =newSongs(req.body)
+        const createSongs = await newSongs(req.body)
         if(createSongs["id"]){
             res.json(createSongs)
         }else{
