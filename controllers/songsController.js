@@ -9,31 +9,37 @@ const { getAllSongs, getSong, newSong, deleteSong, updateSong } = require("../qu
 
 
 
+
+
 //ROUTES
 
-//Index Route
+// ASCENDING OR DESCENDING ORDER
+// songs.get("/?" , async (req, res) => {
+//     if(req.query.order.toLowerCase() === 'asc'){
+//         res.send(req.query.order.toLowerCase())
+//     }else if (req.query.order.toLowerCase() === 'desc'){
+//         res.send(req.query.order.toLowerCase())
+//     }else{
+//         const allSongs = await getAllSongs();
+//         res.json({
+//             success : true,
+//             payload : allSongs
+//         })
+//     }
+// })
+
+
+
+// Index Route
 songs.get("/", async (req, res) => {
-    const allSongs = await getAllSongs();
+    const { order, is_favorite } = req.query;
+    const allSongs = await getAllSongs({order, is_favorite});
     res.json({
         success : true,
         payload : allSongs
     })
 });
 
-//Show Route
-songs.get("/:id", async (req, res) => {
-    const { id } = req.params;
-    const song = await getSong(id);
-    
-    if(song.received === 0){
-        res.status(404).json({error : "not found"});
-    }else{
-        res.json({
-            success: true,
-            payload: song
-        });
-    }
-});
 
 
 
@@ -45,6 +51,44 @@ songs.post("/", async (req, res) => {
         payload: song
     })
 })
+
+
+
+//Show Route
+songs.get("/:id", async (req, res) => {
+    const { id } = req.params;
+    const song = await getSong(id);
+    
+    try{
+        if(song['id']){
+        res.json({
+            success: true,
+            payload: song
+        });
+        }else{
+            throw `There is no song with id: ${id}`;
+        }
+    }catch(error){
+        res.status(404).json({
+            success : false,
+            error : `Resource not found`,
+            message : error
+        })
+    }
+    
+    
+    // if(song.received === 0){
+    //     res.status(404).json({error : "not found"});
+    // }else{
+        // res.json({
+        //     success: true,
+        //     payload: song
+        // });
+    // }
+});
+
+
+
 
 
 //Delete Route
@@ -68,6 +112,9 @@ songs.put("/:id", async (req, res) => {
         payload: updatedSong
     });
 })
+
+
+
 
 
 

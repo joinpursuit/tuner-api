@@ -6,10 +6,21 @@ const db = require("../db/dbConfig.js");
 //QUERIES
 
 //Select All Query
-const getAllSongs = async () => {
+const getAllSongs = async ({order, is_favorite}) => {
     try{
-        const allSongs = await db.any(`SELECT * FROM songs`);
-        return allSongs;
+        if(order && is_favorite !== undefined){
+            const allSongs = await db.any(`SELECT * FROM songs WHERE is_favorite = $1 ORDER BY name ${order.toUpperCase()}`, is_favorite);
+            return allSongs;
+        }else if(order){
+            const allSongs = await db.any(`SELECT name FROM songs ORDER BY name ${order.toUpperCase()}`);
+            return allSongs;
+        }else if(is_favorite !== undefined){
+            const allSongs = await db.any(`SELECT * FROM songs WHERE is_favorite = $1`, is_favorite);
+            return allSongs;
+        }else{
+            const allSongs = await db.any(`SELECT * FROM songs`);
+            return allSongs;
+        }
     }catch(err){
         return err
     }
