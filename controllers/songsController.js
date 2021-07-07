@@ -34,14 +34,32 @@ songs.post("/", async (req, res) => {
 
 songs.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const deletedSong = await deleteSong(id);
-  res.status(200).json(deletedSong);
+  try {
+    const deletedSong = await deleteSong(id);
+    if (deletedSong.id) {
+      res.status(200).json(deletedSong);
+    } else {
+      throw "Resource not found";
+    }
+  } catch (e) {
+    res.status(404).json({error: e, message: e.message})
+  }
 });
 
 songs.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const updatedSong = await updateSong(id, req.body);
-  res.status(200).json(updatedSong);
+  try{
+    const updatedSong = await updateSong(id, req.body);
+    if (updatedSong.id) {
+        res.status(200).json(updatedSong);
+    } else {
+        throw "Resource not found"
+    } 
+  } catch (e){
+    res.status(404).json({error: e, message: e.message})
+  }
+ 
+
 });
 
 module.exports = songs;
