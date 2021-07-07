@@ -18,7 +18,7 @@ songs.get("/:id", async (req, res) => {
             throw `There is no bookmark with id: ${id}`
         }
     } catch (error) {
-        res.status(404).json({ error: "Resource not found.", message: error })
+        res.status(404).json({ error: "Resource not found.", message: error });
     }
-})
+});
 module.exports = songs;
