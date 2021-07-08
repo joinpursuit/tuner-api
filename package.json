@@ -1,0 +1,25 @@
+{
+  "name": "tuner-api",
+  "version": "1.0.0",
+  "description": "Let's make our own music playlist app!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshuafmendez/tuner-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshuafmendez/tuner-api/issues"
+  },
+  "homepage": "https://github.com/joshuafmendez/tuner-api#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pg-promise": "^10.10.2"
+  }
+}
