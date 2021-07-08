@@ -1,6 +1,6 @@
 const express = require("express");
 const songs = express.Router();
-const { getAllSongs, getOneSong, addSong, deleteSong } = require("../queries/songs");
+const { getAllSongs, getOneSong, addSong, deleteSong, updateSong } = require("../queries/songs");
 
 songs.get("/", async (req, res) => {
     const allSongs = await getAllSongs();
@@ -48,6 +48,20 @@ songs.delete("/:id", async (req, res) => {
     } catch (error) {
         res.status(404).json({ error: error });
     }
-})
+});
+
+songs.put("/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const updatedSong = await updateSong(id, req.body);
+        if (updatedSong["id"]) {
+            res.json(updatedSong);
+        } else {
+            throw 'song does not exist'
+        }
+    } catch (error) {
+        res.status(404).json({ error: error });
+    }
+});
 
 module.exports = songs;
