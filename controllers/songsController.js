@@ -1,6 +1,6 @@
 const express = require('express')
 const songs = express.Router()
-const { getAllSongs, getSong, createNewSong } = require('../queries/songs')
+const { getAllSongs, getSong, createNewSong, deleteSong, updateSong } = require('../queries/songs')
 log = console.log
 
 // INDEX
@@ -30,9 +30,34 @@ songs.post('/', async (req, res) => {
 		const song = await createNewSong(req.body)
 		if (song['id']) {
 			res.json(song)
-      console.log(song)
 		} else {
 			log(`Database: ${song}`)
+		}
+	} catch (e) {
+		res.status(404).json({ error: e })
+	}
+})
+
+// DELETE
+songs.delete('/:id', async (req, res) => {
+	const { id } = req.params
+	try {
+		const deletedSong = await deleteSong(id)
+		res.status(200).json(deletedSong)
+	} catch (e) {
+		res.status(404).json({ error: e })
+	}
+})
+
+// UPDATE
+songs.put('/:id', async (req, res) => {
+	const { id } = req.params
+	try {
+		const updatedSong = await updateSong(id, req.body)
+		if(updatedSong.id) {
+			res.status(200).json(updatedSong)
+		} else {
+			throw 'Resource not found'
 		}
 	} catch (e) {
 		res.status(404).json({ error: e })
