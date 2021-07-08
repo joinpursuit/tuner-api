@@ -1,6 +1,6 @@
 const express = require("express");
 const songs = express.Router();
-const { getAllSongs, getOneSong, addSong } = require("../queries/songs");
+const { getAllSongs, getOneSong, addSong, deleteSong } = require("../queries/songs");
 
 songs.get("/", async (req, res) => {
     const allSongs = await getAllSongs();
@@ -32,7 +32,21 @@ songs.post("/", async (req, res) => {
             throw `Error adding ${req.body} to the database.`;
         }
     } catch (error) {
-        res.status(404).json({ error: error })
+        res.status(404).json({ error: error });
+    }
+});
+
+songs.delete("/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deletedSong = await deleteSong(id);
+        if (deletedSong.id) {
+            res.json(deletedSong);
+        } else {
+            throw "Resource not found";
+        }
+    } catch (error) {
+        res.status(404).json({ error: error });
     }
 })
 
