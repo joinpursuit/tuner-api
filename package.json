@@ -19,6 +19,7 @@
   "homepage": "https://github.com/mphall77/tuner-api#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "pg-promise": "^10.10.2"
   }
 }
