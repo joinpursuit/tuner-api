@@ -1,3 +1,4 @@
+const songs = require("../controllers/songsController");
 const db = require("../db/dbConfig");
 
 const getAllSongs = async () => {
@@ -20,8 +21,21 @@ const getOneSong = async (id) => {
     };
 };
 
+const addSong = async (song) => {
+    try {
+        if (!song.name) {
+            throw 'You must specify a value for "name"'
+        }
+        const newSong = await db.one("INSERT INTO songs (name, artist, time, is_favorite) VALUES($1, $2, $3, $4) RETURNING *",
+            [song.name, song.artist, song.time, song.is_favorite]);
+        return newSong;
+    } catch (error) {
+        return error
+    };
+};
 
 module.exports = {
     getAllSongs,
     getOneSong,
+    addSong,
 };
