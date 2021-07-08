@@ -1,7 +1,7 @@
 //DEPENDENCIES
 const express = require("express")
 const songs = express.Router()
-const { getAllSongs, getSong, createSong, deleteSong } = require("../queries/songs")
+const { getAllSongs, getSong, createSong, deleteSong, updateSong } = require("../queries/songs")
 
 // Index
 songs.get("/", async (req, res) => {
@@ -15,7 +15,7 @@ songs.get("/:id", async (req, res) => {
     try {
         const bookmark = await getSong(id)
         if (!bookmark.id) {
-            res.send("This bookmark id does not exist")
+            res.send("This song id does not exist")
         } else {
             res.json(bookmark)
         }
@@ -59,7 +59,20 @@ songs.delete("/:id", async (req, res) => {
 })
 
 // Update
-
+songs.put("/:id", async (req, res) => {
+    const { id } = req.params
+    try {
+        const song = await updateSong(req.body, id)
+        if (song["name"]) {
+            res.status(200).json({song})
+        } else {
+            res.send("Song name required")
+        }
+    } catch (e) {
+        console.log(`Error in server: ${e}`)
+        return e
+    }
+})
 
 
 // EXPORTS
