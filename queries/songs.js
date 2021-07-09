@@ -40,8 +40,41 @@ const createSong = async (song) => {
   }
 };
 
+const deleteSong = async (id) => {
+  try {
+    const deleted = await db.one(
+      "DELETE FROM songs WHERE id = $1 RETURNING *",
+      id
+    );
+    return deleted;
+  } catch (err) {
+    return err;
+  }
+};
+
+const updateSong = async (id, song) => {
+  try {
+    const updated = await db.one(
+      "UPDATE songs SET title=$1, artist=$2, album=$3, song_length=$4, is_favorite=$5 where id=$6 RETURNING *",
+      [
+        song.title,
+        song.artist,
+        song.album,
+        song.song_length,
+        song.is_favorite,
+        id,
+      ]
+    );
+    return updated;
+  } catch (err) {
+    return err;
+  }
+};
+
 module.exports = {
   getAllSongs,
   getSong,
   createSong,
+  deleteSong,
+  updateSong,
 };

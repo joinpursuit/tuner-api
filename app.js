@@ -12,7 +12,7 @@ app.use(express.json());
 app.use("/songs", songsController);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to the Tuner!");
+  res.send("Welcome to Tuner!");
 });
 
 app.get("*", (req, res) => {
