@@ -56,6 +56,7 @@ const updateSong = async (song, id) => {
     } catch (e) {
         console.log(`Error in queries: ${e}`)
         return e
+        
     }
 }
 
