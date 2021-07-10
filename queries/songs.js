@@ -12,9 +12,7 @@ const getAllSongs = async () => {
 
 const getSong = async (id) => {
     try {
-				// sanitize query by passing SECOND argument to db.one()
 				const song = await db.one(`SELECT * FROM songs WHERE id = $1`, id)
-				// const bookmark = await db.one(`SELECT * FROM bookmarks WHERE id = $[id]`, {id:id})
 				return song
     } catch (error) {
         console.log(error)
@@ -34,5 +32,4 @@ const createSong = async (newSong) => {
 		}
 };
 
-// module.exports = { getAllBookmarks: getAllBookmarks, getBookmark: getBookmark };
 module.exports = { getAllSongs, getSong, createSong };
