@@ -18,7 +18,25 @@ const getSong = async (id) => {
   }
 };
 
+// CREATE
+const createSong = async (song) => {
+  const {name, artist, album, time, is_favorite} = song;
+  try {
+    if (!name) {
+      throw 'You must specify a value for "name"';
+    }
+    const newSong = await db.one(
+      "INSERT INTO songs (name, artist, album, time, is_favorite) VALUES($1, $2, $3, $4, $5) RETURNING *",
+      [name, artist, album, time, is_favorite]
+    );
+    return newSong;
+  } catch (e) {
+    return e;
+  }
+};
+
 module.exports = {
   getAllSongs,
   getSong,
+  createSong,
 };
