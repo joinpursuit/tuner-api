@@ -8,6 +8,7 @@ songs.get("/", async (req, res) => {
 	res.json({ success: true, payload: allSongs });
 });
 
+// SHOW
 songs.get("/:id", async (req, res) => {
 	const { id } = req.params;
 	try {
@@ -22,6 +23,7 @@ songs.get("/:id", async (req, res) => {
 	}
 });
 
+// CREATE
 songs.post("/", async (req, res) => {
 	const newSong = req.body;
 	const result = await createSong(newSong);
