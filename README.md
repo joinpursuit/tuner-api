@@ -110,3 +110,18 @@ Add functionality where if a user goes to
 - `/songs?order=desc` it will organize the songs in reverse alphabetical order
 - `/songs?is_favorite=true` it will only show the songs where the value of `is_favorite` is true
 - `/songs?is_favorite=false` it will only show the songs where the value of `is_favorite` is false
+
+
+## BONUS Part 5 [Part 4 is a React App, see other repo](https://github.com/joinpursuit/tuner-react)
+
+- Build a One-to-Many so that `One Playlist has many songs` for both the back and front end
+- Build a One-to-Many so that `One Album has many songs` for both the front end and the back end
+- Build a One-to-Many so that `One Artist has many songs` for both the front end and the back end
+- Build a way to see the Songs on an Album
+- Tidy up the UI/UX so this app is easy to use for anyone
+
+## SUPER BONUS Part 6 
+
+Upgrade the app so that a playlist can have many songs and a song can belong to many playlists
+Add users so that users can have many playlists
+Add the ability for users to like songs (many songs can be liked by users, users can like many songs)
