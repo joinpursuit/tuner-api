@@ -13,7 +13,8 @@ songs.get("/:id", async (req, res) => {
 	const { id } = req.params;
 	try {
 		const song = await getSong(id);
-		if (song["id"]) {
+		console.log(song);
+		if (song.id === id) {
 			res.json({ success: true, payload: song });
 		} else {
 			res.redirect("/404");
