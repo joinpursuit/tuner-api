@@ -31,7 +31,7 @@ songs.get('/:id', async (req, res) => {
             error: 'Not Found.',
             message: err
         });
-    }
+    };
 });
 
 songs.post('/', async (req, res) => {
