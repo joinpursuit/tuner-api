@@ -21,7 +21,7 @@ const getSong = async (id) => {
 };
 
 //create
-const createSong = async (song) => {
+const addSong = async (song) => {
   const { name, album, time, is_favorite } = song;
   try {
     const newSong = await db.one(
@@ -34,4 +34,4 @@ const createSong = async (song) => {
   }
 };
 
-module.exports = { getAllSongs, getSong, createSong };
+module.exports = { getAllSongs, getSong, addSong };
