@@ -26,4 +26,13 @@ songs.post("/", async (req, res) => {
   }
 });
 
+//delete
+songs.delete("/:id", async (req, res) => {
+    try {
+        res.json()
+    } catch (error) {
+        return error;
+    }
+})
+
 module.exports = songs;
