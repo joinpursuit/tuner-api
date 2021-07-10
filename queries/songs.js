@@ -20,13 +20,14 @@ const getSong = async (id) => {
 
 const createSong = async (song) => {
   try {
+    // console.log(song);
     const newSong = await db.one(
-      "INSERT INTO songs(name, artist, album, time, is_favorite)VALUES ($1, $2, $3) RETURNING *",
-      [song.name, song.artist, song.album, song.time, song.is_favosite]
+      "INSERT INTO songs(name, artist, album, time, is_favorite)VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [song.name, song.artist, song.album, song.time, song.is_favorite]
     );
     return newSong;
   } catch (error) {
-    console(error);
+    console.log(error);
   }
 };
 

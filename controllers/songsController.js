@@ -15,5 +15,6 @@ songsController.get("/:id", async (req, res) => {
 songsController.post("/", async (req, res) => {
   const newSong = await createSong(req.body);
   res.json(newSong);
+  console.log(newSong);
 });
 module.exports = songsController;
