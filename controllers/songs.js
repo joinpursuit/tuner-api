@@ -4,7 +4,6 @@ const songs = require("express").Router();
 
 songs.get("/", async (req, res) => {
     const songs = await getAllSongs();
-    console.log("GET RESPONSE: ", songs)
     res.json({ success: true, payload: songs })
 })
 
@@ -27,7 +26,6 @@ songs.get("/:id", async (req, res) => {
 songs.post("/", async (req,res)=>{
     const newSong = req.body;
     const song = await createSong(newSong);
-    
     song ? res.json({success: true, payload: song}) : res.redirect('/missingData')
 })
 
