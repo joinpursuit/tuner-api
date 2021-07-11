@@ -3,6 +3,7 @@ const cors = require("cors");
 const songsController = require('./controllers/songsController');
 
 const app = express();
+
 app.use(express.json());
 app.use(cors());
 

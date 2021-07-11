@@ -9,4 +9,6 @@ const connectionObject = {
     user: process.env.PG_USER
 };
 
-module.exports = pgp(connectionObject);
+const db = pgp(connectionObject)
+
+module.exports = db;

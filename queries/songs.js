@@ -1,4 +1,4 @@
-const db = require('../database/dbConfig.js');
+const db = require('../database/dbConfig');
 
 const getAllSongs = async () => {
     try {
@@ -8,6 +8,14 @@ const getAllSongs = async () => {
         return e
     }
 };
+const getSong = async (id) => {
+    try {
+      const oneSong = await db.one('SELECT * FROM songs WHERE id=$1', id)
+      return oneSong
+    } catch (e) {
+      return e
+    }
+  };
 
 
-module.exports = {getAllSongs}
+module.exports = {getAllSongs, getSong}
