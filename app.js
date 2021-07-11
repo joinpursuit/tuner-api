@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-    res.status(200).send("Bwahaha Music");
+    res.status(200).send("Welcome");
 });
 
 app.use('/songs', songsController)
