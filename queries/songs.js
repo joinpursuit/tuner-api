@@ -55,7 +55,7 @@ const addSong = async (song) => {
 //delete
 const deleteSong = async (id) => {
   try {
-    const deletedSong = await db.one("DELETE FROM songs WHERE id = $1", id);
+    const deletedSong = await db.one("DELETE FROM songs WHERE id = $1 RETURNING *", id);
     return deletedSong;
   } catch (error) {
     return error;

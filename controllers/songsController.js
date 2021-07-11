@@ -49,11 +49,10 @@ songs.put("/:id", async (req, res) => {
   });
 
 //delete
-//how to write a validation that shows the data that was deleted
 songs.delete("/:id", async (req, res) => {
     const { id } = req.params;
-    await deleteSong(id);
-    res.status(200).json(`Song with id ${id} has been deleted.`);
+    const deletedSong = await deleteSong(id);
+    res.status(200).json(deletedSong);
 });
 
 module.exports = songs;
