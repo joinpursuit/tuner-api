@@ -1,6 +1,6 @@
 \c songs_db
 
-INSERT INTO songs(name, artist, album, time, is_favorite)
+INSERT INTO songs (name, artist, album, time, is_favorite)
 
 VALUES
 ('Butter', 'BTS', ' Butter (Hotter, Sweeter, Cooler)', '3:02', FALSE),

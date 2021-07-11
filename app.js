@@ -7,9 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// app.use((req, res, next) => {
-//     next();
-// })
 app.get("/", (req,res) => {
     res.send("Welcome to Tuner")
 });
