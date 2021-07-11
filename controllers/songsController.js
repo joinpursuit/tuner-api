@@ -5,6 +5,7 @@ const {
   getSong,
   addSong,
   deleteSong,
+  updateSong,
 } = require("../queries/songs");
 
 //index
@@ -29,7 +30,6 @@ songs.get("/:id", async (req, res) => {
   }
 });
 
-
 //create
 songs.post("/", async (req, res) => {
   try {
@@ -41,15 +41,19 @@ songs.post("/", async (req, res) => {
   }
 });
 
+//update
+songs.put("/:id", async (req, res) => {
+    const { id } = req.params;
+    const updatedSong = await updateSong(id, req.body);
+    res.status(200).json(updatedSong);
+  });
+
 //delete
+//how to write a validation that shows the data that was deleted
 songs.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const deletedSong = await deleteSong.splice(id, 1);
-    res.json(deletedSong);
-  } catch (error) {
-    return error;
-  }
+    const { id } = req.params;
+    await deleteSong(id);
+    res.status(200).json(`Song with id ${id} has been deleted.`);
 });
 
 module.exports = songs;
