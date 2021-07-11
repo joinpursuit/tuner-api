@@ -26,5 +26,31 @@ const newSongs = async (song)=>{
         return error
     }
 }
+const deleteSong = async (id)=>{
+ try {
+     const delet = await db.one("DELETE FROM songs WHERE id=$1 RETURNING *", id)
+     return delet
+ } catch (error) {
+     return error
+ }
+}
+const updateSong = async (id, song)=>{
+    try {
+        const update = await db.one(
+            "UPDATE songs SET name = $1, artist = $2, album = $3, time = $4, is_favorite = $5 WHERE id = $6 RETURNING *",
+            [
+              song.name,
+              song.artist,
+              song.album,
+              song.time,
+              song.is_favorite,
+              song.id,
+            ],
+          );
+          return update
+    } catch (error) {
+        return error
+    }
+}
 
-module.exports = { getAllSongs, getSongs, newSongs };
+module.exports = { getAllSongs, getSongs, newSongs, deleteSong, updateSong };
