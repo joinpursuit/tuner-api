@@ -10,11 +10,12 @@ const getAllSongs = async () => {
     }
 };
 
-const getSong = async () => {
+const getSong = async (id) => {
     try {
-        
+        const song = await db.one(`SELECT * FROM songs WHERE id = $1`, id)
+        return song
     } catch (error) {
-        
+        console.log(error)
     }
 };
 
