@@ -21,16 +21,12 @@ const getSong = async (id) => {
 };
 
 //update
-const updateSong = async (song) => {
+const updateSong = async (id, body) => {
+  const { name, album, time, is_favorite } = body;
     try {
       const updatedSong = await db.one(
         "UPDATE songs SET name=$1, album=$2, time=$3, is_favorite=$4 where id=$5 RETURNING *",
-        [
-          song.name,
-          song.album,
-          song.time,
-          song.is_favorite
-        ]
+        [ name, album, time, is_favorite, id]
       );
       return updatedSong;
     } catch (err) {
