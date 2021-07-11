@@ -5,10 +5,10 @@ CREATE DATABASE songs_db;
 \c songs_db;
 
 CREATE TABLE songs(
-    id SERIAL KEY PRIMARY KEY, 
+    id SERIAL PRIMARY KEY, 
     name VARCHAR, 
     artist VARCHAR,
-    album VARCHAR. 
-    time INT,
+    album VARCHAR, 
+    time VARCHAR,
     is_favorite BOOLEAN
 )
