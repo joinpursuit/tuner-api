@@ -22,11 +22,10 @@ songs.get("/:id", async (req, res) => {
     if (song.id) {
       res.json(song);
     } else {
-    //   console.log(`Database error: ${song}`);
-      throw `There is no song with id: ${id}`;
+      res.redirect("/*");
     }
   } catch (error) {
-    res.status(404).json({ error: "Resource not found.", message: error });
+    return error;
   }
 });
 
