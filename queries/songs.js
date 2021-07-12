@@ -1,4 +1,4 @@
-const db = require("../db/dbConfig.js");
+const db = require("../db/dbConfig.js")
 
 const getAllSongs = async () => {
   try {
@@ -16,9 +16,9 @@ const getSong = async (id) => {
     } catch(err){
       return err
     }
-  }
+}
   
-  const newSong = async (song) => {
+const newSong = async (song) => {
     try {
       const newSong = await db.one(
         "INSERT INTO songs (name, artist, album, time, is_favorite) VALUES($1, $2, $3, $4, $5) RETURNING *",
@@ -28,10 +28,10 @@ const getSong = async (id) => {
     } catch (err) {
       return err;
     }
-  };
+};
 
 module.exports = {
   getAllSongs,
   getSong,
-  newSong
+  newSong,
 };
