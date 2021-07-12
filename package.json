@@ -1,0 +1,28 @@
+{
+  "name": "tuner-api",
+  "version": "1.0.0",
+  "description": "Music Playlist App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlekiChrome/tuner-api.git"
+  },
+  "keywords": [
+    "Music",
+    "songlist",
+    "express"
+  ],
+  "author": "Candice Agard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlekiChrome/tuner-api/issues"
+  },
+  "homepage": "https://github.com/AlekiChrome/tuner-api#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  }
+}
