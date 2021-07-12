@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS tuner;
 CREATE DATABASE tuner;
 
 \c tuner;

@@ -10,5 +10,9 @@ app.get('/', (req, res) => {
 })
 
 app.get('/songs', (req, res) => {
-    //list of all songs in the database
-}
+    //
+})
+
+app.listen(3000, () => {
+    console.log('Tuner is running on port 3000');
+})
