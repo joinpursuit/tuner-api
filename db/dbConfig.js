@@ -9,5 +9,6 @@ const cn = {
 };
 
 const db = pgp(cn);
-console.log(process.env)
+console.log(process.env.PG_PORT)
+
 module.exports = db;
