@@ -1,6 +1,11 @@
 const express = require("express");
 const songs = express.Router();
-const { getAllSongs, getSong, createSong } = require("../queries/songs");
+const {
+  getAllSongs,
+  getSong,
+  createSong,
+  deleteSong,
+} = require("../queries/songs");
 
 // GET ALL SONGS
 songs.get("/", async (req, res) => {
@@ -34,6 +39,17 @@ songs.post("/", async (req, res) => {
       console.log(`Database error: ${song}`);
       throw `Error adding ${req.body} to the database.`;
     }
+  } catch (e) {
+    res.status(404).json({ error: e });
+  }
+});
+
+// DELETE A SONG
+songs.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedSong = await deleteSong(id);
+    res.status(200).json(deletedSong);
   } catch (e) {
     res.status(404).json({ error: e });
   }

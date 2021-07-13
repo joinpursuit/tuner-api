@@ -20,7 +20,7 @@ const getSong = async (id) => {
 
 // CREATE
 const createSong = async (song) => {
-  const {name, artist, album, time, is_favorite} = song;
+  const { name, artist, album, time, is_favorite } = song;
   try {
     if (!name) {
       throw 'You must specify a value for "name"';
@@ -35,8 +35,20 @@ const createSong = async (song) => {
   }
 };
 
+// DELETE
+const deleteSong = async (id) => {
+  try {
+    const query = "DELETE FROM songs WHERE id = $1 RETURNING *";
+    const deletedSong = await db.one(query, id);
+    return deletedSong;
+  } catch (err) {
+    return err;
+  }
+};
+
 module.exports = {
   getAllSongs,
   getSong,
   createSong,
+  deleteSong,
 };
