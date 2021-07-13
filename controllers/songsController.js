@@ -5,6 +5,7 @@ const {
   getSong,
   createSong,
   deleteSong,
+  updateSong,
 } = require("../queries/songs");
 
 // GET ALL SONGS
@@ -50,6 +51,27 @@ songs.delete("/:id", async (req, res) => {
     const { id } = req.params;
     const deletedSong = await deleteSong(id);
     res.status(200).json(deletedSong);
+  } catch (e) {
+    res.status(404).json({ error: e });
+  }
+});
+
+// UPDATE A Song
+songs.put("/:id", async (req, res) => {
+  try {
+    const { body, params } = req;
+    // const { name, artist, album, time, is_favorite } = body;
+    // if (!name || !artist || !album || !time || !is_favorite) {
+    //   res.status(422).json({
+    //     error: true,
+    //     success: false,
+    //     message: "Whatever",
+    //   });
+    // } else {
+    const { id } = params;
+    const updatedSong = await updateSong(id, body);
+    res.status(200).json(updatedSong);
+    // }
   } catch (e) {
     res.status(404).json({ error: e });
   }
