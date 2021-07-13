@@ -17,18 +17,44 @@ songs.get("/", async(req, res) => {
 //show
 songs.get("/:id", async(req, res) => {
     const { id } = req.params;
-    const song = await getSong(id);
-    res.json(song);
+    try {
+        const song = await getSong(id);
+        if (song.id) {
+            res.json(song);
+        } else {
+            //   console.log(`Database error: ${song}`);
+            throw `There is no song with id: ${id}`;
+        }
+    } catch (error) {
+        res.status(404).json({ error: "Resource not found.", message: error });
+    }
 });
 
 //create
 songs.post("/", async(req, res) => {
     try {
-        const newSong = req.body;
-        const result = await addSong(newSong);
-        res.json(result);
+        const song = req.body;
+        const newSong = await addSong(song);
+        res.json(newSong);
     } catch (error) {
         return error;
+    }
+});
+
+//update
+songs.put("/:id", async(req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+    const { name, album, time, is_favorite } = body;
+    if (!this.name || !album || !time || is_favorite) {
+        res.status(422).json({
+            error: true,
+            success: false,
+            message: "whatever",
+        });
+    } else {
+        const updatedSong = await updateSong(id, body);
+        res.status(200).json(updatedSong);
     }
 });
 
@@ -37,13 +63,6 @@ songs.delete("/:id", async(req, res) => {
     const { id } = req.params;
     const deletedSong = await deleteSong(id);
     res.status(200).json(deletedSong);
-});
-
-//update
-songs.put(":id", async(req, res) => {
-    const { id } = req.params;
-    const updatedSong = await updateSong(id, req.body);
-    res.status(200).json(updatedSong);
 });
 
 module.exports = songs;
