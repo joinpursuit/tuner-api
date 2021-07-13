@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dbinit": "psql -Y postgres -f db/schema.sql",
+    "dbseed": "psql -Y postgres -f db/seed.sql"
+
   },
   "repository": {
     "type": "git",
