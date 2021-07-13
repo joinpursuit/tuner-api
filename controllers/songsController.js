@@ -24,4 +24,16 @@ songs.post("/", async (req, res) => {
     res.json(result)
 })
 
+songs.put("/:id", async (req, res) => {
+    const { body, params } = req;
+    const { name, category } = body;
+    if( !name || !category || !url) {
+        res.status(422).json({
+            error: true, sucess:  false, message: "incorrect id"
+        })
+    } else {
+        const result = await updateSong(params.id, body)
+        res.json(result);
+    }
+});
 module.exports = songs;
