@@ -42,4 +42,15 @@ const deleteSong = async (id) => {
   }
 }
 
-module.exports = { getAllSongs, getSong, createSong, deleteSong };
+const updateSong = async (id, song) => {
+  try {
+    const { name, artist, album, time, is_favorite} = song
+    const query = "UPDATE songs SET name=$1, artist=$2, album=$3, time=$4, is_favorite=$5 WHERE id=$6 RETURNING *"
+    const updatedSong = await db.one(query, [name, artist, album, time, is_favorite, id])
+    return updatedSong
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+module.exports = { getAllSongs, getSong, createSong, deleteSong, updateSong };
