@@ -18,4 +18,10 @@ songs.get("/:id", async (req, res) => {
     }
 })
 
+songs.post("/", async (req, res) => {
+    const newSong = req.body;
+    const result = await createSong(newSong);
+    res.json(result)
+})
+
 module.exports = songs;
