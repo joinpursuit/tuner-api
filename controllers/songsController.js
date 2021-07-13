@@ -5,6 +5,7 @@ const {
   getSong,
   newSong,
   deleteSong,
+  updateSong,
 } = require("../queries/songs");
 
 // GET ALL SONGS
@@ -51,6 +52,17 @@ songs.delete("/:id", async (req, res) => {
     const { id } = req.params;
     const songToDelete = await deleteSong(id);
     res.status(200).json(songToDelete);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+// EDIT SONG
+songs.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedSong = await updateSong(id, req.body)
+    res.status(200).json(updatedSong)
   } catch (err) {
     console.log(err);
   }
