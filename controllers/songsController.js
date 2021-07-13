@@ -1,11 +1,10 @@
 const express = require("express");
 const songs = express.Router();
 
-const { getAllSongs, getSong, createSong } = require("../queries/songs");
+const { getAllSongs, getSong, createSong, deleteSong } = require("../queries/songs");
 
 songs.get("/", async (req, res) => {
   const songs = await getAllSongs();
-  console.log("response", songs);
   res.json({ success: true, payload: songs });
 });
 
@@ -24,5 +23,11 @@ songs.get("/:id", async (req, res) => {
       res.redirect('/404')
   }
 });
+
+songs.delete("/:id", async (req, res) => {
+  const { id } = req.params
+  const deletedSong = await deleteSong(id)
+  res.json(deletedSong)
+})
 
 module.exports = songs;
