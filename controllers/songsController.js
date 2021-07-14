@@ -10,7 +10,9 @@ const {
 } = require("../queries/songs");
 
 songs.get("/", async (req, res) => {
+  console.log("banana")
   const songs = await getAllSongs();
+  console.log({backend: songs})
   res.json({ success: true, payload: songs });
 });
 
