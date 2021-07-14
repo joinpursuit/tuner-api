@@ -1,5 +1,8 @@
-const cors = require('cors');
 const express = require('express');
+const cors = require('cors');
+const tunerController = require('./controllers/tunerController');
+
+
 const app = express();
 
 app.use(cors())
@@ -9,10 +12,10 @@ app.get('/', (req, res) => {
     res.send('Welcome to Tuner!');
 })
 
-app.get('/songs', (req, res) => {
-    //
-})
+app.use('/songs', tunerController)
 
-app.listen(3000, () => {
-    console.log('Tuner is running on port 3000');
-})
+app.get("*", (req, res) => {
+    res.status(404).send('Not Found');
+});
+
+module.exports = app;
