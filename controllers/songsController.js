@@ -20,11 +20,11 @@ songs.post("/", async (req, res) => {
   const newSong = req.body;
   const { body } = req;
   const { name, artist, album, time } = body
-  if(!name || ! artist || !album || !time) {
+  if(!name || !artist || !album || !time) {
     res.status(422).json({ success: false, message: "What are you doing? You have to complete all the fields." }) 
   } else {
-  const result = await createSong(newSong);
-  res.json({ success: true, payload: result });
+  const createdSong = await createSong(newSong);
+  res.json({ success: true, payload: createdSong });
 }
 });
 
@@ -48,7 +48,7 @@ songs.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { body } = req;
   const { name, artist, album, time } = body
-  if(!name || ! artist || !album || !time) {
+  if(!name || !artist || !album || !time) {
     res.status(422).json({ success: false, message: "What are you doing? You have to complete all the fields." })
   } else {
     const updatedSong = await updateSong(id, body);
