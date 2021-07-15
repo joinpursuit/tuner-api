@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const songs = express.Router({mergeParams: true});
 
 const {
     getAllSongs,
@@ -9,12 +9,51 @@ const {
     updateSong
 } = require('../queries/songs.js')
 
-router.get('/', async (req, res) => {
+const {
+    RecordNotAddedError,
+    ValidationError,
+    customErrorHandler
+} = require('../helper.js')
+
+const validateSong = (req, res, next) => {
+    try {
+        const { name, artist, album, time, is_favorite } = req.body
+        let isSong = true;
+        let errorMsg = `Song request not formatted correctly: `;
+        if (typeof name !== 'string') {
+            isSong = false;
+            errorMsg += `name is not a string.`
+        }
+        else if (typeof artist !== 'string') {
+            isSong = false;
+            errorMsg += `artist is not a string.`
+        }
+        else if (typeof album !== 'string') {   
+            isSong = false;
+            errorMsg += `album is not a string.`
+        }
+        else if (typeof time !== 'number') {
+            isSong = false;
+            errorMsg += `time is not a number.`
+        }
+        else if (typeof is_favorite !== 'boolean') {
+            isSong = false;
+            errorMsg += `is_favorite is not a boolean.`
+        }
+        if (!isSong) {
+            throw new ValidationError(errorMsg)
+        }
+    } catch (error) {
+        next(error)
+    }
+}
+
+songs.get('/', async (req, res) => {
     const songs = await getAllSongs();
     res.json(songs);
 });
 
-router.get('/:id', async (req, res) =>{
+songs.get('/:id', async (req, res) =>{
     const { id } = req.params;
     try {
         const song = await getSong();
@@ -23,17 +62,17 @@ router.get('/:id', async (req, res) =>{
         }
         else {
             console.log(`Database error: ${id}`);
-            throw `Theres is no songs with id: ${id}`
+            throw `There are no songs with id: ${id}`
         }
     } catch (error) {
-        resizeTo.status(404).json({
-            error: `Resourve not found.`,
+        res.status(404).json({
+            error: `Resource not found.`,
             message: error
         })
     }
 });
 
-router.post('/', async (req, res) => {
+songs.post('/', validateSong, async (req, res) => {
     try {
         const song = await createSong(req.body);
         if (song) {
@@ -49,7 +88,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+songs.delete('/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const song = await deleteSong(id);
@@ -66,7 +105,7 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+songs.put('/:id', validateSong, async (req, res) => {
     try {
         const song = await updateSong(req.body);
         if (song.id) {
@@ -80,7 +119,9 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-module.exports = router;
+songs.use(customErrorHandler);
+
+module.exports = songs;
 
     
 
