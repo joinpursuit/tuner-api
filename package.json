@@ -1,0 +1,29 @@
+{
+  "name": "tuner-api",
+  "version": "1.0.0",
+  "description": "Let's make our own music playlist app!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dbinit": "psql -U postgres -f db/schema.sql",
+    "dbseed": "psql -U postgres -f db/seed.sql"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DamienYule/tuner-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DamienYule/tuner-api/issues"
+  },
+  "homepage": "https://github.com/DamienYule/tuner-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pg-promise": "^10.10.2"
+  }
+}
