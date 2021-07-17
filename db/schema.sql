@@ -10,7 +10,6 @@ CREATE TABLE songs(
     artist TEXT,
     album TEXT,
     time TEXT,
-    is_favorite BOOLEAN,
-    album_id INT REFERENCES albums (id) ON DELETE CASCADE
+    is_favorite BOOLEAN
 );
 
