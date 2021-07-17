@@ -2,13 +2,15 @@ const db = require("../db/config.js")
 console.log("--- inside queries/songs.js ---")
 
 const getAllSongs = async (order, is_favorite) => {
-    console.log(is_favorite)
+
     let query = "SELECT * FROM songs"
+
     if (is_favorite === 'true') {
         query += " WHERE is_favorite = true"
     } else if (is_favorite === 'false') {
         query += " WHERE is_favorite = false"
     }
+    
     if (order === 'asc') {
         query += " ORDER BY name asc"
     } else if (order === 'desc') {
