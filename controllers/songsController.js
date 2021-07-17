@@ -19,6 +19,7 @@ songs.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const song = await getSong(id);
+    // res.json({ success: true, payload: song });
     if (song["id"]) {
       res.json(song);
     } else {
@@ -60,18 +61,9 @@ songs.delete("/:id", async (req, res) => {
 songs.put("/:id", async (req, res) => {
   try {
     const { body, params } = req;
-    // const { name, artist, album, time, is_favorite } = body;
-    // if (!name || !artist || !album || !time || !is_favorite) {
-    //   res.status(422).json({
-    //     error: true,
-    //     success: false,
-    //     message: "Whatever",
-    //   });
-    // } else {
     const { id } = params;
     const updatedSong = await updateSong(id, body);
     res.status(200).json(updatedSong);
-    // }
   } catch (e) {
     res.status(404).json({ error: e });
   }
