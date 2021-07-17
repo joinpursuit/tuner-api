@@ -3,6 +3,10 @@ const songs = express.Router();
 
 const {
   getAllSongs,
+  getAscSongs,
+  getDescSongs,
+  getisFavoriteSongs,
+  getisNotFavoriteSongs,
   getSong,
   createSong,
   deleteSong,
@@ -10,8 +14,20 @@ const {
 } = require("../queries/songs");
 
 songs.get("/", async (req, res) => {
-  const songs = await getAllSongs();
-  res.json({ success: true, payload: songs });
+  const {order} = req.query
+  if(order === "asc"){
+    const songs = await getAscSongs()
+      res.json(
+        { success: true, payload: songs }
+        )
+      // const songs = await getAllSongs();
+  // res.json({ success: true, payload: songs });
+} else if(order === "desc") {
+  const songs = await getDescSongs()
+  res.json(
+    { success: true, payload: songs }
+    )
+}
 });
 
 songs.post("/", async (req, res) => {
