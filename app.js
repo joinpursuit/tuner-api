@@ -1,20 +1,20 @@
-const cors = require("cors");
 const express = require("express");
-const songs = require("./controllers/songsController")
+const cors = require("cors");
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
-app.get("/", (req,res) => {
-    res.send("Welcome to Tuner")
-});
+const songsController = require("./controllers/songsController")
+app.use("/songs", songsController)
 
-app.use("/songs", songs);
+app.get("/", (req, res) => {
+    res.send("Welcome to Durdona's and Carina's's Tuner App")
+})
 
 app.get("*", (req, res) => {
- res.status(404).send("Page not found")
-});
+    res.status(404).send("Page Not Found!")
+})
 
 module.exports = app;
