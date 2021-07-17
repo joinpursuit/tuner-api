@@ -1,5 +1,6 @@
 const db = require("../db/dbConfig");
 
+//READE
 const getAllSongs = async ()=>{
     try{
         const allSongs = await db.any("SELECT * FROM songs")
@@ -8,6 +9,8 @@ const getAllSongs = async ()=>{
         return err;
     }
 }
+
+//SHOW
 const getSongs = async (id)=>{
     try {
         const oneSong = await db.one("SELECT * FROM songs WHERE id=$1", id)
@@ -16,6 +19,8 @@ const getSongs = async (id)=>{
         return error
     }
 }
+
+//CREATE
 const newSongs = async (song)=>{
     try {
         const createSongs = await db.one(
@@ -26,6 +31,8 @@ const newSongs = async (song)=>{
         return error
     }
 }
+
+//DELETE
 const deleteSong = async (id)=>{
  try {
      const delet = await db.one("DELETE FROM songs WHERE id=$1 RETURNING *", id)
@@ -34,6 +41,8 @@ const deleteSong = async (id)=>{
      return error
  }
 }
+
+//UPDATE
 const updateSong = async (id, song)=>{
     try {
         const update = await db.one(
@@ -44,7 +53,7 @@ const updateSong = async (id, song)=>{
               song.album,
               song.time,
               song.is_favorite,
-              song.id,
+              id,
             ],
           );
           return update
