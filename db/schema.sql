@@ -14,3 +14,9 @@ CREATE DATABASE songs_dev;
 CREATE TABLE songs(id SERIAL PRIMARY KEY, name TEXT, artist TEXT, album TEXT,
 time TEXT, is_favorite BOOLEAN);
 --
+
+
+-- Create table albums
+CREATE TABLE albums(id SERIAL PRIMARY KEY, name TEXT, artist TEXT, album TEXT,
+release_date TEXT, is_favorite BOOLEAN);
+--

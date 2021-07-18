@@ -18,7 +18,7 @@ const getAllSongs = async ({order, is_favorite}) => {
             const allSongs = await db.any(`SELECT * FROM songs WHERE is_favorite = $1`, is_favorite);
             return allSongs;
         }else{
-            const allSongs = await db.any(`SELECT * FROM songs`);
+            const allSongs = await db.any(`SELECT * FROM songs ORDER BY id ASC`);
             return allSongs;
         }
     }catch(err){

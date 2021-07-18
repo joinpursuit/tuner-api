@@ -5,7 +5,12 @@ const express = require("express");
 
 //CONFIGURATION
 const songs = express.Router();
-const { getAllSongs, getSong, newSong, deleteSong, updateSong } = require("../queries/songs.js");
+const { 
+    getAllSongs, 
+    getSong, 
+    newSong, 
+    deleteSong, 
+    updateSong } = require("../queries/songs.js");
 
 
 
