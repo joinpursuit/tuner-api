@@ -8,7 +8,7 @@ const {
   getisFavoriteSongs,
   getisNotFavoriteSongs,
   getSong,
-  createSong,
+  createSongforPlaylist,
   deleteSong,
   updateSong,
 } = require("../queries/songs");
@@ -28,16 +28,19 @@ songs.get("/", async (req, res) => {
   //   const songs = await getisNotFavoriteSongs();
   //   res.json({ success: true, payload: songs });
   // } else {
-    const songs = await getAllSongsFromPlaylist();
+    const songs = await getAllSongsFromPlaylist(req.params.playlist_id);
     res.json({ success: true, payload: songs });
   // }
 });
 
 songs.post("/", async (req, res) => {
-  const newSong = req.body;
-  const { body } = req;
-  const { name, artist, album, time } = body;
-  if (!name || !artist || !album || !time) {
+  const { playlist_id } =req.params
+  console.log(playlist_id)
+  // const newSong = req.body;
+  // const { body } = req;
+  const { name, playlist, artist, album, time, is_favorite } = req.body;
+  console.log(req.body)
+  if (!name || !playlist ||!artist || !album || !time ) {
     res
       .status(422)
       .json({
@@ -45,14 +48,14 @@ songs.post("/", async (req, res) => {
         message: "What are you doing? You have to complete all the fields.",
       });
   } else {
-    const result = await createSong(newSong);
+    const result = await createSongforPlaylist(req.body, playlist_id);
     res.json({ success: true, payload: result });
   }
 });
 
 songs.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const song = await getSong(id);
+  const { playlist_id, id } = req.params;
+  const song = await getSong(playlist_id, id);
   if (song) {
     res.json({ success: true, payload: song });
   } else {

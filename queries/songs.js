@@ -47,21 +47,21 @@ const getisNotFavoriteSongs = async () => {
 };
 
 
-const getSong = async (id) => {
+const getSong = async (playlist_id, id) => {
   try {
-    const song = await db.one(`SELECT * FROM songs WHERE id = $1`, id);
+    const song = await db.one(`SELECT * FROM songs WHERE playlist_id=$1 AND id = $2`, [playlist_id, id]);
     return song;
   } catch (error) {
     console.log(error);
   }
 };
 
-const createSong = async (newSong) => {
-  const { name, artist, album, time, is_favorite } = newSong;
+const createSongforPlaylist = async (newSong, playlistId) => {
+  const { name, playlist, artist, album, time, is_favorite } = newSong;
   try {
     const theSong = await db.one(
-      "INSERT INTO songs(name, artist, album, time, is_favorite) VALUES($1, $2, $3, $4, $5) RETURNING *",
-      [name, artist, album, time, is_favorite]
+      "INSERT INTO songs(name, playlist, artist, album, time, is_favorite, playlist_id) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      [name, playlist, artist, album, time, is_favorite, playlistId]
     );
     return theSong;
   } catch (error) {
@@ -90,4 +90,4 @@ const updateSong = async (id, song) => {
   }
 }
 
-module.exports = { getAllSongsFromPlaylist, getAscSongs, getDescSongs, getisFavoriteSongs, getisNotFavoriteSongs, getSong, createSong, deleteSong, updateSong };
+module.exports = { getAllSongsFromPlaylist, getAscSongs, getDescSongs, getisFavoriteSongs, getisNotFavoriteSongs, getSong, createSongforPlaylist, deleteSong, updateSong };
