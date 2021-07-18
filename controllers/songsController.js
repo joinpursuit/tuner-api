@@ -2,7 +2,7 @@ const express = require("express");
 const songs = express.Router({mergeParams: true});
 
 const {
-  getAllSongs,
+  getAllSongsFromPlaylist,
   getAscSongs,
   getDescSongs,
   getisFavoriteSongs,
@@ -14,23 +14,23 @@ const {
 } = require("../queries/songs");
 
 songs.get("/", async (req, res) => {
-  const { order, is_favorite } = req.query;
-  if (order === "asc") {
-    const songs = await getAscSongs();
+  // const { order, is_favorite } = req.query;
+  // if (order === "asc") {
+  //   const songs = await getAscSongs();
+  //   res.json({ success: true, payload: songs });
+  // } else if (order === "desc") {
+  //   const songs = await getDescSongs();
+  //   res.json({ success: true, payload: songs });
+  // } else if (is_favorite === "true") {
+  //   const songs = await getisFavoriteSongs();
+  //   res.json({ success: true, payload: songs });
+  // } else if (is_favorite === "false") {
+  //   const songs = await getisNotFavoriteSongs();
+  //   res.json({ success: true, payload: songs });
+  // } else {
+    const songs = await getAllSongsFromPlaylist();
     res.json({ success: true, payload: songs });
-  } else if (order === "desc") {
-    const songs = await getDescSongs();
-    res.json({ success: true, payload: songs });
-  } else if (is_favorite === "true") {
-    const songs = await getisFavoriteSongs();
-    res.json({ success: true, payload: songs });
-  } else if (is_favorite === "false") {
-    const songs = await getisNotFavoriteSongs();
-    res.json({ success: true, payload: songs });
-  } else {
-    const songs = await getAllSongs();
-    res.json({ success: true, payload: songs });
-  }
+  // }
 });
 
 songs.post("/", async (req, res) => {

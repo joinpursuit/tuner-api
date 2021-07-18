@@ -1,10 +1,12 @@
 const db = require("../db/config.js");
 
-const getAllPlaylists = () => {
+const getAllPlaylists = async () => {
   try {
     const allPlaylists = await db.any("SELECT * FROM playlists");
     return allPlaylists;
+
   } catch (err) {
+    console.log('about to log err')
     console.log(err);
   }
 };
@@ -19,4 +21,4 @@ const getPlaylist = async (id) => {
   }
 };
 
-export default {getAllPlaylists, getPlaylist};
+module.exports = {getAllPlaylists, getPlaylist};

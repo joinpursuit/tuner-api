@@ -9,9 +9,13 @@ playlists.use('/:playlist_id/songs', songsController)
 
 
 playlists.get('/', async (req, res) => {
+    console.log("hi")
     const playlists = await getAllPlaylists()
+    console.log('another one')
     res.json({
         success: true,
         payload: playlists
     })
 })
+
+module.exports = playlists

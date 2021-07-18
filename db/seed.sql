@@ -1,6 +1,6 @@
 \c songs_db
 
-INSERT INTO playlists(playlistName)
+INSERT INTO playlists (playlistName)
 VALUES('belongs to C'),
 ('belongs to D');
 

@@ -1,9 +1,9 @@
 const songs = require("../controllers/songsController.js");
 const db = require("../db/config.js");
 
-const getAllSongs = async () => {
+const getAllSongsFromPlaylist = async (playlistID) => {
   try {
-    const allSongs = await db.any("SELECT * FROM songs");
+    const allSongs = await db.any("SELECT * FROM songs WHERE playlist_id = $1", playlistID);
     return allSongs;
   } catch (error) {
     console.log(error);
@@ -90,4 +90,4 @@ const updateSong = async (id, song) => {
   }
 }
 
-module.exports = { getAllSongs, getAscSongs, getDescSongs, getisFavoriteSongs, getisNotFavoriteSongs, getSong, createSong, deleteSong, updateSong };
+module.exports = { getAllSongsFromPlaylist, getAscSongs, getDescSongs, getisFavoriteSongs, getisNotFavoriteSongs, getSong, createSong, deleteSong, updateSong };

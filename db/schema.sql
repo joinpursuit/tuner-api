@@ -17,7 +17,7 @@ CREATE TABLE playlists (
 
 CREATE TABLE songs(
     id SERIAL PRIMARY KEY, 
-    playlist_id INT REFERENCES playlists (id) 
+    playlist_id INT REFERENCES playlists(id) 
         ON DELETE CASCADE, 
     name TEXT NOT NULL, 
     playlist TEXT NOT NULL,
