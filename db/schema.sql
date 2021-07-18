@@ -9,5 +9,5 @@ CREATE TABLE songs (
     artist TEXT NOT NULL,
     album TEXT NOT NULL,
     time TEXT NOT NULL,
-    is_favorite BOOLEAN NOT NULL DEFAULT FALSE
+    is_favorite BOOLEAN
 );
