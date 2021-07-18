@@ -1,13 +1,28 @@
-DROP DATABASE IF EXISTS songs_dev;
-CREATE DATABASE songs_dev;
+DROP DATABASE IF EXISTS songs_db;
 
-\c songs_dev;
+CREATE DATABASE songs_db;
 
-CREATE TABLE songs (
+\c songs_db;
+
+
+CREATE TABLE playlists (
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
+    playlistName TEXT NOT NULL
+    -- artist TEXT NOT NULL,
+    -- album TEXT NOT NULL,
+    -- time TEXT NOT NULL,
+    -- is_favorite BOOLEAN, 
+);
+
+
+CREATE TABLE songs(
+    id SERIAL PRIMARY KEY, 
+    playlist_id INT REFERENCES playlists (id) 
+        ON DELETE CASCADE, 
+    name TEXT NOT NULL, 
+    playlist TEXT NOT NULL,
     artist TEXT NOT NULL,
-    album TEXT NOT NULL,
+    album TEXT NOT NULL, 
     time TEXT NOT NULL,
-    is_favorite BOOLEAN NOT NULL DEFAULT FALSE
+    is_favorite BOOLEAN
 );

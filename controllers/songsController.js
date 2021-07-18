@@ -1,5 +1,5 @@
 const express = require("express");
-const songs = express.Router();
+const songs = express.Router({mergeParams: true});
 
 const {
   getAllSongs,
@@ -82,5 +82,7 @@ songs.put("/:id", async (req, res) => {
     res.json({ success: true, payload: updatedSong });
   }
 });
+
+// songs.get()
 
 module.exports = songs;
