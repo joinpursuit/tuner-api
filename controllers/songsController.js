@@ -1,5 +1,7 @@
 const express = require("express");
-const songs = express.Router();
+const songs = express.Router({
+    mergeParams: true
+});
 const {
     getAllSongs,
     getSong,
@@ -10,9 +12,13 @@ const {
 
 //index
 songs.get("/", async(req, res) => {
-    const allSongs = await getAllSongs();
-    res.json(allSongs);
-});
+        const songs = await getAllSongs(req.params.playlist_id);
+        res.json(songs)
+    })
+    // songs.get("/", async(req, res) => {
+    //     const allSongs = await getAllSongs();
+    //     res.json(allSongs);
+    // });
 
 //show
 songs.get("/:id", async(req, res) => {
@@ -46,7 +52,7 @@ songs.put("/:id", async(req, res) => {
     const { id } = req.params;
     const { body } = req;
     const { name, album, time, is_favorite } = body;
-    if (!this.name || !album || !time || is_favorite) {
+    if (!name || !album || !time || is_favorite) {
         res.status(422).json({
             error: true,
             success: false,
