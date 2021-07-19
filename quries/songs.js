@@ -23,6 +23,9 @@ const getSongs = async (id)=>{
 //CREATE
 const newSongs = async (song)=>{
     try {
+        if(!song.name){
+            throw `You must specify a value for "name" `
+        }
         const createSongs = await db.one(
         "INSERT INTO songs (name, artist, album, time, url, is_favorite) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", 
         [song.name, song.artist, song.album, song.time, song.url, song.is_favorite])
