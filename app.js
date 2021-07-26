@@ -1,5 +1,5 @@
 const express = require("express")
-const songsController = require ("./controllers/songsController")
+const playlistsController = require ("./controllers/playlistsController")
 const cors = require('cors')
 const app = express()
 
@@ -11,7 +11,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
     res.send("Welcome to Tuner")
 })
-app.use("/songs", songsController)
+app.use("/playlists", playlistsController)
 
 app.get("*", (req, res) => {
     res.status(404).send("Page Not Found")

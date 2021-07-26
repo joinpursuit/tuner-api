@@ -4,11 +4,21 @@ CREATE DATABASE songs_dev;
 
 \c songs_dev;
 
-CREATE TABLE songs (
-    id SERIAL,
-    name TEXT,
-    artist TEXT,
-     album TEXT,
-     time TEXT,
-    is_favorite BOOLEAN
+CREATE TABLE playlists (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL
+    -- song_id INT REFERENCES songs (id) 
+    -- ON DELETE CASCADE 
 );
+
+CREATE TABLE songs (
+    id  SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    artist TEXT NOT NULL,
+     album TEXT NOT NULL,
+     time TEXT NOT NULL,
+    is_favorite BOOLEAN,
+    playlist_id INT REFERENCES playlists (id)
+    ON DELETE CASCADE
+);
+

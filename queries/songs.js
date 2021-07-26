@@ -1,24 +1,29 @@
 const db = require("../db/config");
 
-const fetchALLSongs = async () => {
+const fetchALLSongs = async (playlist_id) => {
   try {
-    const allSongs = await db.any("SELECT * FROM songs");
-    return allSongs;
+    const allSongs = await db.any(
+      "SELECT * FROM songs WHERE playlist_id = $1",
+      playlist_id
+    );
+    return { success: true, payload: allSongs };
   } catch (error) {
     console.log(error);
+    return { success: false, payload: error };
   }
 };
 
 const getSong = async (id) => {
   try {
     const song = await db.one("SELECT * FROM songs WHERE id= $1", id);
-    return song;
+    return { success: true, payload: song };
   } catch (error) {
     console.log(error);
+    return { success: false, payload: error };
   }
 };
 
-const createSong = async (song) => {
+const createSong = async (playlist, playlist_id) => {
   try {
     // console.log(song);
     const newSong = await db.one(
@@ -39,17 +44,25 @@ const deleteSong = async (id) => {
   } catch (error) {
     return error;
   }
-}
+};
 
 const updateSong = async (id, song) => {
   try {
     const { name, artist, album, time, is_favorite } = song;
-    const query = "UPDATE songs SET name = $1, artist = $2, album = $3, time = $4, is_favorite = $5 WHERE id = $6 RETURNING *";
-    const result = await db.one(query, [name, artist, album, time, is_favorite, id]);
+    const query =
+      "UPDATE songs SET name = $1, artist = $2, album = $3, time = $4, is_favorite = $5 WHERE id = $6 RETURNING *";
+    const result = await db.one(query, [
+      name,
+      artist,
+      album,
+      time,
+      is_favorite,
+      id,
+    ]);
     return result;
   } catch (error) {
     return error;
   }
-}
+};
 
 module.exports = { fetchALLSongs, getSong, createSong, deleteSong, updateSong };
