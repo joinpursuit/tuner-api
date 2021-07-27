@@ -23,24 +23,10 @@ const getSong = async (id) => {
 // CREATE
 const createSong = async (song) => {
   try {
-    if (
-      !song.name ||
-      !song.artist ||
-      !song.album ||
-      !song.time ||
-      !song.is_favorite
-    ) {
+    if (!song.name || !song.artist || !song.album || !song.time) {
       throw "You must specify a value";
     }
-    if (
-      typeof song.name !== "string" ||
-      typeof song.artist !== "string" ||
-      typeof song.album !== "string" ||
-      typeof song.time !== "string" ||
-      typeof song.is_favorite !== "boolean"
-    ) {
-      throw "You must specify a string or boolean";
-    }
+
     const newSong = await db.one(
       "INSERT INTO songs (name, artist, album, time, is_favorite) VALUES($1, $2, $3, $4, $5) RETURNING *",
       [song.name, song.artist, song.album, song.time, song.is_favorite],
