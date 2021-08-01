@@ -23,17 +23,18 @@ songs.get("/:id", async (req, res) => {
         console.log(`Error: ${e}`)
         res.json({ Error: `${e}`})
     }
+
 })
 
 // Create
 songs.post("/", async (req, res) => {
     try {
         const newSong = await createSong(req.body)
-        if (newSong.id) {
+        if (newSong.payload.name) {
             res.json(newSong)
         } else {
             console.log(`Database Error: ${newSong}`)
-            throw `Error adding ${req.body} to the database`
+            throw `Error adding ${JSON.stringify(req.body)} to the database`
         }
     } catch (e) {
         console.log(`Error on create route: ${e}`)

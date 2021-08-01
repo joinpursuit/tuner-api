@@ -19,20 +19,40 @@ const getSong = async (id) => {
     }
 }
 
+
+// const newSong = await db.one(
+//     "INSERT INTO songs (name, artist, album, time, is_favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+//     [song.name, song.artist, song.album, song.time, song.is_favorite]
+// )
+
 const createSong = async (song) => {
     try {
         if (!song.name) {
             throw "You must specify a value for name"
         } else {
             const newSong = await db.one(
-                "INSERT INTO songs (name, artist, album, time, is_favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-                [song.name, song.artist, song.album, song.time, song.is_favorite]
+                "INSERT INTO songs \
+                (name, artist, album, time, is_favorite) \
+                VALUES (\
+                    ${song.name},\
+                    ${song.artist},\
+                    ${song.album},\
+                    ${song.time},\
+                    ${song.is_favorite}\
+                    ) RETURNING *;",
+                { song }
             )
-            return newSong
+            console.log('greetings from newSong in queries/songs.js')
+            return {
+                error: false,
+                payload: newSong
+            }
         }
-    } catch (e) {
-        console.log(`Error in queries: ${e}`)
-        return e
+    } catch (error) {
+        return {
+            error: true,
+            payload: error
+        }
     }
 }
 
@@ -56,7 +76,6 @@ const updateSong = async (song, id) => {
     } catch (e) {
         console.log(`Error in queries: ${e}`)
         return e
-        
     }
 }
 
