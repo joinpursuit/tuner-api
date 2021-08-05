@@ -29,8 +29,8 @@ const updateSong = async (id, body) => {
         [ name, album, time, is_favorite, id]
       );
       return updatedSong;
-    } catch (err) {
-      return err;
+    } catch (error) {
+      return error;
     }
   };
 

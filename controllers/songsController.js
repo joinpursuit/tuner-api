@@ -45,7 +45,6 @@ songs.put("/:id", async (req, res) => {
     const { id } = req.params;
     const { body } = req;
     const updatedSong = await updateSong(id, body);
-    console.log(updatedSong);
     res.status(200).json(updatedSong);
   });
 
