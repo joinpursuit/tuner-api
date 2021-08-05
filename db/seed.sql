@@ -8,3 +8,4 @@ VALUES ('Jodeci', 'Forever My Lady', '1991', false),
     ('DJ Khalid', 'Grateful', '2017', false),
     ('Anthony Santos', 'Golden', '2017', false),
     ('Davido', 'A Good Time', '2020', true);
+    
