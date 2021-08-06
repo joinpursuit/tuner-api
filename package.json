@@ -4,6 +4,9 @@
   "description": "notes: -create a sever.js file -npm init -y  -create app.js .env -npm install express dotenv cors -set up the PORT -create Controllers Files   songsControllers.js -create SQL Files   schema.sql   seed.sql   dbConfig.js -npm install pg-promise -create Quries Files   songs.js",
   "main": "server.js",
   "scripts": {
+    "db:init": "psql -U postgres -f db/schema.sql",
+    "db:seed": "psql -U postgres -f db/seed.sql",
+    "db:seed2": "psql -U postgres -f db/seed2.sql",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
@@ -22,6 +25,7 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "nodemon": "^2.0.12",
     "pg-promise": "^10.10.2"
   }
 }

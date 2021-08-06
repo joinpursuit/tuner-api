@@ -1,4 +1,5 @@
 const db = require("../db/dbConfig");
+const capitalize = require("../Capitalize");
 
 //READE
 const getAllSongs = async ()=>{
@@ -26,9 +27,10 @@ const newSongs = async (song)=>{
         if(!song.name){
             throw `You must specify a value for "name" `
         }
+        const capitali = capitalize(song.name)
         const createSongs = await db.one(
         "INSERT INTO songs (name, artist, album, time, url, is_favorite) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", 
-        [song.name, song.artist, song.album, song.time, song.url, song.is_favorite])
+        [capitali, song.artist, song.album, song.time, song.url, song.is_favorite])
         return createSongs
     } catch (error) {
         return error

@@ -11,5 +11,21 @@ CREATE TABLE songs(
     photo TEXT,
     time TEXT,
     url TEXT,
+    video TEXT,
     is_favorite BOOLEAN
 );
+
+-- DROP DATABASE IF EXISTS video_dev;
+-- CREATE DATABASE video_dev;
+
+-- \c video_dev;
+
+-- CREATE TABLE  video(
+--     id SERIAL PRIMARY KEY,
+--     name TEXT,
+--     artist TEXT,
+--     time TEXT,
+--     description TEXT,
+--     video TEXT,
+--     is_favorite BOOLEAN
+-- );
