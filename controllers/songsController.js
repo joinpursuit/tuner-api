@@ -8,13 +8,13 @@ const {
   updateSong,
 } = require("../queries/songs");
 
-//index
+// index
 songs.get("/", async (req, res) => {
   const allSongs = await getAllSongs();
   res.json(allSongs);
 });
 
-//show
+// show
 songs.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -29,7 +29,7 @@ songs.get("/:id", async (req, res) => {
   }
 });
 
-//create
+// create
 songs.post("/", async (req, res) => {
   try {
     const song = req.body;
@@ -40,7 +40,7 @@ songs.post("/", async (req, res) => {
   }
 });
 
-//update
+// update
 songs.put("/:id", async (req, res) => {
     const { id } = req.params;
     const { body } = req;
@@ -48,7 +48,7 @@ songs.put("/:id", async (req, res) => {
     res.status(200).json(updatedSong);
   });
 
-//delete
+// delete
 songs.delete("/:id", async (req, res) => {
     const { id } = req.params;
     const deletedSong = await deleteSong(id);
