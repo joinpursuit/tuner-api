@@ -1,6 +1,5 @@
 const express = require("express");
 const songs = express.Router();
-// const capitalize = require("../Capitalize");
 const { getAllSongs, getSongs, newSongs, deleteSong, updateSong } = require("../quries/songs");
 
 songs.get("/", async (req, res)=>{
@@ -21,6 +20,7 @@ songs.get("/:id", async (req,res)=>{
         res.status(404).json({error: "Id not found", message: `There is not an ${error}` })
     }
 })
+
 songs.post("/", async (req,res)=>{
     const {name} = req.body
 

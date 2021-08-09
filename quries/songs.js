@@ -31,8 +31,8 @@ const newSongs = async (song)=>{
         const art = capitalize(song.artist)
         const alb = capitalize(song.album)
         const createSongs = await db.one(
-        "INSERT INTO songs (name, artist, album, photo, time, mp3, is_favorite) VALUES ($1, $2, $3, $4, $5, $6, $7, ) RETURNING *", 
-        [capi, art, alb, song.photo, song.time, song.mp3, song.is_favorite])
+        "INSERT INTO songs (name, artist, album, photo, time, mp3, is_favorite) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *", 
+        [capi, art, alb, song.photo, song.time, song.mp3, song.is_favorite],);
         return createSongs
     } catch (error) {
         return error
