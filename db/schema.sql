@@ -10,8 +10,7 @@ CREATE TABLE songs(
     album TEXT,
     photo TEXT,
     time TEXT,
-    url TEXT,
-    video TEXT,
+    mp3 TEXT,
     is_favorite BOOLEAN
 );
 

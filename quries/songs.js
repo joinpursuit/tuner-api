@@ -27,10 +27,12 @@ const newSongs = async (song)=>{
         if(!song.name){
             throw `You must specify a value for "name" `
         }
-        const capitali = capitalize(song.name)
+        const capi = capitalize(song.name )
+        const art = capitalize(song.artist)
+        const alb = capitalize(song.album)
         const createSongs = await db.one(
-        "INSERT INTO songs (name, artist, album, time, url, is_favorite) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", 
-        [capitali, song.artist, song.album, song.time, song.url, song.is_favorite])
+        "INSERT INTO songs (name, artist, album, photo, time, mp3, is_favorite) VALUES ($1, $2, $3, $4, $5, $6, $7, ) RETURNING *", 
+        [capi, art, alb, song.photo, song.time, song.mp3, song.is_favorite])
         return createSongs
     } catch (error) {
         return error
@@ -51,12 +53,14 @@ const deleteSong = async (id)=>{
 const updateSong = async (id, song)=>{
     try {
         const update = await db.one(
-            "UPDATE songs SET name = $1, artist = $2, album = $3, time = $4, is_favorite = $5 WHERE id = $6 RETURNING *",
+            "UPDATE songs SET name = $1, artist = $2, album = $3, photo = $4, time = $5, mp3 = $6, is_favorite = $8 WHERE id = $9 RETURNING *",
             [
               song.name,
               song.artist,
               song.album,
+              song.photo,
               song.time,
+              song.mp3,
               song.is_favorite,
               id,
             ],

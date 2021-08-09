@@ -1,5 +1,6 @@
 const express = require("express");
 const songs = express.Router();
+// const capitalize = require("../Capitalize");
 const { getAllSongs, getSongs, newSongs, deleteSong, updateSong } = require("../quries/songs");
 
 songs.get("/", async (req, res)=>{
@@ -21,12 +22,22 @@ songs.get("/:id", async (req,res)=>{
     }
 })
 songs.post("/", async (req,res)=>{
+    const {name} = req.body
+
+    if(!req.body.name){
+        res.status(422).json({ success: false, payload: "include name field" })
+        return
+    }
+
     try {
         const createSongs = await newSongs(req.body)
-        if(createSongs["id"]){
-            res.json(createSongs)
+        if(name){
+            res.json({
+                success: true,
+                payload: createSongs
+            })
         }else{
-            throw req.body
+            throw createSongs
         }
     } catch (error) {
         res.status(404).json({error: "No new information has been add to DB ", message: `This post has end in a error ${error}` })
