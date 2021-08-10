@@ -1,9 +1,9 @@
-DROP DATABASE IF EXISTS songs_dev;
-CREATE DATABASE songs_dev;
+DROP TABLE IF EXISTS songs_dev CASCADE;
+-- CREATE DATABASE songs_dev;
 
-\c songs_dev;
+-- \c songs_dev;
 
-CREATE TABLE songs(
+CREATE TABLE songs_dev(
     id SERIAL PRIMARY KEY,
     name TEXT,
     artist TEXT,
@@ -16,9 +16,9 @@ CREATE TABLE songs(
 
 DROP TABLE IF EXISTS video_dev CASCADE;
 
-\c video_dev;
+-- \c video_dev;
 
-CREATE TABLE  video(
+CREATE TABLE  video_dev(
     id SERIAL PRIMARY KEY,
     name TEXT,
     artist TEXT,

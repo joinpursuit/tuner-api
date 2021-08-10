@@ -5,7 +5,7 @@ const imageCheck = require("../Imagen");
 //READE
 const getAllSongs = async () => {
   try {
-    const allSongs = await db.any("SELECT * FROM songs");
+    const allSongs = await db.any("SELECT * FROM songs_dev");
     return allSongs;
   } catch (err) {
     return err;
@@ -15,7 +15,7 @@ const getAllSongs = async () => {
 //SHOW
 const getSongs = async (id) => {
   try {
-    const oneSong = await db.one("SELECT * FROM songs WHERE id=$1", id);
+    const oneSong = await db.one("SELECT * FROM songs_dev WHERE id=$1", id);
     return oneSong;
   } catch (error) {
     return error;
@@ -34,7 +34,7 @@ const newSongs = async (song) => {
     const pho = imageCheck(song.photo);
     // const short = articule(song.artist)
     const createSongs = await db.one(
-      "INSERT INTO songs (name, artist, album, photo, time, mp3, is_favorite) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      "INSERT INTO songs_dev (name, artist, album, photo, time, mp3, is_favorite) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
       [capi, art, alb, pho, song.time, song.mp3, song.is_favorite]
     );
     return createSongs;
@@ -46,7 +46,7 @@ const newSongs = async (song) => {
 //DELETE
 const deleteSong = async (id) => {
   try {
-    const delet = await db.one("DELETE FROM songs WHERE id=$1 RETURNING *", id);
+    const delet = await db.one("DELETE FROM songs_dev WHERE id=$1 RETURNING *", id);
     return delet;
   } catch (error) {
     return error;
@@ -57,7 +57,7 @@ const deleteSong = async (id) => {
 const updateSong = async (id, song) => {
   try {
     const update = await db.one(
-      "UPDATE songs SET name = $1, artist = $2, album = $3, photo = $4, time = $5, mp3 = $6, is_favorite = $7 WHERE id = $8 RETURNING *",
+      "UPDATE songs_dev SET name = $1, artist = $2, album = $3, photo = $4, time = $5, mp3 = $6, is_favorite = $7 WHERE id = $8 RETURNING *",
       [ song.name, song.artist, song.album, song.photo, song.time, song.mp3, song.is_favorite, id]
     );
     return update;

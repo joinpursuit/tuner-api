@@ -1,6 +1,6 @@
-\c songs_dev;
+-- \c songs_dev;
 
-INSERT INTO songs (name, artist, album, photo, time, mp3, is_favorite) VALUES 
+INSERT INTO songs_dev (name, artist, album, photo, time, mp3, is_favorite) VALUES 
 ('Timbeano', 'Mixael Cabrera', 'Llego lo que te gusta...','https://images-na.ssl-images-amazon.com/images/I/21T4w9tdkUL._QL70_ML2_.jpg', '5:21','mp3_sorce/Te dejo libre.mp3', true),
 ('Te Dejo Libre', 'Manolito Simonet y su Trabuco', 'Te Dejo Libre', 'https://img.discogs.com/m5xZuieMqufVM7QDqaFRayyPGH4=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-14789303-1582071149-5838.jpeg.jpg', '5:52', 'https://music.youtube.com/watch?v=fYV2zXnvKWs&feature=share', true),
 ('Tres Dias', 'Havana D`Primera', 'Cantor del Pueblo', 'https://images-na.ssl-images-amazon.com/images/I/21T4w9tdkUL._QL70_ML2_.jpg', '5:21','https://music.youtube.com/watch?v=hCK-N8cKtns&feature=share', false),
@@ -30,8 +30,8 @@ INSERT INTO songs (name, artist, album, photo, time, mp3, is_favorite) VALUES
 ('Lola, Lola', 'David Calzado & Charanga Habanera', 'Tremendo Delirio', 'https://img.discogs.com/szjzrjcmhZF9LhouPXwJP73MRvQ=/fit-in/600x590/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-12308384-1576349005-3907.jpeg.jpg','6:32','https://music.youtube.com/watch?v=fYV2zXnvKWs&feature=share', true);
 
 
-\c video_dev;
+-- \c video_dev;
 
-INSERT INTO video (name, artist, description, time, video, is_favorite) VALUES 
+INSERT INTO video_dev (name, artist, description, time, video, is_favorite) VALUES 
     ('Timbeano', 'Mixael Cabrera', 'August 9, 2016' , 'Llego lo que te gusta...', 'https://youtu.be/fYV2zXnvKWs', false),
     ('Timbeano','Cabrera', 'August 9, 2016' , 'Llego lo que te gusta...', 'https://youtu.be/fYV2zXnvKWs', false);
