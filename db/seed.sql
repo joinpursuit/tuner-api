@@ -28,3 +28,10 @@ INSERT INTO songs (name, artist, album, photo, time, mp3, is_favorite) VALUES
 ('Perfect', 'Ed Sheeran', '+(Deluxe', 'https://images-na.ssl-images-amazon.com/images/I/81-5z3qzlKL._SL1425_.jpg', '4:23','https://music.youtube.com/watch?v=fYV2zXnvKWs&feature=share', false),
 ('Same Girl', 'R. Kelly & Usher', 'Double Up', 'https://images-na.ssl-images-amazon.com/images/I/81Q6HFhhc1L._SL1500_.jpg', '4:13','https://music.youtube.com/watch?v=fYV2zXnvKWs&feature=share', true),
 ('Lola, Lola', 'David Calzado & Charanga Habanera', 'Tremendo Delirio', 'https://img.discogs.com/szjzrjcmhZF9LhouPXwJP73MRvQ=/fit-in/600x590/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-12308384-1576349005-3907.jpeg.jpg','6:32','https://music.youtube.com/watch?v=fYV2zXnvKWs&feature=share', true);
+
+
+\c video_dev;
+
+INSERT INTO video (name, artist, description, time, video, is_favorite) VALUES 
+    ('Timbeano', 'Mixael Cabrera', 'August 9, 2016' , 'Llego lo que te gusta...', 'https://youtu.be/fYV2zXnvKWs', false),
+    ('Timbeano','Cabrera', 'August 9, 2016' , 'Llego lo que te gusta...', 'https://youtu.be/fYV2zXnvKWs', false);
