@@ -1,5 +1,6 @@
 const db = require("../db/dbConfig");
 const capitalize = require("../Capitalize");
+const imageCheck = require("../Imagen")
 
 //READE
 const getAllSongs = async ()=>{
@@ -30,9 +31,10 @@ const newSongs = async (song)=>{
         const capi = capitalize(song.name )
         const art = capitalize(song.artist)
         const alb = capitalize(song.album)
+        const pho = imageCheck(song.photo)
         const createSongs = await db.one(
         "INSERT INTO songs (name, artist, album, photo, time, mp3, is_favorite) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *", 
-        [capi, art, alb, song.photo, song.time, song.mp3, song.is_favorite],);
+        [capi, art, alb, pho, song.time, song.mp3, song.is_favorite],);
         return createSongs
     } catch (error) {
         return error
