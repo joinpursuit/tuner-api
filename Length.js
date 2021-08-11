@@ -1,14 +1,18 @@
 const articule = (artist) => {
-  let title = [];
-  let allt = artist.split("");
+  let title = "";
+  let sec = "";
+  let pro = "";
+  let allt = artist.split(" ");
 
   for (let i = 0; i < allt.length; i++) {
-    if (allt[i].length  <= 10) {
-      title.push(allt[i -6]);
+    if (allt[i].length > 3) {
+      title = allt[i - 3];
+    } else {
+      sec = artist;
     }
+    pro = title ? ( title + ' ...') : (sec);
   }
-  console.log(title.join('') + " ...");
-  return title.join("") + "...";
+  return pro
 };
-articule("robertto alvadsg fsdg")
+
 module.exports = articule;

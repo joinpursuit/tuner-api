@@ -1,6 +1,6 @@
 const express = require("express");
 const songs = express.Router();
-// const articule = require("../Length");
+const articule = require("../Length");
 const {
   getAllSongs,
   getSongs,
@@ -32,13 +32,13 @@ songs.get("/:id", async (req, res) => {
 
 songs.post("/", async (req, res) => {
   const { name } = req.body;
+  req.body.artist = articule(req.body.artist);
 
   if (!req.body.name) {
     res.status(422).json({ success: false, payload: "include name field" });
     return;
   }
 
-  //   req.body.artist = articule(req.body.artist);
   try {
     const createSongs = await newSongs(req.body);
     if (name) {
