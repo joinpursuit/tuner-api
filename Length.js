@@ -12,7 +12,8 @@ const articule = (artist) => {
     }
     pro = title ? ( title + ' ...') : (sec);
   }
+  console.log(pro);
   return pro
 };
-
+articule("alexander la rosa perez")
 module.exports = articule;
