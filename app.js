@@ -2,6 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const songsControllers = require("./controllers/songsControllers")
 const videoControllers = require("./controllers/videoControllers")
+const lyricControllers = require("./controllers/lyricControllers")
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.get("/", (req, res)=>{
 
 app.use("/songs", songsControllers);
 app.use("/videos", videoControllers);
+app.use("/lyrics", lyricControllers);
 
 app.get("*", (req, res)=>{
     res.status(404).send("Page not Found");

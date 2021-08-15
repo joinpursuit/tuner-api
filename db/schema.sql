@@ -27,3 +27,18 @@ CREATE TABLE  video_dev(
     video TEXT,
     is_favorite BOOLEAN
 );
+
+DROP TABLE IF EXISTS lyric_dev CASCADE;
+
+-- \c video_dev;
+
+CREATE TABLE  lyric_dev(
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    artist TEXT,
+    album TEXT,
+    released INTEGER,
+    lyricSpanish TEXT, 
+    lyricEnglish TEXT
+);
+
