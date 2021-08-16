@@ -38,7 +38,7 @@ CREATE TABLE  lyric_dev(
     artist TEXT,
     album TEXT,
     released INTEGER,
-    lyricSpanish TEXT, 
-    lyricEnglish TEXT
+    spanish TEXT, 
+    english TEXT
 );
 

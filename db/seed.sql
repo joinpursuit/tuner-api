@@ -37,13 +37,13 @@ INSERT INTO video_dev (name, artist, description, time, video, is_favorite) VALU
     ('Timbeano','Cabrera', 'August 9, 2016' , 'Llego lo que te gusta...', 'https://youtu.be/fYV2zXnvKWs', false);
 
 
-INSERT INTO lyric_dev( name, artist, album, released, lyricSpanish, lyricEnglish) VALUES 
+INSERT INTO lyric_dev( name, artist, album, released, spanish, english) VALUES 
     ('Te Dejo Libre', 'Manolito Simonet y su Trabuco', 'Te Dejo Libre', 2018, 'Querido amor con todo lo que duele
 Decir adiós a lo que más se quiere
-Me dejaré de ti aunque me muera
-Porque yo creo que eso es lo que deseas
-No quiero más sentirme mal querido (¡¿cómo?!)
-Pidiendo amor como cualquier mendigo
+Me dejaré de ti aunque me muera 
+Porque yo creo que eso es lo que deseas 
+No quiero más sentirme mal querido (¡¿cómo?!) 
+Pidiendo amor como cualquier mendigo 
 Bastante he soportado tus desprecios
 Tu altanería y el descaro de tus besos
 Te dejo libre de hoy en adelante
