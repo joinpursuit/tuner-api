@@ -2,7 +2,7 @@ const db = require("../db/dbConfig");
 // const AlbumCheck = require("../AlbumImg")
 
 //READE
-const getAllAlbums = async (covers) => {
+const getAllAlbums = async () => {
     try {
       const allAlbums = await db.any("SELECT * FROM albums_dev");
       return allAlbums;
