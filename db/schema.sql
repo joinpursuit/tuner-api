@@ -44,7 +44,7 @@ CREATE TABLE  albums_dev(
    id SERIAL PRIMARY KEY,
    about TEXT,
    about2 TEXT,
-   members TEXT,
+   banda TEXT,
    name TEXT,
    years INTEGER,
    covers TEXT
