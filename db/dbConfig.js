@@ -1,4 +1,5 @@
 const pgp = require("pg-promise")();
+require("dotenv").config();
 
 // connection object
 const cn = {
