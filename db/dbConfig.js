@@ -10,3 +10,5 @@ const connection = {
 };
 
 const database = pgPromise(connection);
+
+module.exports = database;
