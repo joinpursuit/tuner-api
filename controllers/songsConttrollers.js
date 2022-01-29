@@ -1,8 +1,10 @@
 const express = require("express");
 const songs = express.Router();
+const { getAllSongs, addNewSongs } = require("../queries/songs");
 
-songs.get("/", (_, response) => {
-  response.json(songsArray);
+songs.get("/", async (_, response) => {
+  const songs = await getAllSongs();
+  response.json(songs);
 });
 
 songs.get("/:index", (require, response) => {
