@@ -8,9 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// const songsController = require("./controllers/songsController");
+const songsController = require("./controllers/songsController");
 
-// app.use("/songs", songsController);
+app.use("/songs", songsController);
 
 app.get('/', (_, response) => {
     response.status(200).send("Welcome to our favorite playlist")

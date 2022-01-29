@@ -15,5 +15,5 @@ CREATE TABLE
         artist TEXT NOT NULL,
         album TEXT NOT NULL,
         time TEXT NOT NULL,
-        is_favorite: BOOLEAN,
+        is_favorite BOOLEAN
 );
