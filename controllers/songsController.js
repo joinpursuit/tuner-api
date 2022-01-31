@@ -39,4 +39,12 @@ songs.post("/", async (req, res) =>{
 //check if she wants track or song. 
 
 //have partner double check this creat song post
+
+songs.delete("/id", async (req, res)=>{
+    const {id} = req.params;
+    const deleteSong = await deleteSong(id)
+    res.status(200).json(deleteSong)
+})
+
+// am I supposed to be using 200 for all of these? consult study guide. 
 module.exports = songs; 

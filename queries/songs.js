@@ -33,4 +33,17 @@ const createSong = async (newSong) => {
 // for createSongs might need Value but unsure how to add it. Go look at anime project to see if we did this before. 
 
 //why didn't it work when I just wanted to write "new"
-module.exports = {getAllSongs, getSong, createSong} ;
+
+const deleteSongs = async (id) => {
+  try{
+    const deleteSong = await db.one(
+      "DELETE FROM songs WHERE id", id
+    )
+    return deleteSong
+  }catch (error){
+    console.log(error)
+  }
+}
+
+// I think we might need a value cause how else will it know what song to delete and should it return all songs after? 
+module.exports = {getAllSongs, getSong, createSong, deleteSongs} ;
