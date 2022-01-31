@@ -1,14 +1,14 @@
 const db = require("../db/dbConfig.js");
 
-const getAllsongs = async ()=>{
+const getAllSongs = async ()=>{
     try{
-        const allsongs = await db.any("SELECT * FROM songs;");
-        return allsongs;
+        const allSongs = await db.any("SELECT * FROM songs;");
+        return allSongs;
     } catch(err){
         return err;
     }
 }
 
 module.exports = {
-    getAllsongs
+    getAllSongs
 };

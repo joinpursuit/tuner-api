@@ -1,9 +1,9 @@
 DROP DATABASE IF EXISTS tuner_dev;
 CREATE DATABASE tuner_dev;
 
-\c bookmarks_dev;
+\c tuner_dev;
 
-CREATE TABLE bookmarks (
+CREATE TABLE songs (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     artist TEXT,
