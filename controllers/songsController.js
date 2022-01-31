@@ -15,8 +15,28 @@ songs.get("/:id", async (req, res) =>{
     if (song) {
         res.status(200).json(song)
     }else{
-        res.status(404).json({ Error: `Page not found!` });
+        res.status(404).json({ error: `Page not found!` });
     }
 })
 
+songs.post("/", async (req, res) =>{
+    const newTrack = req.body
+    const {body} = req
+    const {name, artist, album,time,} = body
+    if(name|| artist || album || time){
+        res.status(200).json(newTrack)
+    }else{
+        res.status(400).json({error: `Complete all fields`})
+    }
+})
+
+//unsure what to put for create song since the songs have a time. consult with sev. 
+
+//honestly not sure if that {body} = request is correct syntax check with sev
+
+// this is probably too many const... refactor later. 
+
+//check if she wants track or song. 
+
+//have partner double check this creat song post
 module.exports = songs; 
