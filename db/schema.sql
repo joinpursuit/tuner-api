@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS my_playlist
+
 CREATE DATABASE my_playlist;
 
 \c my_playlist
