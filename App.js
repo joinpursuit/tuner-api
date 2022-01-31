@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 const songsController = require("./controllers/songsController");
-app.use("/anime", animeController);
+app.use("/songs", songsController);
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to our the tuner Api");
