@@ -6,4 +6,6 @@ CREATE TABLE songs (
     name TEXT,
     artist TEXT, 
     album TEXT,
-    time TEXT, is_favorite  BOOLEAN);
+    time TEXT, 
+    is_favorite  BOOLEAN
+);

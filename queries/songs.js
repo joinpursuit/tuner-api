@@ -3,7 +3,7 @@ const database = require("../database/dbConfig");
 // this function queries our db for us, which can take a while so we want to wait for it to finish.
 const getAllSongs = async () => {
   try {
-    const songs = await database.any("SELECT * FROM anime");
+    const songs = await database.any("SELECT * FROM songs");
     return songs;
   } catch (err) {
     return err;

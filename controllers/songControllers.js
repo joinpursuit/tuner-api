@@ -1,12 +1,13 @@
 const express = require("express");
-
 const songs = express.Router();
+const { getAllSongs, addNewSong } = require("../queries/songs");
 
-songs.get("/", (_, response) => {
-  response.json(songsArray);
+songs.get("/", async (_, response) => {
+  const songs = await getAllSongs();
+  response.json(songs);
 });
 
-songs.get("/:index", (request,\ response) => {
+songs.get("/:index", (request, response) => {
   songsArray[request.params.index]
     ? response.json(songsArray[request.params.index])
     : response.status(404).json({ error: "Page not found" });
