@@ -15,4 +15,8 @@ INSERT INTO songs (name, album, time, is_favorite) VALUES
 ('Loyal', 'X', '4 min 24 sec', true),
 ('Forever', 'Changes', '3 min 39 sec', true),
 ('Iffy', 'Iffy - Single', '2 min 53 sec', true),
-('bad guy', 'When We All Fall Asleep, Where Do We Go?', '3 min 14 sec', true);
+('bad guy', 'When We All Fall Asleep, Where Do We Go?', '3 min 14 sec', true),
+('Lonely Together', 'AVICI', '3 min 1 sec', false),
+('Marry Me', 'Talk Dirty', '3 min 45 sec', true),
+('Memories', 'One Love', '3 min 30 sec', true),
+('Lets Go', '18 Months', '3 min 52 sec', false);
