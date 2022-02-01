@@ -29,7 +29,8 @@ songs.get("/:id", async (req, res)=>{
         if (song.id) {
             res.status(200).json(song);
         } else {
-            res.status(404).json({ error: "Song not found!" })
+            // res.status(404).json({ error: "Song not found!" })
+            res.redirect("/not-found")
         }
     } catch (err) {
         console.log(err);
