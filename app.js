@@ -1,6 +1,6 @@
 const express = require("express");
 const cors =require("cors");
-const songController = require("./controllers/songsController.js");
+const songController = require("./controllers/songController.js");
 const app = express();
 
 app.use(cors());
