@@ -1,8 +1,5 @@
 // imports pg promist
 const pgp = require("pg-promise")();
-// gives access to env file
-require("dotenv").config();
-
 // access and cennect env
 const cn = {
   host: process.env.PG_HOST,
