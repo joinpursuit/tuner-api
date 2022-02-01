@@ -6,7 +6,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use('/song', songsController)
+app.use('/songs', songsController)
 
 app.get("/", (request, response) => {
     response.send("Welcome to Tuner")
