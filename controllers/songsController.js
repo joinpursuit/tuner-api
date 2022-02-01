@@ -3,7 +3,7 @@ const songs = express.Router();
 // import queries
 const { getAllSongs, getSong, createSong } = require("../queries/songs.js");
 // import validations
-const { checkName, checkAlbum, checkTime, checkBoolean } = require("../validations/checkSongs");
+const { checkName, checkArtist, checkAlbum, checkTime, checkBoolean } = require("../validations/checkSongs");
 
 // INDEX
 // new variable `allSongs` which is an array of songs objects. We have to await for the value to come back from the database.
@@ -37,7 +37,7 @@ songs.get("/:id", async (req, res)=>{
 })
 
 // CREATE
-songs.post("/", checkName, checkAlbum, checkTime, checkBoolean, async (req, res)=>{
+songs.post("/", checkName, checkArtist, checkAlbum, checkTime, checkBoolean, async (req, res)=>{
     try {
         const createdSong = await createSong(req.body);
         if (createdSong) {

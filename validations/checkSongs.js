@@ -7,6 +7,15 @@ const checkName = (req, res, next) => {
     }
 };
 
+const checkArtist = (req, res, next) => {
+    if (req.body.artist) {
+        next();
+    } else {
+        res.status(400).json({ error: "Album is required" });
+    }
+}
+
+
 const checkAlbum = (req, res, next) => {
     if (req.body.album) {
         next();
@@ -34,6 +43,7 @@ const checkBoolean = (req, res, next) => {
 
 module.exports = { 
     checkName,
+    checkArtist,
     checkAlbum,
     checkTime,
     checkBoolean
