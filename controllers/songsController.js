@@ -3,6 +3,9 @@ const songs = express.Router();
 // import queries
 const { getAllSongs, getSong, createSong } = require("../queries/songs.js");
 
+// import validations
+const { checkName, checkAlbum, checkTime, checkBoolean } = require("../validations/checkSongs");
+
 // INDEX
 // new variable `allSongs` which is an array of songs objects. We have to await for the value to come back from the database.
 songs.get("/", async (req, res)=>{
@@ -34,10 +37,10 @@ songs.get("/:id", async (req, res)=>{
 })
 
 // CREATE
-songs.post("/", async (req, res)=>{
+songs.post("/", checkName, checkAlbum, checkTime, checkBoolean, async (req, res)=>{
     try {
         const createdSong = await createSong(req.body);
-        if (createdSong.id) {
+        if (createdSong) {
             res.status(200).json(createdSong);
         } else {
             res.status(500).json({ error: "Song creation error. Missing field" })
