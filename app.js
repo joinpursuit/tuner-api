@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const router = require("./controllers/songsController.js");
 
 //Middlewares
@@ -7,7 +8,9 @@ app.use(express.json());
 app.use(cors());
 
 //routes HOME
-app.get("WELCOME TO TUNER");
+app.get("/", (req, res) => {
+  res.send("WELCOME TO TUNER");
+});
 //ROUTES
 app.use("/songs", router);
 //404
