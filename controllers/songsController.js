@@ -1,5 +1,5 @@
 import express from "express"
-import getAllSongs from "../query/songs.js"
+import getAllSongs, {getSong, createSong} from "../query/songs.js"
 const songs = express.Router()
 
 
@@ -9,9 +9,17 @@ songs.get('/', async (request, response) => {
     response.status(200).json(songs)
 })
 
-songs.get('/:index', (request, response) => {
-    const {index} = request.params
-    response.send(index)
+songs.get('/:id', async (request, response) => {
+    console.log("GET /:id")
+    const {id} = request.params
+    const song = await getSong(id)
+    response.status(200).json(song)
+})
+
+songs.post('/', async (request, response) => {
+    console.log("POST /song")
+    const song = await createSong(request.body)
+    response.status(200).json(song)
 })
 
 
