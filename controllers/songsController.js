@@ -2,7 +2,6 @@ const express = require("express");
 const songs = express.Router();
 // import queries
 const { getAllSongs, getSong, createSong } = require("../queries/songs.js");
-
 // import validations
 const { checkName, checkAlbum, checkTime, checkBoolean } = require("../validations/checkSongs");
 
