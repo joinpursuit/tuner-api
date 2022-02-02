@@ -1,7 +1,7 @@
 const express = require("express");
 const songs = express.Router();
 // import queries
-const { getAllSongs, getSong, createSong } = require("../queries/songs.js");
+const { getAllSongs, getSong, createSong, deleteSong } = require("../queries/songs.js");
 // import validations
 const { checkName, checkArtist, checkAlbum, checkTime, checkBoolean } = require("../validations/checkSongs");
 
@@ -49,5 +49,18 @@ songs.post("/", checkName, checkArtist, checkAlbum, checkTime, checkBoolean, asy
         res.status(400).json({ error: "Song was not created!" })
     }
 })
+
+// DELETE
+songs.delete("/:id", async (req, res)=>{
+    const { id } = req.params;
+        const deletedSong = await deleteSong(id);
+        if (deletedSong.id) {
+            res.status(200).json(deletedSong);
+        } else {
+            res.status(404).json({ error: "Song not found!" });
+        }
+})
+
+// UPDATE
 
 module.exports = songs;
