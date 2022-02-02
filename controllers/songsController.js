@@ -1,6 +1,6 @@
 const express = require("express");
 const songs = express.Router();
-const { getAllSongs } = require("../queries/songs.js");
+const { getAllSongs, getSong } = require("../queries/songs.js");
 
 // for all the songs ...
 songs.get("/", async (req, res) => {
@@ -12,6 +12,20 @@ songs.get("/", async (req, res) => {
 			res.status(500).json({
 				error: "server error",
 			});
+		}
+	} catch (err) {
+		console.log(err);
+	}
+});
+
+songs.get("/:id", async (req, res) => {
+	const { id } = req.params;
+	try {
+		const songs = await getSong(id);
+		if (songs.id) {
+			res.status(200).json(songs);
+		} else {
+			res.status(500).json({ error: "Song Not Found" });
 		}
 	} catch (err) {
 		console.log(err);
