@@ -1,0 +1,15 @@
+GET http://localhost:3005/songs
+
+###
+
+POST http://localhost:3005/songs
+Content-Type: application/json
+
+{
+    "name": 0,
+    "artist": "Childish Gambino",
+    "album": "Because the Internet",
+    "time": "3:05",
+    "is_favorite": false,
+    "lmaoiooo": "jhaafdsf"
+}
