@@ -1,8 +1,18 @@
 // DEPENDENCIES
 const express = require("express");
 const songs = express.Router();
-const { getAllSongs, getSong, createSong } = require("../../queries/songs");
-const { checkName, checkBoolean } = require("../../validations/checkSongs");
+const {
+  getAllSongs,
+  getSong,
+  createSong,
+  deleteSong,
+  updateSongs,
+} = require("../../queries/songs");
+const {
+  checkName,
+  checkBoolean,
+  validateURL,
+} = require("../../validations/checkSongs");
 
 // SHOW
 songs.get("/:id", async (req, res) => {
@@ -33,6 +43,24 @@ songs.post("/", checkBoolean, checkName, async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error });
   }
+});
+
+// DELETE
+songs.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const deletedSong = await deleteSong(id);
+  if (deletedSong.id) {
+    res.status(200).json(deletedSong);
+  } else {
+    res.status(404).json("Bookmark not found");
+  }
+});
+
+// UPDATE
+songs.put("/:id", checkName, checkBoolean, async (req, res) => {
+  const { id } = req.params;
+  const updatedSong = await updateSongs(id, req.body);
+  res.status(200).json(updatedSong);
 });
 
 // EXPORT
