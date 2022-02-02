@@ -1,37 +1,70 @@
-const { request } = require("express");
 const express = require("express");
-const songs = express.Router();
-const { getAllSongs, addNewSongs } = require("../queries/songs");
 
+const {
+  getAllSongs,
+  getSong,
+  addNewSongs,
+  deleteSong,
+  updateSong,
+} = require("../queries/songs");
+
+const songs = express.Router();
+
+// All Songs
 songs.get("/", async (_, response) => {
   console.log("GET request to /songs");
   const allSongs = await getAllSongs();
+  if (getAllSongs.length === 0) {
+    response.status(500).json({ error: "server error" });
+
+    return;
+  }
 
   response.status(200).json(allSongs);
 });
 
-songs.get("/:id", async (_, response) => {
+// Show Song
+songs.get("/:id", async (request, response) => {
   console.log("GET request to /songs/:id");
-  const song = await getAllSongs(request.params.id);
-
-  response.status(200).json(song);
-});
-
-songs.post("/", (request, response) => {
-  songsArray.push(require.body);
-  response.json(songsArray);
-});
-
-songs.delete("/:index", (request, response) => {
-  if (songsArray[require.params.index]) {
-    const [deletedSongs] = songsArray.splice(require.params.index, 1);
-    response.status(200).json(songsArray);
+  const song = await getSong(request.params.id);
+  if (song.id) {
+    response.status(200).json(song);
+  } else {
+    response.status(404).json("Song does not exist");
   }
 });
 
-songs.put("/", async (request, response) => {
-  const song = await addNewSongs(request.body);
-  response.status(200).json(song);
+// Create Song
+songs.post("/", async (request, response) => {
+  try {
+    console.log("POST request to /songs");
+    const newSong = await addNewSongs(request.body);
+    response.json(newSong);
+  } catch (error) {
+    response.status(400).json({ error: error });
+  }
+});
+
+// Delete Song
+songs.delete("/:id", async (request, response) => {
+  console.log("DELETE request to /songs/:id");
+  const deletedSong = await deleteSong(request.params.body);
+  if (deleteSong.id) {
+    response.status(200).json(deletedSong);
+  } else {
+    response.status(404).json("Song does not exist.");
+  }
+});
+
+// Update Song
+songs.put("/:id", async (request, response) => {
+  console.log("UPDATE request to /songs/:id");
+  const updatedSong = await updateSong(request.params.id, request.body);
+  if (updatedSong.id) {
+    response.status(200).json(updatedSong);
+  } else {
+    response.status(404).json("Song does not exist.");
+  }
 });
 
 module.exports = songs;
