@@ -2,6 +2,11 @@ const e = require("express");
 const express = require("express");
 const router = express.Router();
 const { getAllSongs, oneSong, createSong } = require("../queries/songs");
+const {
+  checkNameArtistAlbum,
+  isFavorite,
+  checkTimeFormat,
+} = require("../validation/songs.js");
 //get all songs
 router.get("/", async (req, res) => {
   const songs = await getAllSongs();
@@ -16,9 +21,15 @@ router.get("/:id", async (req, res) => {
   else res.redirect("/*");
 });
 // create a song
-router.post("/", async (req, res) => {
-  const createdSong = await createSong(req.body);
-  if (createdSong.id) res.json(createdSong);
-  else res.redirect("/*");
-});
+router.post(
+  "/",
+  checkNameArtistAlbum,
+  checkTimeFormat,
+  isFavorite,
+  async (req, res) => {
+    const createdSong = await createSong(req.body);
+    if (createdSong.id) res.json(createdSong);
+    else res.redirect("/*");
+  }
+);
 module.exports = router;
