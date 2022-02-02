@@ -1,5 +1,4 @@
 // bring connection to database
-const { errors } = require("spex");
 const db = require("../db/dbConfig.js");
 
 /* Getting ALL songs */
