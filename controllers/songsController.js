@@ -5,6 +5,7 @@ const {
 	getSong,
 	createSong,
 	deleteSong,
+	updateSong,
 } = require("../queries/songs.js");
 
 // for all the songs ...
@@ -55,7 +56,7 @@ songs.post("/", async (req, res) => {
 });
 
 // deleting the song
-songs.put("/:id", async (req, res) => {
+songs.delete("/:id", async (req, res) => {
 	const { id } = req.params;
 
 	const deletedSong = await deleteSong(id);
@@ -66,4 +67,17 @@ songs.put("/:id", async (req, res) => {
 	}
 });
 
-module.exports = songs;
+// updating the song
+
+songs.put("/:id", async (req, res) => {
+	const { id } = req.params;
+	const { body } = req;
+	const updatedSong = await updateSong(id, body);
+	if (updatedSong.id) {
+		res.status(200).json(updatedSong);
+	} else {
+		res.status(404).json({ error: "Bookmark no found" });
+	}
+});
+
+songs.module.exports = songs;
