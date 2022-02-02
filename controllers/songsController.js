@@ -14,9 +14,9 @@ const { getAllSongs,
 songsRoute.get('/', async (request, response) => {
     const allSongs = await getAllSongs();
     
-    allSongs
+    allSongs.length !== 0
     ? response.status(200).json(allSongs)
-    : response.status(404).json({ error: `data at id: error fetching data` });
+    : response.status(404).json({ error: `error fetching data` });
 });
 
 songsRoute.get('/:id', async (request, response) => {
@@ -25,18 +25,13 @@ songsRoute.get('/:id', async (request, response) => {
     theSong.id
     ? response.status(200).json(theSong)
     : response.status(404).json({ error: `data at id: ${request.params.id} not found` });
-    // how can I redirect to the 404 page on my app.js
 });
-
-// wait a min,
-// how are we making these requests without axios??
 
 songsRoute.post('/', async (request, response) => {
     const postedSong = await postAndGet(request.body);
-    const allSongs = await getAllSongs();
     
     postedSong.id
-    ? response.status(201).json(allSongs)
+    ? response.status(201).json(postedSong)
     : response.status(404).json({ error: `wasn't able to post the content` });
 });
 
@@ -45,7 +40,7 @@ songsRoute.delete('/:id', async (request, response) => {
     
     deletedSong.id
     ? response.status(200).json(deletedSong)
-    : response.status(404).json({ error: `we're sorry we couldn't delete the data` });
+    : response.status(404).json({ error: `data at id: ${id} does not exist` });
 });
 
 songsRoute.put('/:id', async (request, response) => {
