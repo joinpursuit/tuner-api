@@ -39,9 +39,8 @@ songs.get("/:id", async (request, response) => {
       response.status(200).json(updatedSong);
     } catch (error) {
       console.log(error)
-      return error.message;
+      response.status(404).json({ error: "Song not found" });
     }
-    // response.status(404).json({ error: "Song not found" });
   });
 
 
