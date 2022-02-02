@@ -46,7 +46,7 @@ songs.post("/", async (req, res) => {
 	try {
 		const oneSong = await createSong(body);
 		if (oneSong.id) {
-			res.status(200).json(songs);
+			res.status(200).json(oneSong);
 		} else {
 			res.status(500).json({ error: "Song Creating Error" });
 		}
@@ -80,4 +80,4 @@ songs.put("/:id", async (req, res) => {
 	}
 });
 
-songs.module.exports = songs;
+module.exports = songs;
