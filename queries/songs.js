@@ -34,8 +34,23 @@ const createSong = async (song) => {
 	}
 };
 
+// delete metho d
+
+const deleteSong = async (id) => {
+	try {
+		const dSong = await db.one(
+			"DELETE FROM songs WHERE id = $1 RETURNING *",
+			id
+		);
+		return dSong;
+	} catch (err) {
+		return err;
+	}
+};
+
 module.exports = {
 	getAllSongs,
 	getSong,
 	createSong,
+	deleteSong,
 };
