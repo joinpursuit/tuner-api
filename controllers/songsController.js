@@ -25,11 +25,8 @@ songsRoute.get('/:id', async (request, response) => {
     theSong.length !== 0
     ? response.status(200).json(theSong)
     : response.status(404).json({ error: `data at id: ${request.params.id} not found` });
-    // how can I redirect to the 404 page on my app.js
+    // should I redirect to the 404 page on my app.js (readme)
 });
-
-// wait a min,
-// how are we making these requests without axios??
 
 songsRoute.post('/', async (request, response) => {
     const postedSong = await postAndGet(request.body);
