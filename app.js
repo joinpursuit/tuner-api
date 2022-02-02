@@ -13,7 +13,7 @@ require("dotenv").config();
 
 //ROUTES
 app.get("/", (req, res) => {
-	res.send("welcome to Tuner");
+	res.send("Welcome To Tuner");
 });
 
 // Songs ROUTES

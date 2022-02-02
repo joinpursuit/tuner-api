@@ -1,26 +1,26 @@
 {
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^14.3.2",
-    "express": "^4.17.2",
-    "pg-promise": "^10.11.1"
-  },
-  "scripts": {
-    "start": "node server.js"
-  },
-  "name": "tuner-api",
-  "description": "Let's make our own music playlist app!",
-  "version": "1.0.0",
-  "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/toplouie1/tuner-api.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/toplouie1/tuner-api/issues"
-  },
-  "homepage": "https://github.com/toplouie1/tuner-api#readme"
+	"name": "tuner-api",
+	"description": "Let's make our own music playlist app!",
+	"version": "1.0.0",
+	"main": "app.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/toplouie1/tuner-api.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/toplouie1/tuner-api/issues"
+	},
+	"homepage": "https://github.com/toplouie1/tuner-api#readme",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"dotenv": "^14.3.2",
+		"express": "^4.17.2",
+		"pg-promise": "^10.11.1"
+	}
 }
