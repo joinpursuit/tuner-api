@@ -31,4 +31,24 @@ export const createSong = async ({name, artist, album, time, is_favorite}) => {
     
 }
 
+export const deleteSong = async (id) => {
+    try {
+        const song = await db.one("DELETE FROM songs WHERE id=$1 RETURNING *", id)
+        return song
+    }
+    catch (err){
+        return err
+    }
+}
+
+export const updateSong = async ({name, artist, album, time, is_favorite}, id) =>{
+    try{
+        const song = await db.one("UPDATE songs SET name=$1, artist=$2, album=$3, time=$4, is_favorite=$5 WHERE id=$6 RETURNING *", [name, artist, album, time, is_favorite, id])
+        return song
+    }
+    catch(err){
+        return err
+    }
+}
+
 export default getAllSongs
