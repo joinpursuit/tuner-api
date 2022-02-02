@@ -1,10 +1,4 @@
 {
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^14.3.2",
-    "express": "^4.17.2",
-    "pg-promise": "^10.11.1"
-  },
   "engines": {
     "node": "17.3.0"
   },
@@ -17,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dbinit": "psql -U postgres -f db/schema.sql",
     "dbseed": "psql -U postgres -f db/seed.sql",
-    "start": "server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -29,5 +23,11 @@
   "bugs": {
     "url": "https://github.com/kisublee/tuner-api/issues"
   },
-  "homepage": "https://github.com/kisublee/tuner-api#readme"
+  "homepage": "https://github.com/kisublee/tuner-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "pg-promise": "^10.11.1"
+  }
 }
