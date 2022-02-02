@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 //app.use declares that the path /songs uses the routing methods in the controllers file
 app.use("/songs", songsController);
