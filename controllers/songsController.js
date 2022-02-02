@@ -1,5 +1,5 @@
 import express from "express"
-import getAllSongs, {getSong, createSong} from "../query/songs.js"
+import getAllSongs, {getSong, createSong, deleteSong, updateSong} from "../query/songs.js"
 const songs = express.Router()
 
 
@@ -19,6 +19,21 @@ songs.get('/:id', async (request, response) => {
 songs.post('/', async (request, response) => {
     console.log("POST /song")
     const song = await createSong(request.body)
+    response.status(200).json(song)
+})
+
+songs.delete('/:id', async (request, response) => {
+    console.log("Delete /:id")
+    const {id} = request.params
+    const song = await deleteSong(id)
+    response.status(200).json(song)
+})
+
+songs.put('/:id', async (request, response) => {
+    console.log("Put /:id")
+    const {id} = request.params
+    console.log(request.body)
+    const song = await updateSong(request.body, id)
     response.status(200).json(song)
 })
 
