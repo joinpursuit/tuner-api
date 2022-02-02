@@ -5,6 +5,9 @@
     "express": "^4.17.2",
     "pg-promise": "^10.11.1"
   },
+  "engines": {
+    "node": "17.3.0"
+  },
   "name": "tuner-api",
   "description": "Let's make our own music playlist app!",
   "version": "1.0.0",
@@ -13,7 +16,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dbinit": "psql -U postgres -f db/schema.sql",
-    "dbseed": "psql -U postgres -f db/seed.sql"
+    "dbseed": "psql -U postgres -f db/seed.sql",
+    "start": "server.js"
   },
   "repository": {
     "type": "git",
