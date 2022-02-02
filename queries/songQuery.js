@@ -55,15 +55,15 @@ const deleteAndGet = async (id) => {
 
 const updateAndGet = async (id, { title, artist, album, length, is_favorite }) => {
     try {
-        const updatedSong = await database.one(`
+        const updatedSong = await database.any(`
             UPDATE songs_tb 
             SET 
-                title = $1, 
-                artist = $2, 
-                album = $3, 
-                length = $4, 
-                is_favorite = $5 
-            WHERE id = $6 RETURNING * ; 
+                title=$1, 
+                artist=$2, 
+                album=$3, 
+                length=$4, 
+                is_favorite=$5 
+            WHERE id=$6 RETURNING * ; 
         `, title, artist, album, length, is_favorite, id);
         return updatedSong;
     } catch(error) {
