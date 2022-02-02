@@ -1,7 +1,7 @@
 const express = require("express");
 const songs = express.Router();
 // import queries
-const { getAllSongs, getSong, createSong, deleteSong } = require("../queries/songs.js");
+const { getAllSongs, getSong, createSong, deleteSong, updateSong } = require("../queries/songs.js");
 // import validations
 const { checkName, checkArtist, checkAlbum, checkTime, checkBoolean } = require("../validations/checkSongs");
 
@@ -62,5 +62,15 @@ songs.delete("/:id", async (req, res)=>{
 })
 
 // UPDATE
+songs.put("/:id", async (req, res)=>{
+    const { id } = req.params;
+    const { body } = req;
+    const updatedSong = await updateSong(id, body);
+    if (updatedSong.id) {
+        res.status(200).json(updatedSong);
+    } else {
+        res.status(404).json({ error: "Song not found" });
+    }
+})
 
 module.exports = songs;

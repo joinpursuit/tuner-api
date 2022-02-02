@@ -50,6 +50,18 @@ const deleteSong = async (id) => {
 }
 
 // UPDATE
+const updateSong = async (id, song) => {
+    try {
+        const updatedSong = await db.one(
+            "UPDATE songs SET name=$1, artist=$2, album=$3, time=$4, is_favorite=$5 WHERE id=$6 RETURNING *",
+            [song.name, song.artist, song.album, song.time, song.is_favorite, id]
+        );
+        return updatedSong;
+        } catch (error) {
+        return (error);
+    };
+}
+
 
 // returning an object because we are going to return more than one function
 module.exports = {
@@ -57,4 +69,5 @@ module.exports = {
     getSong,
     createSong,
     deleteSong,
+    updateSong,
 };
