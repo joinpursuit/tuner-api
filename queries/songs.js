@@ -3,26 +3,33 @@ const db = require("../db/dbConfig");
 const getAllSongs = async () => {
   try {
     const allSongsQuery = await db.any("SELECT * FROM songs");
-    console.log(`this belongs here ${allSongsQuery}`);
     return allSongsQuery;
   } catch (error) {
     return error;
   }
 };
 
-module.exports = { getAllSongs };
+const getASong = async (id) => {
+  try {
+    const aSongQuery = await db.one("SELECT * FROM songs WHERE id=$1", id);
+    return aSongQuery;
+  } catch (error) {
+    return error;
+  }
+};
 
-// const db = require("../db/dbConfig");
+const addASong = async (song) => {
+  const { name, artist, album, time, is_favorite } = song;
+  const query =
+    "INSERT INTO songs (name, artist, album, time, is_favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+  const addedSong = await db.one(query, [
+    name,
+    artist,
+    album,
+    time,
+    is_favorite,
+  ]);
+  return addedSong;
+};
 
-// const getAllSongs = async () => {
-//   try {
-//     const allSongs = await db.any("SELECT * FROM songs");
-//     return allSongs;
-//   } catch (err) {
-//     return err;
-//   }
-// };
-
-// module.exports = {
-//   getAllSongs,
-// };
+module.exports = { getAllSongs, getASong, addASong };
