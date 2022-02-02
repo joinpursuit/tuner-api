@@ -9,7 +9,34 @@ const { checkName, checkArtist, checkAlbum, checkTime, checkBoolean } = require(
 // new variable `allSongs` which is an array of songs objects. We have to await for the value to come back from the database.
 songs.get("/", async (req, res)=>{
     try {
-        const allSongs = await getAllSongs();
+       const allSongs = await getAllSongs();
+       
+        /* START super bonus */
+        const { order, is_favorite } = req.query;
+        // `/songs?order=asc` = ascending
+        if (order === "asc") {
+            allSongs.sort((a,b) => (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : -1)
+        }
+        // `/songs?order=desc` = descending
+        if (order === "desc") {
+            allSongs.sort((a,b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? 1 : -1)
+        }
+        //  `/songs?is_favorite=true` = when `is_favorite` is true
+        if (is_favorite === "true") {
+            const result = allSongs.filter((favorite)=>{
+                return favorite.is_favorite === true;
+            })
+            res.status(200).json(result);
+        }
+        //  `/songs?is_favorite=false` = when `is_favorite` is true
+        if (is_favorite === "false") {
+            const result = allSongs.filter((favorite)=>{
+                return favorite.is_favorite === false;
+            })
+            res.status(200).json(result);
+        }
+        /* END super bonus */
+
         if (allSongs[0]) {
             res.status(200).json(allSongs);
         } else {
