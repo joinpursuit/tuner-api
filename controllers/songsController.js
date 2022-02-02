@@ -7,6 +7,7 @@ const {
   getASong,
   addASong,
   deleteASong,
+  updateSong,
 } = require("../queries/songs");
 
 songs.get("/", async (request, response) => {
@@ -33,6 +34,11 @@ songs.delete("/:id", async (request, response) => {
   } else {
     response.status(404).json({ error: "Page Does Not Exist" });
   }
+});
+
+songs.put("/:id", async (request, response) => {
+  const changedSong = await updateSong(request.params.id, request.body);
+  response.status(200).json(changedSong);
 });
 
 module.exports = songs;
