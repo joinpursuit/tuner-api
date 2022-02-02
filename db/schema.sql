@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS my_playlist
+DROP DATABASE IF EXISTS my_playlist;
 
 CREATE DATABASE my_playlist;
 

@@ -1,4 +1,4 @@
-\c my_playlist
+\c my_playlist;
 
 INSERT INTO songs (name, artist, album, time, is_favorite) 
 VALUES 
