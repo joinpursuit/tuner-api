@@ -18,4 +18,5 @@ INSERT INTO songs (name, artist, album, time, is_favorite) VALUES
 ('Lonely Together', 'Avicii', 'AVICI', '3 min 1 sec', false),
 ('Marry Me', 'Jason Derulo', 'Talk Dirty', '3 min 45 sec', true),
 ('Memories', 'David Guetta', 'One Love', '3 min 30 sec', true),
-('Lets Go', 'Calvin Harris', '18 Months', '3 min 52 sec', false);
+('Lets Go', 'Calvin Harris', '18 Months', '3 min 52 sec', false),
+('Better', 'Khalid', 'Suncity', '3 min 50 sec', true);
