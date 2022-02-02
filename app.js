@@ -4,8 +4,8 @@ const songsController = require("./controllers/songsController.test.js");
 const cors = require("cors");
 
 app.use(cors());
-
 app.use(express.json());
+require("dotenv").config();
 
 //ROUTES
 app.get("/" ,(req,res) =>{
