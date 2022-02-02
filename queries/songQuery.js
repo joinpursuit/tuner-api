@@ -33,7 +33,7 @@ const postAndGet = async ({ title, artist, album, length, is_favorite }) => {
             VALUES
                 ($1, $2, $3, $4, $5)
             RETURNING * ;
-        `, title, artist, album, length, is_favorite);
+        `, [title, artist, album, length, is_favorite]);
         return postedSong;
     } catch(error) {
         return error;
@@ -55,7 +55,7 @@ const deleteAndGet = async (id) => {
 
 const updateAndGet = async (id, { title, artist, album, length, is_favorite }) => {
     try {
-        const updatedSong = await database.any(`
+        const updatedSong = await database.one(`
             UPDATE songs_tb 
             SET 
                 title=$1, 
@@ -64,7 +64,7 @@ const updateAndGet = async (id, { title, artist, album, length, is_favorite }) =
                 length=$4, 
                 is_favorite=$5 
             WHERE id=$6 RETURNING * ; 
-        `, title, artist, album, length, is_favorite, id);
+        `, [title, artist, album, length, is_favorite, id]);
         return updatedSong;
     } catch(error) {
         return error;
