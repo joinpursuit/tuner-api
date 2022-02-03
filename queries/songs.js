@@ -46,8 +46,8 @@ const deleteSong = async (id) => {
 const updateSong = async (id, song) => {
   try {
     const { name, artist, album, time, is_favorite } = song;
-    const updatedSong = await db.one(
-      "UPDATE song SET name=$2, artist=$3, album=$4, time=$5, is_favorite WHERE id=$1 RETURNING *",
+    const updatedSong = await db.one
+    ("UPDATE song SET name=$2, artist=$3, album=$4, time=$5, is_favorite=$6 WHERE id=$1 RETURNING *",
       [id, name, artist, album, time, is_favorite]
     );
     return updatedSong;
