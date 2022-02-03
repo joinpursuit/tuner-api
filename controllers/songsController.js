@@ -1,7 +1,13 @@
 const e = require("express");
 const express = require("express");
 const router = express.Router();
-const { getAllSongs, oneSong, createSong } = require("../queries/songs");
+const {
+  getAllSongs,
+  oneSong,
+  createSong,
+  deleteSong,
+  updateSong,
+} = require("../queries/songs");
 const {
   checkNameArtistAlbum,
   isFavorite,
@@ -30,6 +36,25 @@ router.post(
     const createdSong = await createSong(req.body);
     if (createdSong.id) res.json(createdSong);
     else res.redirect("/*");
+  }
+);
+//delete a song
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const deletedSong = await deleteSong(id, req.body);
+  if (deletedSong.id) res.json(deletedSong);
+  else res.status(404).json({ error: "server error" });
+});
+router.put(
+  "/:id",
+  checkNameArtistAlbum,
+  checkTimeFormat,
+  isFavorite,
+  async (req, res) => {
+    const { id } = req.params;
+    const updatedSong = await updateSong(id, req.body);
+    if (updatedSong.id) res.json(updatedSong);
+    else res.status(404).json({ error: "server error" });
   }
 );
 module.exports = router;
