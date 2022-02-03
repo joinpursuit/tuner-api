@@ -1,7 +1,7 @@
 const express = require("express");
 const songs = express.Router();
 
-const {getAllSongs, getSong, createSong, deleteSong} = require("../queries/songs");
+const {getAllSongs, getSong, createSong, deleteSong, updateSong} = require("../queries/songs");
 
 
 // INDEX
@@ -45,5 +45,15 @@ songs.post("/", async (request,response) =>{
       res.status(404).json("Song not found");
     }
   }); 
+
+  songs.put("/:id",async (request,response) =>{
+    const updatedSong = await updateSong(request.params.id, request.body);
+
+    if(updatedSong.id){
+      response.status(200).json(updatedSong);
+    }else {
+      response.status(404).json("song does not exist");
+    }
+  })
 
 module.exports = songs;
