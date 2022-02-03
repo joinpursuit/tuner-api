@@ -11,3 +11,23 @@ songs.get('/', async (_, res) => {
     }
     res.status(200).json(songs)
 });
+// CREATE
+songs.post('/', async (req, res) => {
+    const newSong = await req.body
+    newSong.push(newSong);
+    res.status(200).json(newSong)
+})
+//SHOW
+songs.get('/:id', async (req, res) => {
+    const {id} = req.params;
+    try {
+        const song = await getSong(id)
+        if(song.id){
+            res.status(200).json(song)
+        }else {
+            res.redirect("/notfound")
+        } 
+    } catch (err) {
+        return err;
+    }
+})
