@@ -1,10 +1,12 @@
-// imports pg promist
+// imports pg promise
 const pgp = require("pg-promise")();
+require("dotenv").config();
+
 // access and cennect env
 const cn = {
   host: process.env.PG_HOST,
   port: process.env.PG_PORT,
-  database: process.env.PG_DATBASE,
+  database: process.env.PG_DATABASE,
   user: process.env.PG_USER,
 };
 

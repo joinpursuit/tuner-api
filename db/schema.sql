@@ -3,7 +3,7 @@ CREATE DATABASE tuner_dev;
 
 \c tuner_dev;
 
-CREATE TABLE tuner (
+CREATE TABLE songs (
     id SERIAL PRIMARY KEY,
     artist_name TEXT NOT NULL,
     album TEXT,

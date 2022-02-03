@@ -1,9 +1,10 @@
 const express = require("express");
 const songs = express.Router();
-const { getAllsongs } = require("../queries/songs.js");
+const { getAllSongs } = require("../queries/songs.js");
 
 songs.get("/", async (req, res) => {
-  const allSongs = await getAllsongs();
+  const allSongs = await getAllSongs();
+  console.log(allSongs)
   if (allSongs[0]) {
     res.status(200).json(allSongs);
   } else {
