@@ -9,6 +9,7 @@ const getAllSongs = async () => {
   }
 };
 
+
 const getSong = async (id) => {
   try {
     const oneSong = await db.one("SELECT * FROM songs WHERE id=$1", id);
@@ -43,13 +44,13 @@ const deleteSong = async (id) {
     } catch (error) {
         return error; 
     }
-};
+}
 
 // UPDATE
-const updateSong = async (id, bookmark) => {
+const updateSong = async (id, song) => {
     try {
         const { name, artist, album, is_favorite } = song;
-        const changedSong = await db.one('UPDATE songs SET name= $1, artist=$2, album=$3, is_favorite=$4 WHERE id=$5 RETURNING *', [ name, url, category, is_favorite, id ]);
+        const changedSong = await db.one('UPDATE songs SET name= $1, artist=$2, album=$3, is_favorite=$4 WHERE id=$5 RETURNING *', [ name, artist, album, is_favorite, id ]);
         return changedSong;
     } catch (error){
         return error
@@ -62,6 +63,6 @@ module.exports = {
   getAllSongs,
   getSong,
   createSong,
-  deletedSong,
+  deleteSong,
   updateSong,
 };
