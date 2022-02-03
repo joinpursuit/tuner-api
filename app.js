@@ -18,7 +18,7 @@ app.get("/", (_, response) => {
 })
 
 app.get('*', (_, response) => {
-    response.status(404).send("this is not the page you are looking for")
+    response.status(404).send("404 Not Found")
 })
 
 module.exports = app;
