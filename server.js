@@ -3,6 +3,6 @@ const app = require('./app')
 require('dotenv').config()
 const PORT = process.env.PORT
 
-app.listen(PORT, (req, res) => {
-    console.log('our app is running')
+app.listen(PORT, () => {
+    console.log(`Tuner app is running on PORT ${PORT}`)
 })
