@@ -1,32 +1,53 @@
 const express = require('express');
 const songs = express.Router();
-const { getAllSongs, addNewSongs} = require('../queries/songs');
+const { 
+  getAllSongs, 
+  getSong,
+  addNewSongs, 
+  deleteSong,
+  updateSong
+} = require('../queries/songs');
 
 songs.get("/", async (_, response) => {
-  const songs = await getAllSongs();
-  response.json(songs);
+
+  console.log("GET request to /");
+
+  const allSongs = await getAllSongs();
+  response.json(allSongs);
+
 });
 
-songs.get("/:index", (request, response) => {
-  songsArray[request.params.index]
-    ? response.json(songsArray[request.params.index])
-    : response.status(404).json({ error: "Page not found" });
+songs.get("/:id", async (request, response) => {
+
+  console.log("GET request to /:id");
+
+  const oneSong = await getSong(request.params.id);
+  response.status(200).json(oneSong);
+
 });
 
-songs.post("/", (request, response) => {
-  songsArray.push(request.body);
-  response.json(songsArray);
+songs.post("/", async (request, response) => {
+
+  console.log("POST request to /");
+
+  const add = await addNewSongs(request.body);
+  response.status(200).json(add);
 });
 
-songs.delete("/:index", (request, response) => {
-  if (songsArray[request.params.index]) {
-    const [deletedTransaction] = songsArray.splice(request.params.index, 1);
-    response.status(200).json(songsArray);
-  }
+songs.delete("/:id", async (request, response) => {
+
+  console.log("DELETE request to /:id");
+
+  const remove = await deleteSong(request.params.id)
+  response.status(200).json(remove);
 });
-songs.put("/:index", (request, response) => {
-  songsArray[request.params.index] = request.body;
-  response.status(200).json(songsArray);
+
+songs.put("/:id", async (request, response) => {
+
+  console.log("PUT request to /:id");
+
+  const update = await updateSong(request.params.id, request.body)
+  response.status(200).json(update);
 });
 
 module.exports = songs;
