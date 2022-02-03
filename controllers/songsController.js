@@ -1,50 +1,55 @@
-const express = require('express');
+const express = require("express");
 const songs = express.Router();
-const {getAllSongs, getSong} = require('../queries/songs');
+const {
+  getAllSongs,
+  getSong,
+  createSong,
+  deleteSong,
+  updateSong,
+} = require("../queries/songs");
 
-
-songs.get('/', async (req, res) => {
-    const allSongs = await getAllSongs();
-    console.log(allSongs)
-    res.status(200).json(allSongs)
+songs.get("/", async (_, res) => {
+  const allSongs = await getAllSongs();
+  console.log("GET request to /songs", allSongs);
+  res.status(200).json(allSongs);
 });
 
-songs.get("/:id", async (req, res) =>{
-    const {id} = req.params
-    const song = await getSong (id);
-    if (song) {
-        res.status(200).json(song)
-    }else{
-        res.status(404).json({ error: `Page not found!` });
-    }
-})
+songs.get("/:id", async (req, res) => {
+  const song = await getSong(req.params.id);
+  if (song.id) {
+    res.status(200).json(song);
+  } else {
+    res.status(404).json({ Error: `Page not found!` });
+  }
+});
 
-songs.post("/", async (req, res) =>{
-    const newTrack = req.body
-    const {body} = req
-    const {name, artist, album,time,} = body
-    if(name|| artist || album || time){
-        res.status(200).json(newTrack)
-    }else{
-        res.status(400).json({error: `Complete all fields`})
-    }
-})
+songs.post("/", async (request, response) => {
+  const song = await createSong(request.body);
+  if (song.id) {
+    response.status(200).json(song);
+  } else {
+    response.status(404).json(song);
+  }
+});
 
-//unsure what to put for create song since the songs have a time. consult with sev. 
+songs.delete("/:id", async (request, response) => {
+  console.log("DELETE request to /songs/:id");
+  const deletedSong = await deleteSong(request.params.id);
+  if (deletedSong.id) {
+    response.status(200).json(deletedSong);
+  } else {
+    res.status(404).json({ Error: `Page not found!` });
+  }
+});
 
-//honestly not sure if that {body} = request is correct syntax check with sev
+songs.put("/:id", async (request, response) => {
+  console.log("UPDATE request to /songs/:id");
+  const updatedSong = await updateSong(request.params.id, request.body);
+  if (updatedSong.id) {
+    response.status(200).json(updatedSong);
+  } else {
+    response.status(404).json("Update did not work.");
+  }
+});
 
-// this is probably too many const... refactor later. 
-
-//check if she wants track or song. 
-
-//have partner double check this creat song post
-
-songs.delete("/id", async (req, res)=>{
-    const {id} = req.params;
-    const deleteSong = await deleteSong(id)
-    res.status(200).json(deleteSong)
-})
-
-// am I supposed to be using 200 for all of these? consult study guide. 
-module.exports = songs; 
+module.exports = songs;
