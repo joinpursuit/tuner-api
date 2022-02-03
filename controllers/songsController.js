@@ -1,15 +1,36 @@
 const express = require("express");
 const songs = express.Router();
-const { getAllSongs, getSong, createSong, deleteSong, updateSong } = require("../queries/songs.js");
-
+const { getAllSongs, getSong, createSong, deleteSong, updateSong, ascendingOrder } = require("../queries/songs.js");
 //Index
 songs.get("/", async (req, res) => {
+    const { order, isFavorite } = req.query;
     try{
-        const allSongs = await getAllSongs();
-        if(allSongs[0]){
-            res.status(200).json(allSongs);
-        } else {
-            res.status(500).json({error: "had trouble getting all the songs"});
+        if( !order && !isFavorite ) { ///if there are NO query params Simple get ALL SONGS
+            const allSongs = await getAllSongs();
+            if(allSongs[0]){
+                res.status(200).json(allSongs);
+            } else {
+                res.status(500).json({error: "had trouble getting all the songs"});
+            }
+        } else { // if there are query parameters
+            switch(order){
+                case "asc":
+                    console.log('ascending')
+                    break;
+                case "desc":
+                    console.log('descending')
+                    break;
+                default:
+            }
+            switch(isFavorite) {
+                case "true":
+                    console.log("true");
+                    break;
+                case "false":
+                    console.log("false");
+                    break;
+                default:
+            }
         }
     }catch(err){
         console.log("~~songsController.js: get all songs",err);

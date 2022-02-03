@@ -1,10 +1,11 @@
 //requests to access data from a database to manipulate it or retrieve it
 const songs = require("../controllers/songsController.js");
 const db = require("../db/dbConfig.js");
+
 //get all songs
 const getAllSongs = async () => {
     try{
-        const allSongs = await db.any("SELECT * FROM songs;");
+        const allSongs = await db.any("SELECT * FROM songs");
         return allSongs;
     }catch(err){
         return err;
@@ -58,10 +59,26 @@ const updateSong = async (id, song) => {
     }
 }
 
+// B O N U S
+// /songs?order=asc it will organize the songs alphabetically
+// /songs?order=desc it will organize the songs in reverse alphabetical order
+// /songs?is_favorite=true it will only show the songs where the value of is_favorite is true
+// /songs?is_favorite=false it will only show the songs where the value of is_favorite is false
+
+const ascendingOrder = async () => {
+    try{
+        const ascendingOrdered = await db.any('SELECT * FROM songs ORDER BY name ASC');
+        return ascendingOrdered;
+    }catch(err){
+        return console.log(`~~~ascending order song error`, err);
+    }
+}
+
 module.exports = {
     getAllSongs,
     getSong,
     createSong,
     deleteSong,
-    updateSong
+    updateSong,
+    ascendingOrder
 }
