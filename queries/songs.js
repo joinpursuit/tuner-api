@@ -1,4 +1,5 @@
 //requests to access data from a database to manipulate it or retrieve it
+const songs = require("../controllers/songsController.js");
 const db = require("../db/dbConfig.js");
 //get all songs
 const getAllSongs = async () => {
@@ -15,7 +16,7 @@ const getSong = async (id) => {
         const oneSong = await db.one('SELECT * FROM songs WHERE id=$1', id);
         return oneSong;
     } catch(err){
-        console.log(`~~~get single song error`, err)
+        console.log(`~~~get single song error`, err);
         return err;
     }
 }
@@ -29,7 +30,7 @@ const createSong = async (song) => {
         )
         return newSong; 
     }catch(err){
-        return console.log(`~~~create song error`, err)
+        return console.log(`~~~create song error`, err);
     }
 }
 
@@ -41,7 +42,19 @@ const deleteSong = async (id) => {
         )
         return deletedSong;
     }catch(err){
-        return console.log(`~~~delete song error`, err)
+        return console.log(`~~~delete song error`, err);
+    }
+}
+
+const updateSong = async (id, song) => {
+    try{
+        const updatedSong = await db.one(
+            'UPDATE songs SET name=$1, artist=$2, album=$3, time=$4, is_favorite=$5 WHERE id=$6 RETURNING *',
+            [song.name, song.artist, song.album, song.time, song.is_favorite, id]
+        );
+        return updatedSong;
+    }catch(err){
+        return console.log(`~~~update song error`, err);
     }
 }
 
@@ -49,5 +62,6 @@ module.exports = {
     getAllSongs,
     getSong,
     createSong,
-    deleteSong
+    deleteSong,
+    updateSong
 }
