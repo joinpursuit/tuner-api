@@ -1,6 +1,6 @@
 const express = require("express");
 const songs = express.Router();
-const { getAllSongs, getSong, createSong, deleteSong, updateSong, ascendingOrder } = require("../queries/songs.js");
+const { getAllSongs, getSong, createSong, deleteSong, updateSong, ascendingOrder, descendingOrder } = require("../queries/songs.js");
 //Index
 songs.get("/", async (req, res) => {
     const { order, isFavorite } = req.query;
@@ -15,7 +15,6 @@ songs.get("/", async (req, res) => {
         } else { // if there are query parameters
             switch(order){
                 case "asc":
-                    console.log('ascending')
                     const orderedByAsc = await ascendingOrder();
                     if(orderedByAsc[0]){
                         res.status(200).json(orderedByAsc);
@@ -25,6 +24,12 @@ songs.get("/", async (req, res) => {
                     break;
                 case "desc":
                     console.log('descending')
+                    const orderedByDesc = await descendingOrder();
+                    if(orderedByDesc[0]){
+                        res.status(200).json(orderedByDesc);
+                    }else{
+                        res.status(500).json({error: "had trouble getting sorted songs descendingly"})
+                    }
                     break;
                 default:
             }

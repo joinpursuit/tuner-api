@@ -74,11 +74,21 @@ const ascendingOrder = async () => {
     }
 }
 
+const descendingOrder = async () => {
+    try{
+        const descendingOrdered = await db.any('SELECT * FROM songs ORDER BY name DESC');
+        return descendingOrdered;
+    }catch(err){
+        return console.log(`~~~descending order song error`, err);
+    }
+}
+
 module.exports = {
     getAllSongs,
     getSong,
     createSong,
     deleteSong,
     updateSong,
-    ascendingOrder
+    ascendingOrder,
+    descendingOrder
 }
