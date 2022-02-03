@@ -1,6 +1,7 @@
 const express = require('express');
+const db = require('../db/dbConfig.js');
 const songs = express.Router();
-const { getAllSongs, getSong, createSong, deleteSong } = require("../queries/song.js")
+const { getAllSongs, getSong, createSong, deleteSong, updateSong } = require("../queries/song.js")
 
 songs.get("/", async (req,res)=>{
     const allSongs = await getAllSongs();
@@ -40,7 +41,25 @@ songs.post("/", async (req,res)=>{
 });
 
 songs.delete("/:id", async (req,res)=>{
-  cons
+  const { id } = req.params;
+  const deletedSong = await deleteSong(id);
+  if(deletedSong.id){
+    res.status(200).json(deletedSong)
+  }else{
+    res.status(404).json({Error: "Song Not Found"});
+  }
+
+});
+
+songs.put("/:id", async (req,res)=>{
+  const { id } = req.params;
+  const { body } = req;
+  const updatedSong = await updateSong(id, body);
+  if(updatedSong.id){
+    res.status(200).json(updatedSong)
+  }else{
+    res.status(404).json({Error: "Song Not Found"})
+  }
 })
 
 module.exports = songs
