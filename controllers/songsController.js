@@ -16,6 +16,12 @@ songs.get("/", async (req, res) => {
             switch(order){
                 case "asc":
                     console.log('ascending')
+                    const orderedByAsc = await ascendingOrder();
+                    if(orderedByAsc[0]){
+                        res.status(200).json(orderedByAsc);
+                    }else{
+                        res.status(500).json({error: "had trouble getting sorted songs ascendingly"});
+                    }
                     break;
                 case "desc":
                     console.log('descending')
