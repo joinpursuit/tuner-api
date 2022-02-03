@@ -10,10 +10,11 @@ const app = express();
 // MIDDLEWARE
 app.use(cors());
 app.use(express.json());
+require("dotenv").config();
 
 // ROUTES
 app.get("/", (req, res) => {
-  res.send("Welcome to Your Playlist App");
+  res.send("Welcome to Tuner (Your Playlist App)!");
 });
 
 // Songs ROUTES
