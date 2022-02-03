@@ -1,6 +1,6 @@
 const express = require("express");
 const songs = express.Router();
-const { getAllSongs, getSong, createSong, deleteSong, updateSong, ascendingOrder, descendingOrder, favoriteOrderTrue } = require("../queries/songs.js");
+const { getAllSongs, getSong, createSong, deleteSong, updateSong, ascendingOrder, descendingOrder, favoriteOrderTrue, favoriteOrderFalse } = require("../queries/songs.js");
 //Index
 songs.get("/", async (req, res) => {
     const { order, isFavorite } = req.query;
@@ -27,7 +27,7 @@ songs.get("/", async (req, res) => {
                     if(orderedByDesc[0]){
                         res.status(200).json(orderedByDesc);
                     }else{
-                        res.status(500).json({error: "had trouble getting sorted songs descendingly"})
+                        res.status(500).json({error: "had trouble getting sorted songs descendingly"});
                     }
                     break;
                 default:
@@ -35,15 +35,20 @@ songs.get("/", async (req, res) => {
             switch(isFavorite) {
                 case "true":
                     console.log("true");
-                    const orderedByFavorite = await favoriteOrderTrue();
-                    if(orderedByFavorite[0]){
-                        res.status(200).json(orderedByFavorite);
+                    const orderedByTrue = await favoriteOrderTrue();
+                    if(orderedByTrue[0]){
+                        res.status(200).json(orderedByTrue);
                     }else{
-                        res.status(500).json({error: "had trouble getting favorite=istrue songs "})
+                        res.status(500).json({error: "had trouble getting is_favorite=true songs "});
                     }
                     break;
                 case "false":
-                    console.log("false");
+                    const orderedByFalse = await favoriteOrderFalse();
+                    if(orderedByFalse[0]){
+                        res.status(200).json(orderedByFalse);
+                    }else{
+                        res.status(500).json({error: "had trouble getting is_favorite=false songs"});
+                    }
                     break;
                 default:
             }

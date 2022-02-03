@@ -92,7 +92,14 @@ const favoriteOrderTrue = async () => {
     }
 }
 
-
+const favoriteOrderFalse = async () => {
+    try{
+        const allFavoriteIsFalse = await db.any('SELECT * FROM songs WHERE is_favorite=FALSE');
+        return allFavoriteIsFalse;
+    }catch(err){
+        return console.log(`~~~favorite is FALSE song error`, err);
+    }
+}
 
 module.exports = {
     getAllSongs,
@@ -102,5 +109,6 @@ module.exports = {
     updateSong,
     ascendingOrder,
     descendingOrder,
-    favoriteOrderTrue
+    favoriteOrderTrue,
+    favoriteOrderFalse
 }
