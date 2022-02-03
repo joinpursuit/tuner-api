@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
     res.status(200).send('Welcome to our Music database!')
 });
 
-app.use('/music', songsController)
+app.use('/songs', songsController)
 
 
 
