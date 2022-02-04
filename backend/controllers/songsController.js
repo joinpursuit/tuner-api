@@ -17,11 +17,15 @@ const {
 // SHOW
 songs.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const song = await getSong(id);
-  if (song) {
-    res.json(song);
-  } else {
-    res.status(404).json({ error: "not found" });
+  try {
+    const song = await getSong(id);
+    if (song.id) {
+      res.status(200).json(song);
+    } else {
+      res.status(404).json({ error: "not found" });
+    }
+  } catch (error) {
+    console.log(error);
   }
 });
 
