@@ -4,7 +4,7 @@
   "description": "Let's make our own music playlist app!",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --runInBand",
     "start": "node server.js",
     "dbinit": "psql -U postgres -f db/schema.sql",
     "dbseed": "psql -U postgres -f db/seed.sql",
@@ -26,6 +26,10 @@
     "cors": "^2.8.5",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
-    "pg-promise": "^10.11.1"
+    "pg-promise": "^10.11.1",
+    "supertest": "^6.2.0"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7"
   }
 }

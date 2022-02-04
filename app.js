@@ -15,7 +15,7 @@ app.use("/songs", songsController);
 
 // Routes
 app.get("/", (req, res)=>{
-    res.status(200).send("Welcome to Tuner API App!");
+    res.status(200).send("Welcome to Tuner");
 })
 
 app.get("*", (req, res)=>{
