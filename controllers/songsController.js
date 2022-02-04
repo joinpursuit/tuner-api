@@ -1,6 +1,7 @@
 const e = require("express");
 const express = require("express");
 const router = express.Router();
+//queries methods
 const {
   getAllSongs,
   oneSong,
@@ -8,15 +9,22 @@ const {
   deleteSong,
   updateSong,
 } = require("../queries/songs");
+//Validations
 const {
   checkNameArtistAlbum,
   isFavorite,
   checkTimeFormat,
 } = require("../validation/songs.js");
+//queries for order and favorite
+//const { ascDesc, isFav } = require("../helpers/queriesFunc.js");
+
 //get all songs
 router.get("/", async (req, res) => {
-  const songs = await getAllSongs();
-  res.json(songs);
+  const { order } = req.query;
+  const { is_favorite } = req.query;
+  const songs = await getAllSongs(order, is_favorite);
+  if (Array.isArray(songs)) res.json(songs);
+  else res.status(404).json({ error: "server error" });
 });
 //get one song
 router.get("/:id", async (req, res) => {

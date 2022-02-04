@@ -1,8 +1,20 @@
 const db = require("../db/dbConfig.js");
 
-const getAllSongs = async () => {
+const getAllSongs = async (order, favorite) => {
   try {
-    const songs = await db.any("SELECT * FROM songs");
+    let songs = [];
+    if (order === "asc") {
+      songs = await db.any("SELECT * FROM songs ORDER BY name");
+    } else if (order === "desc") {
+      songs = await db.any("SELECT * FROM songs ORDER BY name DESC");
+    } else if (favorite === "true") {
+      songs = await db.any("SELECT * FROM songs WHERE is_favorite=TRUE");
+    } else if (favorite === "false") {
+      songs = await db.any("SELECT * FROM songs WHERE is_favorite=FALSE");
+    } else {
+      console.log("none");
+      songs = await db.any("SELECT * FROM songs");
+    }
     return songs;
   } catch (error) {
     return error;
