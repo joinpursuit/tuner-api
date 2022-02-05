@@ -15,8 +15,6 @@ const {
   isFavorite,
   checkTimeFormat,
 } = require("../validation/songs.js");
-//queries for order and favorite
-//const { ascDesc, isFav } = require("../helpers/queriesFunc.js");
 
 //get all songs
 router.get("/", async (req, res) => {
