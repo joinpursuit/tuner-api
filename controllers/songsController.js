@@ -1,6 +1,6 @@
 const express = require("express");
 const songs = express.Router();
-const{ getAllSongs, getSong, createSong, deleteSong } = require("../queries/songs.js");
+const{ getAllSongs, getSong, createSong, deleteSong, updateSong} = require("../queries/songs.js");
 const{ checkTextInputs , checkFavorite } = require("../validations/checkSongs.js")
 
 songs.get("/", async (req,res)=>{
@@ -55,6 +55,18 @@ songs.delete("/:id", async (req, res)=>{
         }
     }catch(err){
         console.log(err)
+    }
+})
+songs.put("/:id", checkTextInputs , checkFavorite, async (req, res)=>{
+    const { id } = req.params;
+    const { body } = req;
+
+    const updatedSong = await updateSong(id, body);
+    if(updatedSong.id){
+        console.log(updatedSong)
+        res.status(200).json(updatedSong)
+    }else{
+        res.status(404).json({error: "Song not found"})
     }
 })
 
