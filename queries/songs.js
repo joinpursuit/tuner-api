@@ -28,8 +28,15 @@ const getSong = async (id) => {
 const createSong = async (song) => {
   try {
     const newSong = await db.one(
-      "INSERT INTO songs (name, artist, album, time, is_favorite) VALUES($1, $2, $3, $4, $5) RETURNING *",
-      [song.name, song.artist, song.album, song.time, song.is_favorite]
+      "INSERT INTO songs (title, time, is_favorite, yt_id, artist_id, album_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
+      [
+        song.title,
+        song.time,
+        song.is_favorite,
+        song.yt_id,
+        song.artist_id,
+        song.album_id,
+      ]
     );
     return newSong;
   } catch (error) {
@@ -51,11 +58,19 @@ const deleteSong = async (id) => {
 };
 
 // UPDATE
-const updateSongs = async (id, songs) => {
+const updateSongs = async (id, song) => {
   try {
     const updatedSongs = await db.one(
-      "UPDATE songs SET name=$1, artist=$2, album=$3, time=$4, is_favorite=$5 WHERE id=$6 RETURNING *",
-      [songs.name, songs.artist, songs.album, songs.time, songs.is_favorite, id]
+      "UPDATE songs SET title=$1, time=$2, is_favorite=$3, yt_id=$4, artist_id=$5, album_id=$6 WHERE id=$7 RETURNING *",
+      [
+        song.title,
+        song.time,
+        song.is_favorite,
+        song.yt_id,
+        song.artist_id,
+        song.album_id,
+        id,
+      ]
     );
     return updatedSongs;
   } catch (error) {

@@ -17,6 +17,7 @@ CREATE TABLE albums (
     title VARCHAR,
     year_released INT,
     duration VARCHAR,
+    cover TEXT,
     rating DECIMAL,
     CHECK (rating >= 0 AND rating <= 5),
     genre VARCHAR,

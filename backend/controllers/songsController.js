@@ -39,10 +39,10 @@ songs.get("/", async (req, res) => {
     switch (true) {
       case order === "asc":
         allSongs.sort((a, b) => {
-          if (a.artist.toLowerCase() < b.artist.toLowerCase()) {
+          if (a.name.toLowerCase() < b.name.toLowerCase()) {
             return -1;
           }
-          if (a.artist.toLowerCase() > b.artist.toLowerCase()) {
+          if (a.name.toLowerCase() > b.name.toLowerCase()) {
             return 1;
           }
           return 0;
@@ -51,10 +51,10 @@ songs.get("/", async (req, res) => {
         break;
       case order === "desc":
         allSongs.sort((a, b) => {
-          if (a.artist.toLowerCase() > b.artist.toLowerCase()) {
+          if (a.name.toLowerCase() > b.name.toLowerCase()) {
             return -1;
           }
-          if (a.artist.toLowerCase() < b.artist.toLowerCase()) {
+          if (a.name.toLowerCase() < b.name.toLowerCase()) {
             return 1;
           }
           return 0;
