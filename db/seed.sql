@@ -4,7 +4,7 @@
 
 -- Step 2: Insert seed date into our table
 
-INSERT INTO song (name, artist, album, time, is_favorite) VALUES 
+INSERT INTO songs (name, artist, album, time, is_favorite) VALUES 
 ('3005', 'Childish Gambino', 'Because the Internet','3:05', TRUE), 
 ('Girlfriend', 'Avril Lavigne', 'The Best Damn Thing', '3:38', FALSE), 
 ('You Belong With Me', 'Taylor Swift', 'Fearless','3:52', TRUE), 
@@ -14,4 +14,4 @@ INSERT INTO song (name, artist, album, time, is_favorite) VALUES
 
 -- quick test
 
-SELECT * FROM song
+SELECT * FROM songs

@@ -1,6 +1,6 @@
 const express = require('express');
 const songs = express.Router();
-const { validSong } = require('../helpers/errors');
+const { validSong, formatSong } = require('../helpers/errors');
 
 const {
   getAllSongs,
@@ -15,43 +15,52 @@ songs.get('/', async (req, res) => {
   const { query } = req;
   console.log(query);
   const allSongs = await getAllSongs(query);
-  res.status(200).json(allSongs);
+  res.status(200).send(allSongs);
 });
 
 //show all songs route
 songs.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  const song = await getSong(id);
-  song.result ? res.redirect('/err') : res.status(200).json(song);
+  try {
+    const { id } = req.params;
+    const song = await getSong(id);
+    res.status(200).json(song);
+  } catch (error) {
+    res.status(404).json({ error: error });
+  }
 });
 
 //Create a new song route
-songs.post('/', async (req, res) => {
-  const newPost = req.body;
-  // if news post isn't valid, return error and end function
-  if (!validSong(newPost)) {
-    return res.status(200).json({ error: 'Invalid song object' });
+songs.post('/', validSong, async (req, res) => {
+  try {
+    const newPost = formatSong(req.body);
+    const newResult = await createSong(newPost);
+    res.status(200).json(newResult);
+  } catch (error) {
+    console.log(error);
   }
-  const newResult = await createSong(newPost);
-  res.status(200).json(newResult);
 });
 
 //Delete a song
 songs.delete('/:id', async (req, res) => {
-  const { id } = req.params;
-  const deletedSong = await deleteSong(id);
-  deletedSong.result ? res.redirect('/err') : res.status(200).json(deletedSong);
+  try {
+    const { id } = req.params;
+    const deletedSong = await deleteSong(id);
+    res.status(200).json(deletedSong);
+  } catch (error) {
+    res.status(404).json({ error: error });
+  }
 });
 
 //Edit a song
 songs.put('/:id', async (req, res) => {
-  const newPost = validSong(req.body);
-  const { id } = req.params;
-  if (!newPost) {
-    return res.status(200).json({ error: 'Please input a song name' });
+  try {
+    const newPost = formatSong(req.body);
+    const { id } = req.params;
+    const editedSong = await editSong(newPost, id);
+    res.status(200).json(editedSong);
+  } catch (error) {
+    res.status(404).json({ error: error });
   }
-  const editedSong = await editSong(newPost, id);
-  editedSong.result ? res.redirect('/err') : res.status(200).json(editedSong);
 });
 
 module.exports = songs;

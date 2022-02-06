@@ -12,7 +12,7 @@ CREATE DATABASE tuner_dev;
 
 -- Step 4: Create our table
 
-CREATE TABLE song (
+CREATE TABLE songs (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     artist TEXT,
