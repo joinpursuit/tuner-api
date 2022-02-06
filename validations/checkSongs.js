@@ -1,5 +1,5 @@
-const checkName = (req, res, next) => {
-  if (req.body.name) {
+const checkTitle = (req, res, next) => {
+  if (req.body.title) {
     next();
   } else {
     res.status(400).json({ error: "Name is required" });
@@ -28,7 +28,7 @@ const validateURL = (req, res, next) => {
 };
 
 module.exports = {
-  checkName,
+  checkTitle,
   checkBoolean,
   validateURL,
 };

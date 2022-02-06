@@ -9,7 +9,7 @@ const {
   updateSongs,
 } = require("../../queries/songs");
 const {
-  checkName,
+  checkTitle,
   checkBoolean,
   validateURL,
 } = require("../../validations/checkSongs");
@@ -39,10 +39,10 @@ songs.get("/", async (req, res) => {
     switch (true) {
       case order === "asc":
         allSongs.sort((a, b) => {
-          if (a.name.toLowerCase() < b.name.toLowerCase()) {
+          if (a.title.toLowerCase() < b.title.toLowerCase()) {
             return -1;
           }
-          if (a.name.toLowerCase() > b.name.toLowerCase()) {
+          if (a.title.toLowerCase() > b.title.toLowerCase()) {
             return 1;
           }
           return 0;
@@ -51,10 +51,10 @@ songs.get("/", async (req, res) => {
         break;
       case order === "desc":
         allSongs.sort((a, b) => {
-          if (a.name.toLowerCase() > b.name.toLowerCase()) {
+          if (a.title.toLowerCase() > b.title.toLowerCase()) {
             return -1;
           }
-          if (a.name.toLowerCase() < b.name.toLowerCase()) {
+          if (a.title.toLowerCase() < b.title.toLowerCase()) {
             return 1;
           }
           return 0;
@@ -83,7 +83,7 @@ songs.get("/", async (req, res) => {
 });
 
 // CREATE
-songs.post("/", checkBoolean, checkName, async (req, res) => {
+songs.post("/", checkBoolean, checkTitle, async (req, res) => {
   try {
     const song = await createSong(req.body);
     res.json(song);
@@ -99,12 +99,12 @@ songs.delete("/:id", async (req, res) => {
   if (deletedSong.id) {
     res.status(200).json(deletedSong);
   } else {
-    res.status(404).json("Bookmark not found");
+    res.status(404).json("Song not found");
   }
 });
 
 // UPDATE
-songs.put("/:id", checkName, checkBoolean, async (req, res) => {
+songs.put("/:id", checkTitle, checkBoolean, async (req, res) => {
   const { id } = req.params;
   const updatedSong = await updateSongs(id, req.body);
   res.status(200).json(updatedSong);
