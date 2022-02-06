@@ -5,7 +5,7 @@ const { getAllSongs , createSong , getSong, deleteSong, updateSong } = require('
 //INDEX
 songs.get('/', async (_, res) => {
     const songs = await getAllSongs();
-    console.log(songs)
+    // console.log(songs)
     if(songs.length === 0){
         res.status(500).json({error: 'server error'})
     }
@@ -29,7 +29,7 @@ songs.get('/:id', async (req, res) => {
         if(song.id){
             res.status(200).json(song)
         }else {
-            res.redirect("/notfound")
+            res.status(404).json({error: "error"})
         } 
     } catch (err) {
         return err;

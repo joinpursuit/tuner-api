@@ -14,7 +14,7 @@ app.use('/songs', songsController)
 
 //Routes
 app.get("/", (_, response) => {
-    response.status(200).send('Welcome to Tuner App!')
+    response.status(200).send('Welcome to Tuner')
 })
 
 app.get('*', (_, response) => {
