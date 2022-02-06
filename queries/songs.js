@@ -20,9 +20,8 @@ const getAllSongs = async (order, is_favorite)=>{
             const favSongs = await db.any("SELECT * FROM songs WHERE is_favorite=TRUE");
             return favSongs
         } else {
-            console.log("No quieries found")
-            return ({error: "no quieries found"})
-            
+            console.log("Query not found")
+            return ({error: "Query not found"})      
         }
         
     }catch(err){

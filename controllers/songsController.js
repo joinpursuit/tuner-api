@@ -21,22 +21,6 @@ songs.get("/", async (req,res)=>{
     
 });
 
-songs.get("/", async (req, res)=>{
-    const { order } = req.query;
-    
-    try{
-        const songsAsc = await getAsc(order);
-        if(songsAsc.id){
-            res.status(200).json(songsAsc)
-        }else{
-            res.status(404).json({error: "Songs Not Found"});
-        }
-        
-    }catch(err){
-        console.log(err)
-    }
-});
-
 songs.get("/:id", async (req, res)=>{
     const { id } = req.params;
     try{
