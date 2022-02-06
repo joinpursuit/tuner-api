@@ -31,9 +31,52 @@ songs.get("/:id", async (req, res) => {
 
 // INDEX
 songs.get("/", async (req, res) => {
+  const { order, is_favorite } = req.query;
   const allSongs = await getAllSongs();
+  let filteredData;
+
   if (allSongs[0]) {
-    res.status(200).json(allSongs);
+    switch (true) {
+      case order === "asc":
+        allSongs.sort((a, b) => {
+          if (a.artist.toLowerCase() < b.artist.toLowerCase()) {
+            return -1;
+          }
+          if (a.artist.toLowerCase() > b.artist.toLowerCase()) {
+            return 1;
+          }
+          return 0;
+        });
+        res.status(200).json(allSongs);
+        break;
+      case order === "desc":
+        allSongs.sort((a, b) => {
+          if (a.artist.toLowerCase() > b.artist.toLowerCase()) {
+            return -1;
+          }
+          if (a.artist.toLowerCase() < b.artist.toLowerCase()) {
+            return 1;
+          }
+          return 0;
+        });
+        res.status(200).json(allSongs);
+        break;
+      case is_favorite === "false":
+        filteredData = allSongs.filter((item) => {
+          return !item.is_favorite;
+        });
+        res.status(200).json(filteredData);
+        break;
+      case is_favorite === "true":
+        filteredData = allSongs.filter((item) => {
+          return item.is_favorite;
+        });
+        res.status(200).json(filteredData);
+        break;
+      default:
+        res.status(200).json(allSongs);
+        break;
+    }
   } else {
     res.status(500).json({ error: "server error" });
   }
