@@ -4,14 +4,37 @@ const{ getAllSongs, getSong, createSong, deleteSong, updateSong} = require("../q
 const{ checkTextInputs , checkFavorite } = require("../validations/checkSongs.js")
 
 songs.get("/", async (req,res)=>{
-        const allSongs = await getAllSongs();
+        const { order, is_favorite } = req.query;
 
-        if(songs.length){
-            res.status(200).json(allSongs);
-        }else{
-            res.status(500).json({error: "Server Error"});
-        }
+        const allSongs = await getAllSongs(order, is_favorite);
+            try{
+                if(songs.length){
+                    console.log(allSongs)
+                    res.status(200).json(allSongs);
+                }else{
+                    res.status(500).json({error: "Server Error"});
+                }
+
+            }catch (err){
+                console.log(err)
+            }
     
+});
+
+songs.get("/", async (req, res)=>{
+    const { order } = req.query;
+    
+    try{
+        const songsAsc = await getAsc(order);
+        if(songsAsc.id){
+            res.status(200).json(songsAsc)
+        }else{
+            res.status(404).json({error: "Songs Not Found"});
+        }
+        
+    }catch(err){
+        console.log(err)
+    }
 });
 
 songs.get("/:id", async (req, res)=>{
@@ -28,6 +51,7 @@ songs.get("/:id", async (req, res)=>{
         console.log(err)
     }
 });
+
 
 songs.post("/", checkTextInputs , checkFavorite, async (req, res)=>{
     const { body } = req;

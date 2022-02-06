@@ -1,9 +1,30 @@
 const db = require("../db/dbConfig.js");
 
-const getAllSongs = async ()=>{
+const getAllSongs = async (order, is_favorite)=>{
     try{
-        const allSongs = await db.any("SELECT * FROM songs");
-        return allSongs
+        
+        if(!order && !is_favorite){
+            const allSongs = await db.any("SELECT * FROM songs");
+            return allSongs;
+        }
+         else if(order === "asc"){
+            const ascSongs = await db.any("SELECT * FROM songs ORDER BY name");
+            return ascSongs;
+        } else if(order == "desc"){
+            const descSongs = await db.any("SELECT * FROM songs ORDER BY name DESC");
+            return descSongs;
+        }  else if(is_favorite === "false"){
+            const notfavSongs = await db.any("SELECT * FROM songs WHERE is_favorite=FALSE");
+            return notfavSongs;
+        } else if (is_favorite === "true"){
+            const favSongs = await db.any("SELECT * FROM songs WHERE is_favorite=TRUE");
+            return favSongs
+        } else {
+            console.log("No quieries found")
+            return ({error: "no quieries found"})
+            
+        }
+        
     }catch(err){
         return err;
     }
@@ -56,5 +77,5 @@ module.exports ={
     getSong,
     createSong, 
     deleteSong,
-    updateSong
+    updateSong,
 };
