@@ -1,4 +1,5 @@
 const express = require('express');
+const { validSong } = require('../helpers/errors');
 const songs = express.Router();
 const { getAllSongs , createSong , getSong, deleteSong, updateSong } = require('../queries/songs')
 
@@ -12,12 +13,12 @@ songs.get('/', async (_, res) => {
     res.status(200).json(songs)
 });
 // CREATE
-songs.post('/', async (req, res) => {
+songs.post('/', validSong, async (req, res) => {
     try{
         const newSong = await createSong(req.body)
         res.status(200).json(newSong)
     }catch(err){
-        res.status(400).json({ error: err})
+        throw err
     }
     
 })
@@ -38,13 +39,14 @@ songs.get('/:id', async (req, res) => {
 //DESTROY
 songs.delete('/:id', async (req, res) => {
     const {id} = req.params;
-    const song = deleteSong(id)
-
-    if(song.id) {
+    
+   try{
+        const song = await deleteSong(id)
         res.status(200).json(song)
-    } else {
-        res.status(404).json({error: "Song not found"});
-    }
+    } catch (error) {
+        res.status(404).json({error: error})
+    }     
+    
 })
 //UPDATE
 songs.put("/:id", async (req, res) => {

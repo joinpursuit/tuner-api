@@ -38,7 +38,7 @@ const deleteSong = async (id) => {
         )
         return deletedSong;
     } catch (error) {
-        return error;
+        throw error;
     }
     
 }
