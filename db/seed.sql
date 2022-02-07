@@ -2,12 +2,12 @@
 
 INSERT INTO songs (name, artist, album, time, is_favorite) VALUES 
 ('Levitating', 'Dua Lipa', 'Future Nostalgia', '3:23', true),
+('Good Ones', 'Charli XCX', 'Good Ones', '2:16', false),
 ('Lonely Together', 'Avicii', 'AVICI', '3:01', false),
 ('Marry Me', 'Jason Derulo', 'Talk Dirty', '3:45', true),
 ('Ghost', 'Justin Bieber', 'Justice', '2:33', true),
 ('Woman', 'Doja Cat', 'Planet Her', '2:52', false),
 ('abcdefu', 'GAYLE', 'abc (nicer)', '2:48', false),
-('Good Ones', 'Charli XCX', 'Good Ones', '2:16', false),
 ('Go Crazy', 'Chris Brown & Young Thug', 'Slime & B', '2:56', true),
 ('Heat Waves', 'Glass Animals', 'Dreamland', '3:58', true),
 ('Jealous', 'DJ Khaled', 'Father of Asahd', '4:15', true),
