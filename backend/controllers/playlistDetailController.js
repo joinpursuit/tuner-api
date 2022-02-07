@@ -13,7 +13,7 @@ const {
 playlistsDetail.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const playlist = await getPlaylist(id);
+    const playlist = await getPlaylistDetail(id);
     if (playlist.id) {
       res.status(200).json(playlist);
     } else {
@@ -27,7 +27,7 @@ playlistsDetail.get("/:id", async (req, res) => {
 // INDEX
 playlistsDetail.get("/", async (req, res) => {
   const { order } = req.query;
-  const allPLaylists = await getAllPlaylists();
+  const allPLaylists = await getAllPlaylistsDetail();
 
   if (allPLaylists[0]) {
     switch (true) {
@@ -67,7 +67,7 @@ playlistsDetail.get("/", async (req, res) => {
 // CREATE
 playlistsDetail.post("/", async (req, res) => {
   try {
-    const playlist = await createPlaylist(req.body);
+    const playlist = await createPlaylistDetail(req.body);
     res.json(playlist);
   } catch (error) {
     res.status(400).json({ error: error });
@@ -77,7 +77,7 @@ playlistsDetail.post("/", async (req, res) => {
 // DELETE
 playlistsDetail.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const deletedPlaylist = await deletePlaylist(id);
+  const deletedPlaylist = await deletePlaylistDetail(id);
   if (deletedPlaylist.id) {
     res.status(200).json(deletedPlaylist);
   } else {
@@ -88,7 +88,7 @@ playlistsDetail.delete("/:id", async (req, res) => {
 // UPDATE
 playlistsDetail.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const updatedPlaylist = await updatePlaylist(id, req.body);
+  const updatedPlaylist = await updatePlaylistDetail(id, req.body);
   res.status(200).json(updatedPlaylist);
 });
 

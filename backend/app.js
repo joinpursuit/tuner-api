@@ -3,10 +3,10 @@ const cors = require("cors");
 const express = require("express");
 
 const songsController = require("./controllers/songsController");
-const artistController = require("./controllers/artistController");
-const albumController = require("./controllers/albumController");
-const playlistController = require("./controllers/playlistController");
-const playlistDetailController = require("./controllers/playlistDetailController");
+// const artistController = require("./controllers/artistController");
+// const albumController = require("./controllers/albumController");
+// const playlistController = require("./controllers/playlistController");
+// const playlistDetailController = require("./controllers/playlistDetailController");
 
 // CONFIGURATION
 const app = express();
@@ -22,10 +22,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/songs", songsController);
-app.use("/artists", artistController);
-app.use("/albums", albumController);
-app.use("/playlist", playlistController);
-app.use("/playlistdetails", playlistController);
+// app.use("/artists", artistController);
+// app.use("/albums", albumController);
+// app.use("/playlists", playlistController);
+// app.use("/playlistsdetails", playlistDetailController);
 
 // 404 PAGE
 app.get("*", (req, res) => {

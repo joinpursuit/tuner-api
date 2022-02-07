@@ -1,13 +1,18 @@
 // DEPENDENCIES
 const express = require("express");
-const albums = express.Router();
+const albums = express.Router({ mergeParams: true });
+const songsController = require("./songsController");
+
 const {
   getAllAlbums,
   getAlbum,
   createAlbum,
   deleteAlbum,
   updateAlbum,
+  getAlbumArtist,
 } = require("../../queries/albums");
+
+albums.use("/:albumID/songs", songsController);
 
 // SHOW
 albums.get("/:id", async (req, res) => {
@@ -27,40 +32,54 @@ albums.get("/:id", async (req, res) => {
 // INDEX
 albums.get("/", async (req, res) => {
   const { order } = req.query;
-  const allAlbums = await getAllAlbums();
+  const { artistID } = req.params;
 
-  if (allAlbums[0]) {
-    switch (true) {
-      case order === "asc":
-        allAlbums.sort((a, b) => {
-          if (a.title.toLowerCase() < b.title.toLowerCase()) {
-            return -1;
-          }
-          if (a.title.toLowerCase() > b.title.toLowerCase()) {
-            return 1;
-          }
-          return 0;
-        });
-        res.status(200).json(allAlbums);
-        break;
-      case order === "desc":
-        allAlbums.sort((a, b) => {
-          if (a.title.toLowerCase() > b.title.toLowerCase()) {
-            return -1;
-          }
-          if (a.title.toLowerCase() < b.title.toLowerCase()) {
-            return 1;
-          }
-          return 0;
-        });
-        res.status(200).json(allAlbums);
-        break;
-      default:
-        res.status(200).json(allAlbums);
-        break;
+  if (artistID) {
+    try {
+      const album = await getAlbumArtist(artistID);
+      if (album[0]) {
+        res.status(200).json(album);
+      } else {
+        res.status(404).json({ error: "not found" });
+      }
+    } catch (error) {
+      console.log(error);
     }
   } else {
-    res.status(500).json({ error: "server error" });
+    const allAlbums = await getAllAlbums();
+    if (allAlbums[0]) {
+      switch (true) {
+        case order === "asc":
+          allAlbums.sort((a, b) => {
+            if (a.title.toLowerCase() < b.title.toLowerCase()) {
+              return -1;
+            }
+            if (a.title.toLowerCase() > b.title.toLowerCase()) {
+              return 1;
+            }
+            return 0;
+          });
+          res.status(200).json(allAlbums);
+          break;
+        case order === "desc":
+          allAlbums.sort((a, b) => {
+            if (a.title.toLowerCase() > b.title.toLowerCase()) {
+              return -1;
+            }
+            if (a.title.toLowerCase() < b.title.toLowerCase()) {
+              return 1;
+            }
+            return 0;
+          });
+          res.status(200).json(allAlbums);
+          break;
+        default:
+          res.status(200).json(allAlbums);
+          break;
+      }
+    } else {
+      res.status(500).json({ error: "server error" });
+    }
   }
 });
 

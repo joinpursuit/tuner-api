@@ -76,6 +76,18 @@ const updateAlbum = async (id, album) => {
   }
 };
 
+const getAlbumArtist = async (id) => {
+  try {
+    const artistAlbums = await db.any(
+      "SELECT * FROM albums WHERE albums.artist_id=$1",
+      id
+    );
+    return artistAlbums;
+  } catch (error) {
+    return error;
+  }
+};
+
 //EXPORT
 module.exports = {
   getAllAlbums,
@@ -83,4 +95,5 @@ module.exports = {
   createAlbum,
   deleteAlbum,
   updateAlbum,
+  getAlbumArtist,
 };

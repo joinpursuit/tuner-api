@@ -1,6 +1,8 @@
 // DEPENDENCIES
 const express = require("express");
 const artists = express.Router();
+const albumsController = require("./albumController");
+
 const {
   getAllArtists,
   getArtist,
@@ -8,6 +10,8 @@ const {
   deleteArtist,
   updateArtist,
 } = require("../../queries/artist");
+
+artists.use("/:artistID/albums", albumsController);
 
 // SHOW
 artists.get("/:id", async (req, res) => {
