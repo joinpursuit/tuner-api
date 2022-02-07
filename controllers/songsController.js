@@ -2,9 +2,22 @@ const express = require("express");
 const songs = express.Router();
 const { getAllSongs, getSong, createSong, deleteSong, updateSong } = require("../queries/songs.js");
 const { validateSongs } = require("../validations/checkSongs.js");
+const reviewsController = require("./reviewsController.js");
+// const songsRoutesHelper = require("../helpers/songsOrder.js")
+
+// MIDDLEWARE Routes
+songs.use("/:songID/reviews", reviewsController);
 
 // INDEX
 songs.get("/", async (req, res) => {
+    // const { order, is_favorite } = req.query; 
+    // if(order){
+    //     return songsRoutesHelper.sortedResponse(logs,order,res);
+    // }
+
+    // if(is_favorite){
+    //     return songsRoutesHelper.filteredMistakesResponse(logs,is_favorite,res);
+    // }
     try{
         const allSongs = await getAllSongs();
         if(allSongs[0]){
@@ -33,7 +46,7 @@ songs.get("/:id", async (req, res) => {
 });
 
 // CREATE
-songs.post("/", validateSongs, async (req, res) => {
+songs.post("/", async (req, res) => {
     const { body } = req;
     try{
         const createdSong = await createSong(body);
@@ -59,7 +72,7 @@ songs.delete("/:id", async (req, res) => {
 });
 
 // UPDATE
-songs.put("/:id", validateSongs, async (req, res) => {
+songs.put("/:id", async (req, res) => {
     const { id } = req.params;
     const { body } = req;
     const updatedSong = await updateSong(id, body);

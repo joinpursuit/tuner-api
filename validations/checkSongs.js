@@ -1,6 +1,6 @@
 const validateSong = (req, res, next) => {
     let errorMsg = [];
-    const { name, is_favorite, url } = req.body;
+    const { name, is_favorite } = req.body;
     if(name === undefined){
         errorMsg.push("name is required");
       }
@@ -15,5 +15,9 @@ const validateSong = (req, res, next) => {
         next();
       }
 };
+
+// const sortedResponse = (req, res, next) => {
+
+// }
 
 module.exports = { validateSong };
