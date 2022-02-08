@@ -1,44 +1,48 @@
-const db = require("../database/dbconfig");
-const database = require("../database/dbconfig");
+const database = require("../database/dbConfig");
 
+// this function queries our db for us, which can take a while so we want to wait for it to finish.
 const getAllSongs = async () => {
   try {
-    const songs = await database.any("SELECT * FROM songs");
+    const getAll = await database.any("SELECT * FROM songs");
 
-    return songs;
-  } catch (error) {
-    return error;
+    return getAll;
+  } catch (err) {
+    return err;
   }
 };
 
 const getSong = async (id) => {
   try {
-    const song = await db.one("SELECT * FROM songs WHERE id=$1", id);
+    const get = await database.one("SELECT * FROM songs WHERE id=$1", id);
 
-    return song;
+    return get;
   } catch (error) {
     return error;
   }
 };
 
 const addNewSongs = async (song) => {
-  const { name, artist, album, time, is_favorite } = song;
-  const newSong = await database.any(
-    "INSERT INTO songs (name, artist, album, time, is_favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-    [name, artist, album, time, is_favorite]
-  );
+  try {
+    const { name, artist, album, time, is_favorite } = song;
+    const add = await database.one(
+      "INSERT INTO songs (name, artist, album, time, is_favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [name, artist, album, time, is_favorite]
+    );
 
-  return newSong;
+    return add;
+  } catch (error) {
+    return error;
+  }
 };
 
 const deleteSong = async (id) => {
   try {
-    const deletedSong = await db.one(
+    const remove = await database.one(
       "DELETE FROM songs WHERE id=$1 RETURNING *",
       id
     );
 
-    return deletedSong;
+    return remove;
   } catch (error) {
     return error;
   }
@@ -47,17 +51,18 @@ const deleteSong = async (id) => {
 const updateSong = async (id, song) => {
   try {
     const { name, artist, album, time, is_favorite } = song;
-    const updatedSong = await db.one(
+    const update = await database.one(
       "UPDATE songs SET name=$2, artist=$3, album=$4, time=$5, is_favorite=$6 WHERE id=$1 RETURNING *",
       [id, name, artist, album, time, is_favorite]
     );
 
-    return updatedSong;
+    return update;
   } catch (error) {
     return error;
   }
 };
 
+// here we are exporting our functions to use in our controllers
 module.exports = {
   getAllSongs,
   getSong,
