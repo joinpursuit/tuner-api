@@ -16,8 +16,4 @@ const validateSong = (req, res, next) => {
       }
 };
 
-// const sortedResponse = (req, res, next) => {
-
-// }
-
 module.exports = { validateSong };

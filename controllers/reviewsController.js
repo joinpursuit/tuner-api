@@ -1,5 +1,4 @@
 const express = require("express");
-const { getSong } = require("../queries/songs.js");
 const reviews = express.Router({ mergeParams: true });
 
 const {
@@ -12,9 +11,9 @@ const {
 
 // INDEX
 reviews.get("/", async (req, res) => {
-  const { bookmarkId } = req.params;
+  const { songId } = req.params;
 
-  const allReviews = await getAllReviews(bookmarkId);
+  const allReviews = await getAllReviews(songId);
   if (allReviews[0]) {
     res.status(200).json(allReviews);
   } else {

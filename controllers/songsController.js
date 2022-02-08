@@ -1,23 +1,14 @@
 const express = require("express");
 const songs = express.Router();
 const { getAllSongs, getSong, createSong, deleteSong, updateSong } = require("../queries/songs.js");
-const { validateSongs } = require("../validations/checkSongs.js");
+const { validateSong } = require("../validations/checkSongs.js");
 const reviewsController = require("./reviewsController.js");
-// const songsRoutesHelper = require("../helpers/songsOrder.js")
 
 // MIDDLEWARE Routes
 songs.use("/:songID/reviews", reviewsController);
 
 // INDEX
 songs.get("/", async (req, res) => {
-    // const { order, is_favorite } = req.query; 
-    // if(order){
-    //     return songsRoutesHelper.sortedResponse(logs,order,res);
-    // }
-
-    // if(is_favorite){
-    //     return songsRoutesHelper.filteredMistakesResponse(logs,is_favorite,res);
-    // }
     try{
         const allSongs = await getAllSongs();
         if(allSongs[0]){
@@ -38,7 +29,7 @@ songs.get("/:id", async (req, res) => {
         if(song.id){
             res.status(200).json(song);
         }else{
-            res.status(404).json({error: "Not Found"});
+            res.status(500).json({error: "Song not found"});
         }
     }catch(err){
         console.log(err);
@@ -46,7 +37,7 @@ songs.get("/:id", async (req, res) => {
 });
 
 // CREATE
-songs.post("/", async (req, res) => {
+songs.post("/", validateSong, async (req, res) => {
     const { body } = req;
     try{
         const createdSong = await createSong(body);
@@ -64,7 +55,7 @@ songs.post("/", async (req, res) => {
 songs.delete("/:id", async (req, res) => {
     const { id } = req.params;
     const deletedSong = await deleteSong(id);
-    if(deleteSong.id){
+    if(deletedSong.id){
         res.status(200).json(deletedSong);
     }else{
         res.status(404).json({error: "Song not found"});
@@ -72,7 +63,7 @@ songs.delete("/:id", async (req, res) => {
 });
 
 // UPDATE
-songs.put("/:id", async (req, res) => {
+songs.put("/:id", validateSong, async (req, res) => {
     const { id } = req.params;
     const { body } = req;
     const updatedSong = await updateSong(id, body);
