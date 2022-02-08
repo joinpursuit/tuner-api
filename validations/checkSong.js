@@ -27,7 +27,7 @@ const checkTime = (req, res, next) => {
     if(regCheck){
         next();
     } else {
-        res.status(400).json({error: "Time is required in following format 1:23"});
+        res.status(400).json({error: "Time is required in the following format 1:23"});
     }
 };
 
