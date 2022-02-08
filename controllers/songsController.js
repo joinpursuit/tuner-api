@@ -5,7 +5,7 @@ const { validateSong } = require("../validations/checkSongs.js");
 const reviewsController = require("./reviewsController.js");
 
 // MIDDLEWARE Routes
-songs.use("/:songID/reviews", reviewsController);
+songs.use("/:songId/reviews", reviewsController);
 
 // INDEX
 songs.get("/", async (req, res) => {
