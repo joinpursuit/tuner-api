@@ -65,8 +65,10 @@ songs.put("/:id", async (req, res) => {
 songs.delete("/:id", async (req, res) => {
   const { id } = req.params;
   const deletedSong = await deleteSong(id);
+  const allSongs = await getAllSongs();
+
   if (deletedSong.id) {
-    res.status(200).json(deletedSong);
+    res.status(200).json(allSongs);
   } else {
     res.status(404).json({ error: "Song was not found." });
   }
