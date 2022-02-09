@@ -20,7 +20,7 @@ songs.get("/", async (_, response) => {
 songs.get("/:id", async (request, response) => {
 
   console.log("GET request to /:id");
-
+  // console.log(request.params.id);
   const oneSong = await getSong(request.params.id);
   response.status(200).json(oneSong);
 
@@ -29,7 +29,7 @@ songs.get("/:id", async (request, response) => {
 songs.post("/", async (request, response) => {
 
   console.log("POST request to /");
-
+  // console.log(request.body)
   const add = await addNewSongs(request.body);
   response.status(200).json(add);
 });
