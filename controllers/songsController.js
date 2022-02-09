@@ -54,8 +54,8 @@ songs.post("/new", async (request, response) => {
 //edit song
 songs.put("/:id", async (request, response) => {
   console.log(`Edit song at ${request.params.id}`);
-  const song = updateSong(request.params.id, request.body);
-  if (song.id) {
+  const song = await updateSong(request.params.id, request.body);
+  if (song) {
     response.status(200).json(song);
   } else {
     response.status(404).json("Song not found");
