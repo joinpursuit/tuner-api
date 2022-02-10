@@ -6,11 +6,6 @@ const { getAllSongs,
         deleteAndGet,
         updateAndGet } = require('../queries/songQuery');
 
-// Where should we error handle?
-    // in server or database side?
-// What's the difference between this file and songQuery file?
-    // is it server vs database file?
-
 songsRoute.get('/', async (request, response) => {
     const allSongs = await getAllSongs();
     

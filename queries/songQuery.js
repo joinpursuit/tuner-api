@@ -1,8 +1,5 @@
 const database = require('../db/dbConfig');
 
-// is * referring to the columns (the type of data to get back)
-// when do we get to use anything else besides ".any" on our database?
-    // is it related to SQL's "LIMIT" command?
 const getAllSongs = async () => {
     try {
         const allSongs = await database.any(`
