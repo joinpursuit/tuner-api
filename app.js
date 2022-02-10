@@ -1,6 +1,7 @@
 //library
 const express = require("express");
 const songsController = require("./controllers/songsController");
+const reviewsController = require("./controllers/reviewsController");
 const cors = require("cors");
 
 const app = express();
@@ -9,6 +10,7 @@ app.use(cors());
 
 //app.use declares that the path /songs uses the routing methods in the controllers file
 app.use("/songs", songsController);
+app.use("/:id/reviews/", reviewsController);
 
 app.get("/", (request, response) => {
   response.send("Welcome to Tuner");

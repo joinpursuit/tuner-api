@@ -1,7 +1,7 @@
 //using express
 const express = require("express");
 //want to use router method to list as starting path assists with routing
-const songs = express.Router();
+// const songs = express.Router();
 const {
   getAllSongs,
   getASong,
@@ -9,6 +9,10 @@ const {
   deleteASong,
   updateSong,
 } = require("../queries/songs");
+const reviewsController = require("./reviewsController");
+
+const songs = express.Router({ mergeParams: true });
+songs.use("/:id/reviews", reviewsController);
 
 songs.get("/", async (request, response) => {
   const songs = await getAllSongs();
@@ -21,7 +25,6 @@ songs.get("/:id", async (request, response) => {
 });
 
 songs.post("/new", async (request, response) => {
-  console.log(request.body);
   const newSong = await addASong(request.body);
   response.status(200).json(newSong);
 });
