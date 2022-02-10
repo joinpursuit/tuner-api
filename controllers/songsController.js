@@ -12,7 +12,6 @@ const {
 
 songs.get("/", async (request, response) => {
   const songs = await getAllSongs();
-  console.log("this is the songs page working");
   response.send(songs);
 });
 
@@ -21,7 +20,7 @@ songs.get("/:id", async (request, response) => {
   response.status(200).json(aSong);
 });
 
-songs.post("/", async (request, response) => {
+songs.post("/new", async (request, response) => {
   console.log(request.body);
   const newSong = await addASong(request.body);
   response.status(200).json(newSong);
