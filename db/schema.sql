@@ -10,10 +10,10 @@ CREATE DATABASE songs_db;
 -- CREATE TABLE(ENTITY)
 CREATE TABLE songslist (
 artistId SERIAL PRIMARY KEY,
-artistName VARCHAR(25) NOT NULL,
-genre VARCHAR(25) NOT NULL,
-nationality VARCHAR(25) NULL,
-dateOfBirth VARCHAR(25) NULL,
+artistName TEXT,
+genre TEXT,
+nationality TEXT,
+dateOfBirth TEXT,
 activeFrom INT
 );
 
@@ -22,7 +22,7 @@ activeFrom INT
 
 CREATE TABLE Albums (
   AlbumId SERIAL PRIMARY KEY,
-  AlbumName VARCHAR(25) NOT NULL,
+  AlbumName TEXT NOT NULL,
   ReleaseDate INT,
   is_favorite BOOLEAN DEFAULT true,
   artistId INT REFERENCES songslist(ArtistId) 
