@@ -1,6 +1,4 @@
 const express = require("express");
-
-const songs = express.Router();
 const {
   getAllSongs,
   getASong,
@@ -9,10 +7,14 @@ const {
   updateSong,
 } = require("../queries/songs");
 
+const albumsController = require('./albumController')
+
+const songs = express.Router({mergeParams: true});
+songs.use('/:id/albums', albumsController)
+
 songs.get("/", async (request, response) => {
   const { order, is_favorite } = request.query;
   const songs = await getAllSongs();
-
   if (order || is_favorite) {
     if (order === "asc") {
       songs.sort(function (a, b) {
@@ -25,19 +27,13 @@ songs.get("/", async (request, response) => {
       });
       response.send(songs);
     } else if (is_favorite === "true") {
-      let isFavoriteTrue = songs.filter(
-        (fav) => fav.is_favorite === true
-      );
+      let isFavoriteTrue = songs.filter((fav) => fav.is_favorite === true);
 
       response.send(isFavoriteTrue);
-    }
-     else if (is_favorite === "false") {
-      let isFavoriteFalse = songs.filter(
-        (fav) => fav.is_favorite === false
-      );
+    } else if (is_favorite === "false") {
+      let isFavoriteFalse = songs.filter((fav) => fav.is_favorite === false);
       response.send(isFavoriteFalse);
     }
-    
   } else {
     response.send(songs);
   }
@@ -66,6 +62,7 @@ songs.delete("/:id", async (request, response) => {
 
 //UPDATE
 songs.put("/:id", async (request, response) => {
+  
   try {
     const updatedSong = await updateSong(request.params.id, request.body);
     response.status(200).json(updatedSong);
