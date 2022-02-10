@@ -6,7 +6,8 @@
     "pg-promise": "^10.11.1"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "seed": "psql -f db/schema.sql && psql -f db/seed.sql"
   },
   "name": "tuner-api",
   "description": "Let's make our own music playlist app!",

@@ -35,16 +35,26 @@ const song = await deleteSong(id);
 response.status(200).json(song);    
 })
 
-songs.put('/:id', async (request, response) => {
-  const {id} = request.params;
-  const song = await deleteSong(id);
-  response.status(200).json(song);    
-  })
-
-  songs.put(':/id', async (request, response) => {
-  const {id} = request.params;
-  const song = await updateSong(request.body, id);
-  response.status(200).json(song);
-  })
+// songs.put('/:id', async (request, response) => {
+//   const {id} = request.params;
+//   const song = await deleteSong(id);
+//   response.status(200).json(song);    
+//   })
+//UPDATE
+songs.put("/:id", async (request, response) => {
+  
+  try {
+    const updatedSong = await updateSong(request.params.id, request.body);
+    response.status(200).json(updatedSong);
+  } catch (error) {
+    console.log(error);
+    response.status(404).json({ error: "Song not found" });
+  }
+});
+  // songs.put(':/id', async (request, response) => {
+  // const {id} = request.params;
+  // const song = await updateSong(id, request.body);
+  // response.status(200).json(song);
+  // })
 
 module.exports = songs;
