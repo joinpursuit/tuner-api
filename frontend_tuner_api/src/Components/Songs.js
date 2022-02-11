@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Table} from "react-bootstrap";
 import axios from "axios";
 import Song from "./Song";
 
@@ -15,10 +17,14 @@ function Songs () {
     return (
         <div className="Songs">
             <section>
-                <table>
+                <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>See all songs</th>
+                            <td>Favorite</td>
+                            <td>Name</td>
+                            <td>Artist</td>
+                            <td>Ablum</td>
+                            <td>Duration</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,7 +32,7 @@ function Songs () {
                             return <Song key={song.id} song={song} />;
                         })}
                     </tbody>
-                </table>
+                </Table>
             </section>
         </div>
     )

@@ -93,7 +93,7 @@ function SongEditForm () {
 
                 <input type="submit" />
 
-                <Link to={`${API}/songs/${id}`}>Nevermind! Back to Show Page 🎵🎵🎵</Link>
+                <Link to={`/songs/${id}`}>Nevermind! Back to Show Page 🎵🎵🎵</Link>
             </form>
         </div>
     )

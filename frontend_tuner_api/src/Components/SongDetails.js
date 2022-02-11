@@ -29,10 +29,10 @@ function SongDetails () {
             <h3>Duration: {song.time}</h3>
             <div className="navigation">
                 <div>
-                    <Link to={`${API}/songs`}><button>Back</button></Link>
+                    <Link to={`/songs`}><button>Back</button></Link>
                 </div>
                 <div>
-                    <Link to={`${API}/songs/${id}/edit`}><button>Edit</button></Link>
+                    <Link to={`/songs/${id}/edit`}><button>Edit</button></Link>
                 </div>
                 <div>
                     <button onClick={handleDelete}>Delete</button>

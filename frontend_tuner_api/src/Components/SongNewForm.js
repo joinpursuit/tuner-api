@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API = process.env.REACT.APP.API.URL;
+const API = process.env.REACT_APP_API_URL;
 
 function SongNewForm () {
     let navigate = useNavigate();
@@ -73,13 +73,12 @@ function SongNewForm () {
                     placeholder="Duration of Song"
                     required
                 />
-                <label htmlFor="is_favorite">Favprite: </label>
+                <label htmlFor="is_favorite">Favorite: </label>
                 <input 
                     id="is_favorite"
                     type="checkbox"
                     onChange={handleCheckboxChange}
                     cheked={song.is_favorite}
-                    required
                 />
 
                 <br />

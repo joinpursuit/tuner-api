@@ -1,0 +1,22 @@
+.nav {
+    font-size: x-large;
+    border-radius: 20px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-image: url("https://d4musicmarketing.com/wp-content/uploads/2018/02/start-music-career-header.jpg");
+}
+
+.nav a{
+    color: antiquewhite;
+    text-decoration: none;
+    padding:40px;
+}
+
+h1 {
+    padding-top: 30px;
+}
+
+#music-sign{
+    margin-left: 500px;
+    font-size: xx-large;
+    padding-bottom: 10px;
+}
