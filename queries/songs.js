@@ -34,9 +34,8 @@ const createSong = async (song) => {
     }
 };
 
-
 // DELETE from Songs
-const deleteSong = async (id) {
+const deleteSong = async (id) => {
     try { 
         const deletedSong = await db.one(
             'DELETE FROM songs WHERE id = $1 RETURNING *', id);

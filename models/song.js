@@ -4,19 +4,22 @@ const songs = [
         name: 'La Diabla', 
         artist: 'Romeo Santos',
         album: 'Formula Vol.1',
-        is_Favorite: true,
+        time: '3:03min',
+        is_Favorite: true
       },
     {
         name: 'What A Wonderful World',
         artist: 'Louis Armstrong',
         album: "Cabaret",
-        is_Favorite: true,
+        time: '2:59min',
+        is_Favorite: true
       },
     {
         name: 'Girls Just Wanna Have Fun', 
         artist: 'Cyndi Lauper',
         album: "She Is So Unusual",
-        is_Favorite: false,
+        time: '3:54min',
+        is_Favorite: false
       },
 
 ];

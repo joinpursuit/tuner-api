@@ -6,7 +6,7 @@
     "pg-promise": "^10.11.1"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "server.js"
   },
   "name": "tuner-api",
   "description": "Let's make our own music playlist app!",

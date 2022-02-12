@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 8008
 app.use(cors());
 app.use(express.json())
 
-// Home Route
+// Home Routes
 app.use('/', (req, res) => {
     res.status(200).send('Welcome to Songs');
 });
