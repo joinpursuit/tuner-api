@@ -1,79 +1,90 @@
 
+// const { response } = require("express");
 const express = require("express");
-const res = require("express/lib/response");
+// const res = require("express/lib/response");
+const songs = express.Router();
+
 
 const {
   getAllSongs,
   getSong,
   createSong,
   deleteSong,
-  updatedSong,
+  updateSong,
 } = require("../queries/songs");
 
-const songs = express.Router();
 
+    // GET the song object
     songs.get("/", async (_, response) => {
-    console.log("GET request to /songs");
-    const allSongs = await getAllSongs();
-    if (allSongs.length === 0) {
-        response.status(500).json({ error: "server error" });
-    return;
-    }
-    response.status(200).json(allSongs);
+        const allSongs = await getAllSongs();
+        if (allSongs.length === 0) {
+            response.status(500).json({ error: "server error" });
+        return;
+        } else {
+            console.log("GET request to /songs");
+            response.status(200).json(allSongs);
+            }
     });
 
+    // GET a song 
     songs.get("/:id", async (request, response) => {
-    console.log("GET request to /Songs/:id");
-    const song = await getSong(request.params.id);
-    response.status(200).json(song);
-    });
-
-    songs.post("/", async (request, response) => {
-    const song = await createSong(request.body);
-    response.status(200).json(song);
-    });
-
-    songs.delete('/:id', async (request, response) => {
-        const deletedSong = await deleteSong(req.params.id);
-        if(allSongs.length === 0) {
-            response.status(200).json(deletedSong);
-            // response.status(500).json({error: 'server error' });
-        } else {
-            response.status(404).json('Song does not exist');
+        const { id } = request.params;
+        const song = await getSong(id);
+        if (song.id) {
+            console.log("GET request to /Songs/:id");
+            response.status(200).json(song);
         }
-    })
+            response.redirect('/redirect')
+    });
 
-    songs.put('/:id', async (req, res) => {
-        const updatedSong = await updateSong(req.params.id, req.body);
-        if(updatedSong.id) {
-            res.status(200).json(updatedSong);
+    // POST create a new song
+    songs.post("/", async (request, response) => {
+        const song = await createSong(request.body);
+       if (!createSong) {
+           response.status(500).json({error: 'Song not posted'});
+       } else {
+        response.status(200).json(song);
+       }
+    });
+
+    // PUT request = UPDATE post 
+    songs.put('/:id', async (_, res) => {
+        const { id } = params.body;
+        const updatedSong = request.body;
+        
+        const song = await updateSong(id,updatedSong);
+        if (song.id){
+            console.log('UPDATE /:id')
+            console.log(song)
+            res.status(200).json(song);
         } else {
-            res.status(404).json('Song does not exist');
+            response.redirect('/redirect')
+            // res.status(404).json('Song does not exist');
         };
+        // -- OR --
+//         songs.put("/:id", async (request, response) => {
+//             const updatedSong = await updateSong(request.params.id, request.body);
+//             if (updatedSong) {
+//               response.status(200).json(updatedSong);
+//             } else {
+//               response.status(500).json({ error: "Song could not be updated" });
+//             }
+//           });
 
+        // DELETE
+        songs.delete('/:id', async (request, response) => {
+            const { id } = request.params; 
+            const deletedSong = await deleteSong(id);
+            if(deletedSong.id) {
+                console.log(deletedSong)
+                console.log('DELETE request to /:id')
+                response.status(200).json(deletedSong);
+            } 
+                response.status(404).json('Song does not exist')
+        })
 })
 
 
 module.exports = songs;
 
 
-// const express = require("express");
-// const cors = require("cors");
-// const songsController = require("./controllers/songsController");
-
-// const app = express();
-// app.use(cors());
-// app.use(express.json());
-
-// app.use("/songs", songsController);
-
-// app.get("/", (_, response) => {
-//   console.log("GET request to /");
-//   response.send("Hello and welcome to songs!");
-// });
-
-// app.get("*", (_, response) => {
-//   response.status(404).json({ error: "Page not found" });
-// });
-
-// module.exports = app;
