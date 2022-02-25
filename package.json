@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./backend/server.js",
+  "scripts": {
+    "test": "jest --runInBand",
+    "start": "node ./backend/server.js",
+    "dbinit": "psql -U postgres -f db/schema.sql",
+    "dbseed": "psql -U postgres -f db/seed.sql"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "jest": "^27.4.7",
+    "pg-promise": "^10.11.1",
+    "supertest": "^6.2.2"
+  }
+}
