@@ -5,6 +5,8 @@ const {
   getAllSongs,
   getOneSong,
   postNewSong,
+  updateOneSong,
+  deleteOneSong,
 } = require("../queries/songs");
 
 songs.use("/:id", async (req, res, next) => {
@@ -22,17 +24,25 @@ songs.use("/:id", async (req, res, next) => {
 songs.get("/", async (req, res) => {
   const allSongs = await getAllSongs();
   console.log("=== GET /songs ", allSongs, " ===");
-  res.status(200).json(allSongs);
+  if (allSongs) {
+    res.status(200).json(allSongs);
+  } else {
+    res.status(404).send("No songs found.");
+  }
 });
 
 songs.get("/:id", async (req, res) => {
   const { id } = req.params;
   const song = await getOneSong(id);
   console.log("=== GET /songs/:id ", song, " ===");
-  res.status(200).json(song);
+  if (song) {
+    res.status(200).json(song);
+  } else {
+    res.status(404).send(`There are no songs associated with this ID(${id}).`);
+  }
 });
 
-songs.post("/new", async (req, res) => {
+songs.post("/", async (req, res) => {
   const newSong = {
     name: req.body.name,
     artist: req.body.artist,
@@ -41,9 +51,49 @@ songs.post("/new", async (req, res) => {
     is_favorite: req.body.is_favorite,
   };
   const newSongs = await postNewSong(newSong);
-  console.log("=== POST /songs/new ", newSongs, " ===");
+  console.log("=== POST /songs ", newSongs, " ===");
+  if (newSongs) {
+    res.status(200).json(newSongs);
+  } else {
+    res
+      .status(404)
+      .send(
+        `Please make sure you have entered all the required fields and that they are valid.`
+      );
+  }
+});
 
-  res.status(200).json(newSongs);
+songs.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const updateSong = {
+    name: req.body.name,
+    artist: req.body.artist,
+    album: req.body.album,
+    time: req.body.time,
+    is_favorite: req.body.is_favorite,
+  };
+  const updatedSong = await updateOneSong(id, updateSong);
+  console.log("=== PUT /songs/:id ", updatedSong, " ===");
+  if (updatedSong) {
+    res.status(200).json(updatedSong);
+  } else {
+    res
+      .status(404)
+      .send(
+        `Either no song exists with the ID(${id}), You have not entered all the required fields or they are not valid.`
+      );
+  }
+});
+
+songs.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const deleteSong = await deleteOneSong(id);
+  console.log("=== DELETE /songs/:id ", deleteSong, " ===");
+  if (deleteSong) {
+    res.status(200).json(deleteSong);
+  } else {
+    res.status(404).send(`No song exists with the ID(${id})`);
+  }
 });
 
 module.exports = songs;

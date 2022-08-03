@@ -45,9 +45,42 @@ const postNewSong = async (newSong) => {
   }
 };
 
+const updateOneSong = async (songID, updatedSong) => {
+  try {
+    const song = await db.one(
+      "UPDATE songs SET name=$1, artist=$2, album=$3, time=$4, is_favorite=$5 WHERE id=$6 RETURNING *",
+      [
+        updatedSong.name,
+        updatedSong.artist,
+        updatedSong.album,
+        updatedSong.time,
+        updatedSong.is_favorite,
+        songID,
+      ]
+    );
+    return song;
+  } catch (err) {
+    return err;
+  }
+};
+
+const deleteOneSong = async (songID) => {
+  try {
+    const song = await db.one(
+      "DELETE FROM songs WHERE id=$1 RETURNING *",
+      songID
+    );
+    return song;
+  } catch (err) {
+    return err;
+  }
+};
+
 module.exports = {
   checkIfSongExists,
   getAllSongs,
   getOneSong,
   postNewSong,
+  updateOneSong,
+  deleteOneSong,
 };
