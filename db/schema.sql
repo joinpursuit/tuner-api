@@ -9,6 +9,6 @@ CREATE TABLE song (
     name TEXT NOT NULL,
     artist TEXT NOT NULL,
     album TEXT.
-    time TEXT.
+    time INT.
     is_favorite BOOLEAN,
 )
