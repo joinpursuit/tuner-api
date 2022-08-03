@@ -8,7 +8,7 @@ CREATE TABLE song (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     artist TEXT NOT NULL,
-    album TEXT.
-    time INT.
-    is_favorite BOOLEAN,
-)
+    album TEXT,
+    time INT,
+    is_favorite BOOLEAN
+);
