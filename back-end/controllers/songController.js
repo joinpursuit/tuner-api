@@ -1,7 +1,10 @@
 //dependencies
 const express = require("express");
 const songs = express.Router();
-const { getAllSongs } = require("../queries/songs");
+const { getAllSongs, getOneSong } = require("../queries/songs");
+
+//import the validation checks
+const { checkId } = require("../validation/validation");
 
 //get the database
 const db = require("../db/dbConfig");
@@ -11,7 +14,11 @@ songs.get("/", async (req, res) => {
   //any() coming from the pg promise, first argument is sql command,
   //.any will take anything the sql command return
   const allSongs = await getAllSongs();
-  res.json(allSongs);
+  if (allSongs) {
+    res.json({ success: true, payload: allSongs });
+  } else {
+    res.status(404).json({ success: false, message: "Something went wrong" });
+  }
 });
 
 //route to post new song
@@ -30,7 +37,16 @@ songs.post("/new", async (req, res) => {
 });
 
 //route get individual song back
-songs.get("/:id", (req, res) => {});
+songs.get("/:id", checkId, async (req, res) => {
+  const { id } = req.params;
+  const song = await getOneSong(id);
+
+  if (song) {
+    res.status(200).json({ sucess: true, payload: song });
+  } else {
+    res.status(404).send(`No such song with id of ${id}`);
+  }
+});
 
 //export the sub router of songs
 module.exports = songs;
