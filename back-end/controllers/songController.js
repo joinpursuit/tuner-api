@@ -1,6 +1,7 @@
 //dependencies
 const express = require("express");
 const songs = express.Router();
+const { getAllSongs } = require("../queries/songs");
 
 //get the database
 const db = require("../db/dbConfig");
@@ -9,7 +10,7 @@ const db = require("../db/dbConfig");
 songs.get("/", async (req, res) => {
   //any() coming from the pg promise, first argument is sql command,
   //.any will take anything the sql command return
-  const allSongs = await db.any("SELECT * FROM songs");
+  const allSongs = await getAllSongs();
   res.json(allSongs);
 });
 
