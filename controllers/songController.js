@@ -9,9 +9,9 @@ songs.get("/", async (req, res) => {
   const allSongs = await getAllSongs();
   // const allSongs = await db.any("SELECT * FROM songs");
   if (allSongs) {
-    res.json({ success: true, payload: allSongs });
+    res.json(allSongs);
   } else {
-    res.status(404).json({ success: false, message: "Something went wrong" });
+    res.status(404).json({ message: "Something went wrong" });
   }
 });
 
@@ -20,7 +20,7 @@ songs.get("/:id", async (req, res) => {
   const { id } = req.params;
   const song = await getASong(id);
   if (song) {
-    res.status(200).json({ sucess: true, payload: song });
+    res.status(200).json(song);
   } else {
     res.status(404).send(`No such song with id of ${id}`);
   }
@@ -33,7 +33,7 @@ songs.post("/new", async (req, res) => {
     "INSERT INTO song (name, artist, album, time, is_favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *",
     [name, artist, album, time, is_favorite]
   );
-  res.status(200).json({ success: true, payload: newSong });
+  res.status(200).json(newSong);
 });
 
 module.exports = songs;
