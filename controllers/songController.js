@@ -1,7 +1,7 @@
 const express = require('express');
 
 const songs = express.Router();
-// const db = require('../db/dbConfig');
+const db = require('../db/dbConfig');
 const { getAllTunes, getATune } = require('../queries/tunes');
 
 //Index

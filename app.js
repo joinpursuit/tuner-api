@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.status(404).send('error! No songs here!');
+  res.status(404).send('Figure it out yourself!');
 });
 
 module.exports = app;

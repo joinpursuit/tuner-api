@@ -14,7 +14,8 @@ const getATune = async (id) => {
     const song = await db.one('SELECT * FROM song WHERE id=$1', id);
     return song;
   } catch (error) {
-    return error;
+    // console.log(error);
+    return `Error! No song with ID of ${id}`;
   }
 };
 
