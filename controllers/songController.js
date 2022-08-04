@@ -2,7 +2,13 @@ const express = require('express');
 
 const songs = express.Router();
 const db = require('../db/dbConfig');
-const { getAllTunes, getATune } = require('../queries/tunes');
+const {
+  getAllTunes,
+  getATune,
+  createTune,
+  updateTune,
+  deleteTune,
+} = require('../queries/tunes');
 
 //Index
 
@@ -27,18 +33,23 @@ songs.get('/:id', async (req, res) => {
 });
 
 //create
-songs.post('/new', async (req, res) => {
-  const newSong = await db.any(
-    'INSERT INTO song (name, artist, album, time, is_favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-    [
-      req.body.name,
-      req.body.artist,
-      req.body.album,
-      req.body.time,
-      req.body.is_favorite,
-    ]
-  );
-  res.status(200).json({ success: true, payload: newSong });
+songs.post('/', async (req, res) => {
+  const newSong = await createTune(req.body);
+  // console.log(newSong);
+  res.status(200).json(newSong);
 });
+
+//update
+songs.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedTune = await updateTune(id, req.body);
+    res.json(updatedTune);
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+});
+
+//delete
 
 module.exports = songs;
