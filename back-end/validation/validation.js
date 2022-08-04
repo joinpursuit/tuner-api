@@ -25,7 +25,7 @@ const checkBoolean = (req, res, next) => {
 };
 
 const checkForNoAdditionalParams = (req, res, next) => {
-  const { name, url, category, is_favorite, ...otherStuff } = req.body;
+  const { name, artist, album, time, is_favorite, ...otherStuff } = req.body;
   // CHECK IF THIS OTHERSTUFF IS AN EMPTY OBJECT
   if (
     otherStuff && // 👈 null and undefined check

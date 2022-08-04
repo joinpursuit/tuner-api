@@ -1,7 +1,12 @@
 //dependencies
 const express = require("express");
 const songs = express.Router();
-const { getAllSongs, getOneSong, postNewSong } = require("../queries/songs");
+const {
+  getAllSongs,
+  getOneSong,
+  postNewSong,
+  deleteSong,
+} = require("../queries/songs");
 
 //import the validation checks
 const {
@@ -17,10 +22,10 @@ const db = require("../db/dbConfig");
 songs.get("/", async (req, res) => {
   //any() coming from the pg promise, first argument is sql command,
   //.any will take anything the sql command return
-  const allSongs = await getAllSongs();
-  if (allSongs) {
+  try {
+    const allSongs = await getAllSongs();
     res.json({ success: true, payload: allSongs });
-  } else {
+  } catch {
     res.status(404).json({ success: false, message: "Something went wrong" });
   }
 });
@@ -28,11 +33,11 @@ songs.get("/", async (req, res) => {
 //route get individual song back
 songs.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const song = await getOneSong(id);
 
-  if (song) {
+  try {
+    const song = await getOneSong(id);
     res.status(200).json({ sucess: true, payload: song });
-  } else {
+  } catch {
     res.status(404).send(`No such song with id of ${id}`);
   }
 });
@@ -54,6 +59,18 @@ songs.post(
     }
   }
 );
+
+//route to delete a song
+songs.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedSong = await deleteSong(id);
+    res.status(200).json(deletedSong);
+  } catch {
+    res.status(404).json({ error: "Unable to delete the song" });
+  }
+});
 
 //export the sub router of songs
 module.exports = songs;
