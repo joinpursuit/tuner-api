@@ -1,7 +1,7 @@
 const express = require("express");
 const tunes = express.Router();
 // const favTunes = require("../models/songs");
-const db = require("../db/dbConfig");
+// const db = require("../db/dbConfig");
 const {
   getAllSongs,
   getASong,
@@ -9,6 +9,12 @@ const {
   deleteASong,
   updateASong,
 } = require("../queries/tunesqueries");
+
+const {
+  checkBoolean,
+  checkName,
+  checkForNoAdditionalParams,
+} = require("../validations/validations");
 
 //INDEX ROUTE
 tunes.get("/", async (req, res) => {
@@ -34,10 +40,16 @@ tunes.get("/:id", async (req, res) => {
 
 //CREATE ROUTE
 
-tunes.post("/new", async (req, res) => {
-  const newSong = await createSong(req.body);
-  res.json(newSong);
-});
+tunes.post(
+  "/new",
+  checkName,
+  checkBoolean,
+  checkForNoAdditionalParams,
+  async (req, res) => {
+    const newSong = await createSong(req.body);
+    res.json(newSong);
+  }
+);
 
 module.exports = tunes;
 
@@ -55,11 +67,17 @@ tunes.delete("/:id", async (req, res) => {
 
 //PUT
 
-tunes.put("/:id", async (req, res) => {
-  try {
-    const updated = await updateASong(req.params.id, req.body);
-    res.status(200).json(updated);
-  } catch (error) {
-    res.status(400).json(error);
+tunes.put(
+  "/:id",
+  checkBoolean,
+  checkName,
+  checkForNoAdditionalParams,
+  async (req, res) => {
+    try {
+      const updated = await updateASong(req.params.id, req.body);
+      res.status(200).json(updated);
+    } catch (error) {
+      res.status(400).json("Song Not Found");
+    }
   }
-});
+);
