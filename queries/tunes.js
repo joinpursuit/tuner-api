@@ -43,14 +43,22 @@ const updateTune = async (id, tune) => {
   }
 };
 
-const deleteTune = async (id) =>{
-
-}
+const deleteTune = async (id) => {
+  try {
+    const deletedTune = await db.one(
+      'DELETE FROM song WHERE id=$1 RETURNING *',
+      id
+    );
+    return deletedTune;
+  } catch (error) {
+    return error;
+  }
+};
 
 module.exports = {
   getAllTunes,
   getATune,
   createTune,
   updateTune,
-  deleteTune
+  deleteTune,
 };

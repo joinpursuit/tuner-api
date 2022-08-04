@@ -40,6 +40,7 @@ songs.post('/', async (req, res) => {
 });
 
 //update
+
 songs.put('/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -51,5 +52,16 @@ songs.put('/:id', async (req, res) => {
 });
 
 //delete
+
+songs.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  const deletedSong = await deleteTune(id);
+  if (deletedSong) {
+    res.status(200).json(deletedSong);
+  } else {
+    console.log(error.message || error);
+    res.status(500).json({ error: 'deletion error' });
+  }
+});
 
 module.exports = songs;
