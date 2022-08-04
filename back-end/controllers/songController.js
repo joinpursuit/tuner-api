@@ -6,6 +6,7 @@ const {
   getOneSong,
   postNewSong,
   deleteSong,
+  updateTheSong,
 } = require("../queries/songs");
 
 //import the validation checks
@@ -71,6 +72,24 @@ songs.delete("/:id", async (req, res) => {
     res.status(404).json({ error: "Unable to delete the song" });
   }
 });
+
+//update route
+songs.put(
+  "/:id",
+  checkBoolean,
+  checkName,
+  checkForNoAdditionalParams,
+  async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const updatedSong = await updateTheSong(req.body, id);
+      res.status(200).json(updatedSong);
+    } catch {
+      res.status(404).json({ error: "Unable to update the song" });
+    }
+  }
+);
 
 //export the sub router of songs
 module.exports = songs;
