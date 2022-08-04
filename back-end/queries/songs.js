@@ -7,6 +7,7 @@ const getAllSongs = async () => {
     const songs = await db.any("SELECT * FROM songs");
     return songs;
   } catch (error) {
+    console.log(error.message || error);
     return error;
   }
 };
@@ -15,11 +16,27 @@ const getAllSongs = async () => {
 const getOneSong = async (id) => {
   try {
     const song = await db.one("SELECT * FROM songs WHERE id = $1", id);
-    console.log(song);
     return song;
   } catch (error) {
+    console.log(error.message || error);
     return error;
   }
 };
 
-module.exports = { getAllSongs, getOneSong };
+//post a new song
+const postNewSong = async (song) => {
+  const { name, artist, album, time, is_favorite } = song;
+
+  try {
+    const newSong = await db.any(
+      "INSERT INTO songs (name,artist,album,time,is_favorite) VALUES ($1,$2,$3,$4,$5) RETURNING *",
+      [name, artist, album, time, is_favorite]
+    );
+    return newSong;
+  } catch (error) {
+    console.log(error.message || error);
+    return error;
+  }
+};
+
+module.exports = { getAllSongs, getOneSong, postNewSong };

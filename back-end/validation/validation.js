@@ -1,18 +1,45 @@
 //import db
 const db = require("../db/dbConfig");
 
-//check the song's id
-const checkId = async (req, res, next) => {
-  const result = await db.one("SELECT COUNT(id) FROM songs");
-  const songNums = parseInt(result.count);
-
-  const id = parseInt(req.params.id);
-
-  if (id < 1 || id > songNums) {
-    res.status(404).json({ error: `Cannot find the song with id ${id}` });
-  } else {
+//these check functions are from gary's github code
+//https://github.com/GaryKertis/express-bookmarks-demo/blob/pg-promise/validations/checkBookmarks.js
+const checkName = (req, res, next) => {
+  if (req.body.name) {
     next();
+  } else {
+    res.status(400).json({ error: "Name is required" });
   }
 };
 
-module.exports = { checkId };
+const checkBoolean = (req, res, next) => {
+  const { is_favorite } = req.body;
+  if (
+    is_favorite == "true" ||
+    is_favorite == "false" ||
+    is_favorite == undefined
+  ) {
+    next();
+  } else {
+    res.status(400).json({ error: "is_favorite must be a boolean value" });
+  }
+};
+
+const checkForNoAdditionalParams = (req, res, next) => {
+  const { name, url, category, is_favorite, ...otherStuff } = req.body;
+  // CHECK IF THIS OTHERSTUFF IS AN EMPTY OBJECT
+  if (
+    otherStuff && // 👈 null and undefined check
+    Object.keys(otherStuff).length === 0 &&
+    Object.getPrototypeOf(otherStuff) === Object.prototype
+  ) {
+    next();
+  } else {
+    res.status(400).send({ error: "no additional parameters allowed" });
+  }
+};
+
+module.exports = {
+  checkName,
+  checkBoolean,
+  checkForNoAdditionalParams,
+};
