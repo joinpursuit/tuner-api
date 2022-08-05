@@ -7,6 +7,8 @@ const {
   postNewSong,
   updateOneSong,
   deleteOneSong,
+  songOrder,
+  songFavoriteFilter,
 } = require("../queries/songs");
 const {
   checkName,
@@ -27,12 +29,23 @@ songs.use("/:id", async (req, res, next) => {
 });
 
 songs.get("/", async (req, res) => {
-  const allSongs = await getAllSongs();
-  console.log("=== GET /songs ", allSongs, " ===");
-  if (allSongs) {
-    res.status(200).json(allSongs);
+  const order = req.query.order;
+  const favorite = req.query.is_favorite;
+  const orderChoice = await songOrder(order);
+  const favoriteChoice = await songFavoriteFilter(favorite);
+  if (order) {
+    return res.status(200).json(orderChoice);
+  } else if (favorite) {
+    console.log("=== GET /songs order by favorite ", favoriteChoice, " ===");
+    return res.status(200).json(favoriteChoice);
   } else {
-    res.status(404).send("No songs found.");
+    const allSongs = await getAllSongs();
+    console.log("=== GET /songs ", allSongs, " ===");
+    if (allSongs) {
+      res.status(200).json(allSongs);
+    } else {
+      res.status(404).send("No songs found.");
+    }
   }
 });
 

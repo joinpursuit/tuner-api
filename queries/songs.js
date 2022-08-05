@@ -76,6 +76,36 @@ const deleteOneSong = async (songID) => {
   }
 };
 
+const songOrder = async (order) => {
+  try {
+    if (order === "asc") {
+      const song = await db.any("SELECT * FROM songs ORDER BY name ASC");
+      console.log("=== GET /songs order by ASC ", song, " ===");
+      return song;
+    } else if (order === "desc") {
+      const song = await db.any("SELECT * FROM songs ORDER BY name DESC");
+      console.log("=== GET /songs order by DESC ", song, " ===");
+      return song;
+    }
+  } catch (err) {
+    return err;
+  }
+};
+
+const songFavoriteFilter = async (favorite) => {
+  try {
+    if (favorite === "true") {
+      const song = await db.any("SELECT * FROM songs WHERE is_favorite=true");
+      return song;
+    } else if (favorite === "false") {
+      const song = await db.any("SELECT * FROM songs WHERE is_favorite=false");
+      return song;
+    }
+  } catch (err) {
+    return err;
+  }
+};
+
 module.exports = {
   checkIfSongExists,
   getAllSongs,
@@ -83,4 +113,6 @@ module.exports = {
   postNewSong,
   updateOneSong,
   deleteOneSong,
+  songOrder,
+  songFavoriteFilter,
 };
