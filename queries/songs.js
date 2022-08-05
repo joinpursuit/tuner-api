@@ -1,14 +1,50 @@
 const db = require('../db/dbConfig');
 
-const getAllSongs = async () => {
+const orderBy = async (order) => {
+  let orderedSongs;
+  order = order.toLowerCase();
+  console.log('inorder', order);
+  if (order === 'asc') {
+    orderedSongs = await db.any('SELECT * FROM songs ORDER BY "id" ASC');
+  } else if (order === 'desc') {
+    orderedSongs = await db.any('SELECT * FROM songs ORDER BY "id" DESC');
+  }
+  console.log('in orderBy', orderedSongs);
+  return orderedSongs;
+};
+
+const check_is_favorite = async (favorite) => {
+  console.log('in favorite,favorite');
+  let isFavOrNot;
+  if (favorite === 'false') {
+    isFavOrNot = await db.any('SELECT * FROM songs WHERE is_favorite=false');
+  } else {
+    isFavOrNot = await db.any('SELECT * FROM songs WHERE is_favorite=true');
+  }
+  console.log('infavorite', isFavOrNot);
+  return isFavOrNot;
+};
+
+const getAllSongs = async (order, is_favorite) => {
+  let allSongs;
+
   try {
-    const allSongs = await db.any('SELECT * FROM songs');
+    if (order) {
+      console.log('checkingfor orderby');
+      return orderBy(order);
+    } else if (is_favorite) {
+      console.log('checking for isfavorite');
+      allSongs = check_is_favorite(is_favorite);
+    } else {
+      console.log('no queries basic route');
+      allSongs = await db.any('SELECT * FROM songs');
+    }
     return allSongs;
   } catch (error) {
+    console.log(error.message || error);
     return error;
   }
 };
-
 
 const getASong = async (id) => {
   try {
@@ -19,14 +55,15 @@ const getASong = async (id) => {
   }
 };
 
-const createNewSongs = async ({ 
+const createNewSongs = async ({
   name,
-  artist, 
+  artist,
   album,
-  time, 
+  time,
   is_favorite,
-  ...otherStuff }) => {
-    console.log(otherStuff)
+  ...otherStuff
+}) => {
+  console.log(otherStuff);
   try {
     const newSong = await db.one(
       'INSERT INTO songs(name, artist, album, time, is_favorite) VALUES($1, $2, $3, $4, $5) RETURNING *',

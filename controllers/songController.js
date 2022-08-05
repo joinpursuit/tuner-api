@@ -20,14 +20,19 @@ const {
   deleteSong,
 } = require('../queries/songs');
 
+//any() coming from the pg promise, first argument is sql command,
+//.any will take anything the sql command return
 //Index
 songs.get('/', async (req, res) => {
+  const { order, is_favorite } = req.query;
+  const allSongs='';
   try {
-    const allSongs = await getAllSongs();
-    // console.log(allSongs);
-    // if (allSongs) {
-    res.json({ success: true, payload: allSongs });
-    // } else {
+     allSongs = await getAllSongs(order,is_favorite);
+     console.log('in controllers',allSongs);
+    //  if (allSongs) {
+    res.status(200).json({ success: true, payload: allSongs });
+  // } 
+    //else {
   } catch {
     console.error(allSongs);
     res.status(404).json({ success: false, message: 'Something went wrong' });
@@ -36,6 +41,7 @@ songs.get('/', async (req, res) => {
 
 //Show
 songs.get('/:id', async (req, res) => {
+  console.log('in rhe route')
   const { id } = req.params;
   try {
     const song = await getASong(id);

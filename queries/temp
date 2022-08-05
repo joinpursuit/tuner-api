@@ -1,0 +1,31 @@
+const orderBy = async (order, orderCol) => {
+  if (order === 'asc') {
+    let query = `SELECT * 
+    FROM "users"
+    ORDER BY $1 ASC`;
+  } else if ((order = 'desc')) {
+    let query = `SELECT * 
+    FROM "users"
+    ORDER BY $1 DESC`;
+  }
+  const { rows } = await db.query(query, orderCol);
+  return rows;
+};
+
+const isFavorite = async (is_favorite) => {
+  if (is_favorite) {
+    let query = 'SELECT * FROM songs WHERE is_favorite=true';
+  } else {
+    let query = 'SELECT * FROM songs WHERE is_favorite=false';
+  }
+  const { rows } = await db.query(query);
+  return rows;
+};
+
+
+// incontrollerfile
+// if(order){
+//     let allSongs= orderBy(order,'name')
+//   }else if(is_favorite){
+//     let allSongs = isFavorite(is_favorite)
+//   }
