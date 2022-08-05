@@ -8,6 +8,11 @@ const {
   updateOneSong,
   deleteOneSong,
 } = require("../queries/songs");
+const {
+  checkName,
+  checkBoolean,
+  checkAdditionalFields,
+} = require("../validation/songValidations");
 
 songs.use("/:id", async (req, res, next) => {
   const { id } = req.params;
@@ -42,48 +47,60 @@ songs.get("/:id", async (req, res) => {
   }
 });
 
-songs.post("/", async (req, res) => {
-  const newSong = {
-    name: req.body.name,
-    artist: req.body.artist,
-    album: req.body.album,
-    time: req.body.time,
-    is_favorite: req.body.is_favorite,
-  };
-  const newSongs = await postNewSong(newSong);
-  console.log("=== POST /songs ", newSongs, " ===");
-  if (newSongs) {
-    res.status(200).json(newSongs);
-  } else {
-    res
-      .status(404)
-      .send(
-        `Please make sure you have entered all the required fields and that they are valid.`
-      );
+songs.post(
+  "/",
+  checkName,
+  checkBoolean,
+  checkAdditionalFields,
+  async (req, res) => {
+    const newSong = {
+      name: req.body.name,
+      artist: req.body.artist,
+      album: req.body.album,
+      time: req.body.time,
+      is_favorite: req.body.is_favorite,
+    };
+    const newSongs = await postNewSong(newSong);
+    console.log("=== POST /songs ", newSongs, " ===");
+    if (newSongs) {
+      res.status(200).json(newSongs);
+    } else {
+      res
+        .status(404)
+        .send(
+          `Please make sure you have entered all the required fields and that they are valid.`
+        );
+    }
   }
-});
+);
 
-songs.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const updateSong = {
-    name: req.body.name,
-    artist: req.body.artist,
-    album: req.body.album,
-    time: req.body.time,
-    is_favorite: req.body.is_favorite,
-  };
-  const updatedSong = await updateOneSong(id, updateSong);
-  console.log("=== PUT /songs/:id ", updatedSong, " ===");
-  if (updatedSong) {
-    res.status(200).json(updatedSong);
-  } else {
-    res
-      .status(404)
-      .send(
-        `Either no song exists with the ID(${id}), You have not entered all the required fields or they are not valid.`
-      );
+songs.put(
+  "/:id",
+  checkName,
+  checkBoolean,
+  checkAdditionalFields,
+  async (req, res) => {
+    const { id } = req.params;
+    const updateSong = {
+      name: req.body.name,
+      artist: req.body.artist,
+      album: req.body.album,
+      time: req.body.time,
+      is_favorite: req.body.is_favorite,
+    };
+    const updatedSong = await updateOneSong(id, updateSong);
+    console.log("=== PUT /songs/:id ", updatedSong, " ===");
+    if (updatedSong) {
+      res.status(200).json(updatedSong);
+    } else {
+      res
+        .status(404)
+        .send(
+          `Either no song exists with the ID(${id}), You have not entered all the required fields or they are not valid.`
+        );
+    }
   }
-});
+);
 
 songs.delete("/:id", async (req, res) => {
   const { id } = req.params;
