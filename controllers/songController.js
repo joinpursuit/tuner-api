@@ -18,30 +18,43 @@ const {
   createNewSongs,
   updateSong,
   deleteSong,
+  orderBy,
+  check_is_favorite,
 } = require('../queries/songs');
 
 //any() coming from the pg promise, first argument is sql command,
-//.any will take anything the sql command return
+//.any can be used when it is returning all or none
 //Index
 songs.get('/', async (req, res) => {
   const { order, is_favorite } = req.query;
-  const allSongs='';
-  try {
-     allSongs = await getAllSongs(order,is_favorite);
-     console.log('in controllers',allSongs);
-    //  if (allSongs) {
+ try{
+  
+  if(order){
+      const ordered= await orderBy(order);
+      res.status(200).json({ success: true, payload: ordered });
+      
+   }else if (is_favorite){
+    const favorite= await check_is_favorite(is_favorite);
+    res.status(200).json({ success: true, payload: favorite });
+   
+   }else{
+   const  allSongs = await getAllSongs(order, is_favorite);
+   if (allSongs) {
     res.status(200).json({ success: true, payload: allSongs });
-  // } 
-    //else {
-  } catch {
-    console.error(allSongs);
+    }
+    else {
+      res.status(404).json({ success: false, message:'No songs found'  });
+     } 
+   } 
+  }catch{
     res.status(404).json({ success: false, message: 'Something went wrong' });
   }
+
 });
 
 //Show
 songs.get('/:id', async (req, res) => {
-  console.log('in rhe route')
+  console.log('in rhe route');
   const { id } = req.params;
   try {
     const song = await getASong(id);

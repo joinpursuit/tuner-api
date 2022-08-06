@@ -1,44 +1,46 @@
 const db = require('../db/dbConfig');
 
 const orderBy = async (order) => {
-  let orderedSongs;
   order = order.toLowerCase();
-  console.log('inorder', order);
-  if (order === 'asc') {
-    orderedSongs = await db.any('SELECT * FROM songs ORDER BY "id" ASC');
-  } else if (order === 'desc') {
-    orderedSongs = await db.any('SELECT * FROM songs ORDER BY "id" DESC');
+  try {
+    if (order === 'asc') {
+      const orderedSongs = await db.any(
+        'SELECT * FROM songs ORDER BY "id" ASC'
+      );
+      return orderedSongs;
+    } else if (order === 'desc') {
+      const orderedSongs = await db.any(
+        'SELECT * FROM songs ORDER BY "id" DESC'
+      );
+      return orderedSongs;
+    }
+  } catch (err) {
+    return err;
   }
-  console.log('in orderBy', orderedSongs);
-  return orderedSongs;
 };
 
 const check_is_favorite = async (favorite) => {
   console.log('in favorite,favorite');
-  let isFavOrNot;
-  if (favorite === 'false') {
-    isFavOrNot = await db.any('SELECT * FROM songs WHERE is_favorite=false');
-  } else {
-    isFavOrNot = await db.any('SELECT * FROM songs WHERE is_favorite=true');
+  try {
+    if (favorite === 'false') {
+      const isFavOrNot = await db.any(
+        'SELECT * FROM songs WHERE is_favorite=false'
+      );
+      return isFavOrNot;
+    } else {
+      const isFavOrNot = await db.any(
+        'SELECT * FROM songs WHERE is_favorite=true'
+      );
+      return isFavOrNot;
+    }
+  } catch (err) {
+    return err;
   }
-  console.log('infavorite', isFavOrNot);
-  return isFavOrNot;
 };
 
-const getAllSongs = async (order, is_favorite) => {
-  let allSongs;
-
+const getAllSongs = async () => {
   try {
-    if (order) {
-      console.log('checkingfor orderby');
-      return orderBy(order);
-    } else if (is_favorite) {
-      console.log('checking for isfavorite');
-      allSongs = check_is_favorite(is_favorite);
-    } else {
-      console.log('no queries basic route');
-      allSongs = await db.any('SELECT * FROM songs');
-    }
+    const allSongs = await db.any('SELECT * FROM songs');
     return allSongs;
   } catch (error) {
     console.log(error.message || error);
@@ -103,4 +105,6 @@ module.exports = {
   createNewSongs,
   deleteSong,
   updateSong,
+  orderBy,
+  check_is_favorite
 };
