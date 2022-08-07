@@ -2,7 +2,18 @@ const express = require("express");
 const db = require("../db/dbConfig");
 const songs = express.Router();
 // const db = require("../db/dbConfig.js");
-const { getAllSongs, getASong } = require("../queries/songs");
+const {
+  getAllSongs,
+  getASong,
+  createASong,
+  updateASong,
+  deleteASong,
+} = require("../queries/songs");
+const {
+  checkName,
+  checkBoolean,
+  checkParams,
+} = require("../validation/validation");
 
 // INDEX
 songs.get("/", async (req, res) => {
@@ -27,13 +38,36 @@ songs.get("/:id", async (req, res) => {
 });
 
 // POST
-songs.post("/new", async (req, res) => {
-  const { name, artist, album, time, is_favorite } = req.body;
-  const newSong = await db.any(
-    "INSERT INTO song (name, artist, album, time, is_favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-    [name, artist, album, time, is_favorite]
-  );
-  res.status(200).json(newSong);
+songs.post("/new", checkName, checkBoolean, checkParams, async (req, res) => {
+  const newSong = await createASong(req.body);
+  if (newSong) {
+    res.status(200).json(newSong);
+  } else {
+    res.status(404).send("Make sure all fields are valid.");
+  }
+});
+
+// PUT
+songs.put("/:id", checkName, checkBoolean, checkParams, async (req, res) => {
+  const { id } = req.params;
+  const updatedSong = await updateASong(id, req.body);
+  if (updatedSong) {
+    res.status(200).json(updatedSong);
+  } else {
+    res
+      .status(404)
+      .send(`Song with id of ${id} or one of the fields is invalid.`);
+  }
+});
+
+// DELETE
+songs.delete("/:id", async (req, res) => {
+  const deletedSong = await deleteASong(req.params.id);
+  if (deletedSong) {
+    res.status(200).json(deletedSong);
+  } else {
+    res.status(404).send(`Song with id of ${id} does not exist.`);
+  }
 });
 
 module.exports = songs;
