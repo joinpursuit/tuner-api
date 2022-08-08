@@ -27,43 +27,61 @@ const {
 //Index
 songs.get('/', async (req, res) => {
   const { order, is_favorite } = req.query;
- try{
-  
-  if(order){
-      const ordered= await orderBy(order);
-      res.status(200).json({ success: true, payload: ordered });
-      
-   }else if (is_favorite){
-    const favorite= await check_is_favorite(is_favorite);
-    res.status(200).json({ success: true, payload: favorite });
-   
-   }else{
-   const  allSongs = await getAllSongs(order, is_favorite);
-   if (allSongs) {
-    res.status(200).json({ success: true, payload: allSongs });
+  try {
+    if (order) {
+      const ordered = await orderBy(order);
+      if (ordered) {
+        res.status(200).json({ success: true, payload: ordered });
+      } else {
+        res
+          .status(404)
+          .json({
+            success: false,
+            message:
+              'Sorry Wrong query request -The order query does not have  an ascending or descending value',
+          });
+      }
+    } else if (is_favorite) {
+      const favorite = await check_is_favorite(is_favorite);
+      if (favorite) {
+        res.status(200).json({ success: true, payload: favorite });
+      } else {
+        res
+          .status(404)
+          .json({
+            success: false,
+            message:
+              'Sorry Wrong query search - The favorites query search can only have true or false values',
+          });
+      }
+    } else {
+      const allSongs = await getAllSongs();
+      if (allSongs) {
+        res.status(200).json({ success: true, payload: allSongs });
+      } else {
+        res.status(404).json({ success: false, message: 'No songs found' });
+      }
     }
-    else {
-      res.status(404).json({ success: false, message:'No songs found'  });
-     } 
-   } 
-  }catch{
+  } catch {
     res.status(404).json({ success: false, message: 'Something went wrong' });
   }
-
 });
 
 //Show
 songs.get('/:id', async (req, res) => {
   console.log('in rhe route');
   const { id } = req.params;
-  try {
+  // try {
     const song = await getASong(id);
-    // if (song) {
-    res.status(200).json({ success: true, payload: song });
-    // } else{
-  } catch {
-    res.status(404).send(`No song found with id of ${id}`);
-  }
+    if (song) {
+      res.status(200).json({ success: true, payload: song });
+    } 
+    else {
+      res.status(404).send({success:false, message:`No song found with id of ${id}`});
+    }
+  // } catch {
+  //   res.status(404).json({ error: error.message || error });
+  // }
 });
 
 //CREATE
@@ -73,14 +91,25 @@ songs.post(
   checkBoolean,
   checkForNoAdditionalParams,
   async (req, res) => {
-    const newSong = req.body;
+    const newSong = {
+      name:req.body.name,
+      artist:req.body.artist,
+      album:req.body.album,
+      time:req.body.time,
+      is_favorite:req.body.is_favorite
+    };
     console.log(newSong);
-    try {
+    // try {
       const song = await createNewSongs(newSong);
-      res.status(200).json({ success: true, payload: song });
-    } catch (error) {
-      res.status(404).json({ error: error });
-    }
+      if (song) {
+        res.status(200).json(song);
+      } 
+      else {
+        res.status(404).send('Sorry!!Enter all required fields in valid format ');
+      }
+    // } catch (error) {
+    //   res.status(404).json({ error: error.message || error });
+    // }
   }
 );
 
@@ -89,16 +118,11 @@ songs.delete('/:id', async (req, res) => {
   console.log('Delete /:id');
   const { id } = req.params;
   const deletedSong = await deleteSong(id);
-  if (deletedSong) {
-    if (deletedSong.id) {
+  if (deletedSong){
       res.status(200).json(deletedSong);
     } else {
-      res.status(404).json({ error: 'Song not found' });
-    }
-  } else {
-    console.error(deletedSong);
-    res.status(500).json({ error: 'server error' });
-  }
+      res.status(404).json(`No song exists with the ID(${id})`);
+  } 
 });
 
 //update
@@ -118,13 +142,16 @@ songs.put(
       time: req.body.time,
       is_favorite: req.body.is_favorite,
     };
-    try {
-      const song = await updateSong(editSong, id);
-
-      res.status(200).json({ success: true, payload: song });
-    } catch (error) {
-      res.status(404).send(`Cannot update the song`);
-    }
+    // try {
+      const updatedSong = await updateSong(editSong, id);
+      if(updatedSong){
+      res.status(200).json({ success: true, payload: updatedSong });
+      }else{
+        res.status(404).send(`Either the fields were entered correctly? or  No song exists with the id ${id}`);
+      }
+    // } catch (error) {
+    //   res.status(404).json({ error: 'Cannot update the song' });
+    // }
   }
 );
 

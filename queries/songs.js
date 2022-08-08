@@ -27,7 +27,7 @@ const check_is_favorite = async (favorite) => {
         'SELECT * FROM songs WHERE is_favorite=false'
       );
       return isFavOrNot;
-    } else {
+    } else if(favorite==='true'){
       const isFavOrNot = await db.any(
         'SELECT * FROM songs WHERE is_favorite=true'
       );
