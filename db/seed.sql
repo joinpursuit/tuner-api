@@ -12,5 +12,6 @@
  INSERT INTO songs(name,artist,album,time,is_favorite) VALUES
 ('One Last time','ariana grande','My everything',197,TRUE),
  ('Light switch','charlie puth','charlie',185,FALSE),
- ('I feel it coming','the weekend','starboy',269,TRUE);
+ ('I feel it coming','the weekend','starboy',269,TRUE),
+('get on the floor','Jennifer lopez','love',197,TRUE);
 
