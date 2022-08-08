@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const db = require('../db/dbConfig');
-const { getAllSongs, getSong } = require('../queries/songs');
+const { getAllSongs, getSong, deleteSong, updateSong} = require('../queries/songs');
 
 // router.use('/songs/:id', (req, res, next) => {
 //   if (!transactions[req.params.id]) {
@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
   res.send({ success: true });
 });
 
+// INDEX
 router.get('/songs', async (req, res) => {
   const allSongs = await getAllSongs();
   if (allSongs[0]) {
@@ -25,6 +26,7 @@ router.get('/songs', async (req, res) => {
   }
 });
 
+// SHOW
 router.get('/songs/:id', async (req, res) => {
   const { id } = req.params;
   const song = await getSong(id);
@@ -35,6 +37,7 @@ router.get('/songs/:id', async (req, res) => {
   }
 });
 
+// CREATE
 router.post('/songs/new', async (req, res) => {
   const newSong = req.body;
   const newSongs = await db.any(
@@ -51,14 +54,31 @@ router.post('/songs/new', async (req, res) => {
   res.status(200).json(newSongs);
 });
 
-// router.put('/songs/:id', (req, res) => {
-//   songs[req.params.id] = req.body;
-//   res.json(songs[req.params.id]);
-// });
+// UPDATE
+router.put( "/songs/:id",
+  async (req, res) => {
+    try {
+      const song = await updateSong(req.params.id, req.body);
+      res.json(song);
+    } catch (error) {
+      res.status(400).json({ error: error });
+    }
+  }
+);
 
-// router.delete('/songs/:id', (req, res) => {
-//   songs.splice(req.params.id, 1);
-//   res.send(songs);
-// });
+//DELETE
+router.delete("/songs/:id", async (req, res) => {
+  const { id } = req.params;
+  const song = await deleteSong(id);
+  if (song) {
+    if (song.id) {
+      res.status(200).json(song);
+    } else {
+      res.status(404).json({ error: "Song not found" });
+    }
+  } else {
+    res.status(500).json({ error: "server error" });
+  }
+});
 
 module.exports = router;
