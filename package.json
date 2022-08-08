@@ -1,0 +1,29 @@
+{
+  "name": "tuner-api",
+  "version": "1.0.0",
+  "description": "Let's make our own music playlist app!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dbinit": "psql -U postgres -f db/schema.sql",
+    "dbseed": "psql -U postgres -f db/seed.sql",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Scheiber/tuner-api.git"
+  },
+  "keywords": [],
+  "author": "Jonathan Scheiber",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Scheiber/tuner-api/issues"
+  },
+  "homepage": "https://github.com/Scheiber/tuner-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pg-promise": "^10.11.1"
+  }
+}
