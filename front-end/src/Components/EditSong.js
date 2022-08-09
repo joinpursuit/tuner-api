@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
 import axios from "axios";
-import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Button } from "react-bootstrap";
 const API = process.env.REACT_APP_API_URL;
 
-function NewSong() {
+function EditSong() {
   const [song, setSong] = useState({
     name: "",
     artist: "",
@@ -13,7 +13,15 @@ function NewSong() {
     time: "",
     is_favorite: "",
   });
+
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    axios.get(`${API}/songs/${id}`).then((res) => {
+      setSong(res.data);
+    });
+  }, [id]);
 
   const handleChange = (e) => {
     setSong({ ...song, [e.target.id]: e.target.value });
@@ -25,14 +33,15 @@ function NewSong() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${API}/songs/new`, song)
+      .put(`${API}/songs/${id}`, song)
       .then(() => {
-        navigate(`/songs/`);
+        navigate(`/songs/${id}`);
       })
       .catch((e) => {
         console.log(e);
       });
   };
+
   return (
     <div style={{ display: "block", padding: 30, color: "white" }}>
       {console.log(song)}
@@ -42,8 +51,8 @@ function NewSong() {
           <Form.Check
             type="checkbox"
             id="is_favorite"
-            checked={song.is_favorite}
             onChange={handleCheck}
+            checked={song.is_favorite}
           />
         </Form.Group>
         <Form.Group>
@@ -98,4 +107,4 @@ function NewSong() {
   );
 }
 
-export default NewSong;
+export default EditSong;

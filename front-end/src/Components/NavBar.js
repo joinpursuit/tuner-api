@@ -15,15 +15,16 @@ function NavBar() {
         <Navbar.Brand
           mb-0="true"
           h1="true"
-          className="d-inline-block"
           href="/songs"
+          style={{ color: "white" }}
         >
           Tuner App
         </Navbar.Brand>
         <Navbar.Collapse>
           <Nav>
-            <Nav.Link href="/songs/new">New Song</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
+            <Nav.Link href="/songs/new" style={{ color: "white" }}>
+              New Song
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

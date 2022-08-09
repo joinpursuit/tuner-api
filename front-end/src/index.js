@@ -5,6 +5,8 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+document.body.style = "background: black;";
+
 root.render(
   <React.StrictMode>
     <App />
