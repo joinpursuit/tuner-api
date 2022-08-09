@@ -44,7 +44,6 @@ function EditSong() {
 
   return (
     <div style={{ display: "block", padding: 30, color: "white" }}>
-      {console.log(song)}
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label> Favorite</Form.Label>
