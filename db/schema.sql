@@ -1,6 +1,3 @@
--- Drop the database, if it exists
-DROP DATABASE IF EXISTS songs_dev;
-
 -- Creating the database
 CREATE DATABASE songs_dev;
 
@@ -17,3 +14,4 @@ CREATE TABLE
         time TEXT NOT NULL,
         is_favorite BOOLEAN
 ); 
+

@@ -19,8 +19,8 @@ VALUES
     ('Papaoutai', 'Stromae', 'racine carree', '3:52', FALSE),
     ('Alors On Danse', 'Stromae', 'racine carree', '3:26', TRUE),
     ('R U Mine?', 'Arctic Monkeys', 'AM', '3:21', FALSE),
-    ("Why\'d You Only Call Me When You\'re High ", 'Arctic Monkeys', 'AM', '2:41', TRUE),
-    ('Do I Wanna Know?', 'Arctic Monkeys', 'AM' '4:32', TRUE),
+    ('Whyd You Only Call Me When Youre High', 'Arctic Monkeys', 'AM', '2:41', TRUE),
+    ('Do I Wanna Know?', 'Arctic Monkeys', 'AM', '4:32', TRUE),
     ('Party', 'Bad Bunny, Rauw Alejandro', 'Un Verano Sin TI', '3:48', TRUE),
     ('Me Porto Bonito', 'Bad Bunny', 'Un Verano Sin TI', '2:58', TRUE),
     ('Damages', 'Tems', 'Damages', '2:49', FALSE),
@@ -36,7 +36,8 @@ VALUES
     ('MARIJUANA', 'Riles', 'WELCOME TO THE JUNGLE', '2:40', TRUE),
     ('Maps', 'Yeah Yeah Yeahs', 'Fever To Tell', '3:40', TRUE),
     ('Electric Love', 'BORNS', 'Dopamine', '3:38', FALSE),
-    ('Passionfruit', 'Yaeji', 'EP2', '4:35', TRUE),
+    ('Passionfruit', 'Yaeji', 'EP2', '4:35', TRUE);
+    
 
 
 
