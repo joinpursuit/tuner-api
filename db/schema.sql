@@ -8,6 +8,6 @@ CREATE TABLE songs (
     name TEXT NOT NULL,
     artist TEXT,
     album TEXT,
-    time INT,
+    time TEXT,
     is_favorite BOOLEAN
 );
