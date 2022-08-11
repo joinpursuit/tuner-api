@@ -13,7 +13,7 @@ CREATE TABLE songs (
     name TEXT NOT NULL,
     artist TEXT NOT NULL,
     album TEXT,
-    time INT,
+    time TEXT,
     is_favorite BOOLEAN);
 
 -- command (connect to psql under the user postgres, run the file that inside
