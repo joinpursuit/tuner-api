@@ -11,7 +11,7 @@ const app = express(); //invoke express and save in app
 app.use(express.json());
 app.use(cors());
 
-app.use('/songs', songController);
+app.use('/api/songs', songController);
 app.use('/', (req, res) => {
   res.send('Welcome to Tuner');
 }); //look for the basic route in songController
