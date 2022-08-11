@@ -8,4 +8,6 @@ INSERT INTO songs (name, artist, album, time, is_favorite) VALUES
   ('Emerald Star', 'Lord Huron', 'Vide Noir', '4:38', true),
   ('Black Sun', 'Death Cab for Cutie', 'Kintsugi', '4:49', false),
   ('Run Away with Me', 'Carly Rae Jepsen', 'Emotion', '4:11', true),
-  ('Saturday', 'Christie Front Drive', 'Christie Front Drive', '6:35', false);
+  ('Saturday', 'Christie Front Drive', 'Christie Front Drive', '6:35', false),
+  ('Don''t Start Now', 'Dua Lipa', 'Future Nostalgia', '3:03', true),
+  ('Body Talk', 'Foxes', 'All I Need', '3:29', false);
