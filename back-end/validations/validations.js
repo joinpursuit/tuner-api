@@ -17,7 +17,8 @@ const checkBoolean = (req, res, next) => {
 };
 
 const checkForNoAdditionalParams = (req, res, next) => {
-  const { name, artist, album, is_favorite, time, ...otherStuff } = req.body;
+  const { name, artist, album, is_favorite, time, id, ...otherStuff } =
+    req.body;
   if (
     otherStuff && // 👈 null and undefined check
     Object.keys(otherStuff).length === 0 &&
