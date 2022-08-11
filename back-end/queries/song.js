@@ -20,14 +20,15 @@ const getAnSong = async (id) => {
 }
 
 //create
-const createSong = async (req) => {
+const createSong = async (song) => {
   try {
     const newSongs = await db.any(
       'insert into songs (name, artist, album, time, is_favorite) values ($1, $2, $3, $4, $5) returning *',
-      [req.name, req.artist, req.album, req.time, req.is_favorite]
+      [song.name, song.artist, song.album, song.time, song.is_favorite]
     )
     return newSongs
   } catch (error) {
+    console.log(error.message || error)
     return error
   }
 }
