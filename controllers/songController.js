@@ -15,9 +15,9 @@ const {
 songs.get('/', async (req, res) => {
   const allSongs = await getAllTunes();
   if (allSongs) {
-    res.json({ success: true, payload: allSongs });
+    res.json(allSongs);
   } else {
-    res.status(404).json({ succes: false, message: 'Something went wrong' });
+    res.status(404).send('Something went wrong');
   }
 });
 
@@ -26,14 +26,14 @@ songs.get('/:id', async (req, res) => {
   const { id } = req.params;
   const indySong = await getATune(id);
   if (indySong) {
-    res.status(200).json({ success: true, payload: indySong });
+    res.status(200).json(indySong);
   } else {
-    res.status(404).send(`No such song with id of ${id}`);
+    res.status(404).send(`No song with id of ${id}`);
   }
 });
 
 //create
-songs.post('/', async (req, res) => {
+songs.post('/new', async (req, res) => {
   const newSong = await createTune(req.body);
   // console.log(newSong);
   res.status(200).json(newSong);
