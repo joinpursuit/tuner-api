@@ -19,16 +19,7 @@ const checkBoolean = (req, res, next) => {
   next();
 };
 
-const checkParams = (req, res, next) => {
-  const { name, artist, album, is_favorite, time, ...otherStuff } = req.body;
-  if (Object.keys(otherStuff).length > 0) {
-    return res.status(400).send("NOPE! NOT ON MY WATCH!.");
-  }
-  next();
-};
-
 module.exports = {
   checkName,
   checkBoolean,
-  checkParams,
 };

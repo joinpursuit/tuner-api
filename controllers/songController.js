@@ -9,11 +9,7 @@ const {
   updateASong,
   deleteASong,
 } = require("../queries/songs");
-const {
-  checkName,
-  checkBoolean,
-  checkParams,
-} = require("../validation/validation");
+const { checkName, checkBoolean } = require("../validation/validation");
 
 // INDEX
 songs.get("/", async (req, res) => {
@@ -38,7 +34,7 @@ songs.get("/:id", async (req, res) => {
 });
 
 // POST
-songs.post("/new", checkName, checkBoolean, checkParams, async (req, res) => {
+songs.post("/new", checkName, checkBoolean, async (req, res) => {
   const newSong = await createASong(req.body);
   if (newSong) {
     res.status(200).json(newSong);
@@ -48,7 +44,7 @@ songs.post("/new", checkName, checkBoolean, checkParams, async (req, res) => {
 });
 
 // PUT
-songs.put("/:id", checkName, checkBoolean, checkParams, async (req, res) => {
+songs.put("/:id", checkName, checkBoolean, async (req, res) => {
   const { id } = req.params;
   const updatedSong = await updateASong(id, req.body);
   if (updatedSong) {
