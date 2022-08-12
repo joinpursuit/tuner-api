@@ -15,7 +15,7 @@ next();
 };
 
 const checkParams = (req, res, next) => {
-  const { name, artist, album, is_favorite, time, ...otherStuff } = req.body
+  const { name, artist, album, is_favorite, time, id, ...otherStuff } = req.body
   if (
     otherStuff &&
     Object.keys(otherStuff).length === 0 &&
