@@ -1,4 +1,4 @@
-const db = require('../db/dbconfig.js')
+const db = require('../db/db/dbConfig.js')
 
 // indexing
 const allSongs =   async () => {

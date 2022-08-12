@@ -1,6 +1,7 @@
 // Dependencies
 const express = require('express');
 const cors = require('cors');
+const songController = require('./controllers/songController')
 
 // Configuration
 const app = express();

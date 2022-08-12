@@ -2,16 +2,20 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "pg-promise": "^10.11.1"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "db:seed": "./node_modules/.bin/db_seed"
   },
   "name": "tuner-api",
   "description": "Let's make our own music playlist app!",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "db-seed": "^1.2.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TaryneLeach/tuner-api.git"

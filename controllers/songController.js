@@ -1,7 +1,7 @@
 const express = require('express');
 
 const songs = express.Router();
-const db = require('../db/dbconfig.js');
+const db = require('../db/db/dbConfig.js');
 
 const {
 	allSongs,
