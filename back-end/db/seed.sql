@@ -22,9 +22,10 @@ INSERT INTO songs (name, artist, album, time, is_favorite)
 
 
 INSERT INTO playlists (name, creator) VALUES
-('Salsa Jams', 'Mikey Ortiz'),
-('Hip Hop Moods', 'John Doe'),
-('Alternative Helicopter', 'Jen Jenning')
+('Putsuit Bops', 'A. Rupay'),
+('Hip Hop Moods', 'Jukay'),
+('Coding Lo-Fi', 'Bill Gates'),
+('Lasagna Classics', 'Garfield')
 ;
 
 
@@ -37,6 +38,7 @@ VALUES
 ('2','13'),
 ('3','5'),
 ('3','10'),
-('3','12')
+('3','12'),
+('4', '11')
 ;
 -- psql -U postgres -f db/seed.sql
