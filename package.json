@@ -1,6 +1,9 @@
 {
   "name": "tuner-api",
   "version": "1.0.0",
+  "engines": {
+    "node": "18.7.0"
+  },
   "description": "Let's make our own music playlist app!",
   "main": "server.js",
   "scripts": {
