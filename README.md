@@ -1,7 +1,6 @@
 # Tuner-API
 
 
-React frontend site(https://deluxe-licorice-fb612f.netlify.app/songs)
 
 Let's make our own music playlist app!
 
